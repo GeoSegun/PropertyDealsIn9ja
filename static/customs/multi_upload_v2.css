@@ -1,0 +1,86 @@
+.upload-card {
+    padding: 15px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    border-radius: 5px;
+    overflow: hidden;
+    background: #efefea;
+}
+.upload-form {
+    width: 100%;
+    height: 160px;
+    border-radius: 5px;
+    border: 2px dashed #777777;
+    color: #535640;
+    font-size: 0.9rem;
+    font-weight: 500;
+    position: relative;
+    background: #dfe3f259;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    user-select: none;
+    margin-top: 20px;
+}
+
+.upload-form .select {
+    color: #989c7a;
+    margin-left: 7px;
+    cursor: pointer;
+}
+
+.upload-form input {
+    display: none;
+}
+
+.upload-form .dragover {
+    border-style = solid;
+    font-size: 2rem;
+    font-weight: 600px;
+    background: #989c7a;
+}
+
+.img-container {
+    width: 100%;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+    flex-wrap: wrap;
+    position: relative;
+    height: auto;
+    margin-top: 20px;
+    max-height: 300px;
+    overflow-y: auto;
+}
+
+.img-container .img {
+    height: 100px;
+    width: 100px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.15);
+    overflow: hidden;
+    position: relative;
+    margin-bottom: 7px;
+    margin-right: 7px;
+}
+
+.img-container .img:nth-child(4n) {
+    margin-right: 0;
+}
+
+.img-container .img img {
+    height: 100%;
+    width: 100%;
+}
+
+.img-container .img span {
+    position: absolute;
+    top: -4px;
+    right: 5px;
+    cursor: pointer;
+    font-size: 22px;
+    color: #fff;
+}
+
+.img-container .img span:hover {
+    opacity: 0.8;
+}

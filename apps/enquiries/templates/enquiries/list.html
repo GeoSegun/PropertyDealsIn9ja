@@ -1,0 +1,95 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %}Enquiries{% endblock title %}
+
+{% block content %}
+    <!-- Inner Page Breadcrumb -->
+    <section class="inner_page_breadcrumb">
+        <div class="container">
+            <div class="row">
+                <div class="col-xl-6">
+                    <div class="breadcrumb_content">
+                        <ol class="breadcrumb">
+                            <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+                            <li class="breadcrumb-item active" aria-current="page">Enquiries</li>
+                        </ol>
+                        <h4 class="breadcrumb_title">Enquiries</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Property Cities -->
+    <section id="property-city" class="property-city pb30">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-6 offset-lg-3">
+                    <div class="main-title text-center">
+                        <h2>List of Enquiries From our Clients</h2>
+                        <p>Our clients' preferences for your city/area of service are given below. </p>
+                    </div>
+                </div>
+            </div>
+            <div class="row">
+                {% for e in enquiries %}
+                    <div class="col-sm-6 col-md-6 col-lg-4 col-xl-4">
+                        <div class="property_city_home6">
+                            <div class="thumb">
+                                {% if e.enquiry_property_type == "Apartment" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/apartment.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "Land" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/land-sales.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "BQ" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/neighbour.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "Terrace" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/building-with-rooftop-terrace.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "Semi Detached" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/bungalow.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "Fully Detached" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/bungalow.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "Office" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/link-company-parent.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "Warehouse" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/warehouse-1.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "Commercial" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/sell-property.png" alt="{{e.enquiry_property_type}}">
+                                {% elif e.enquiry_property_type == "Other" %}
+                                    <img class="w100" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/house-with-a-garden.png" alt="{{e.enquiry_property_type}}">
+                                {% endif %}
+                            </div>
+                            <div class="details">
+                                <h4>A Client from {{e.enquiry_address}}</h4>
+                                <p>Needs {{e.enquiry_property_type}} property</p>
+                                <a href="{% url 'enquiries:payment' e.slug %}">
+                                    <small><div class="fp_pdate float-right text-thm">Click to purchase & attend to this customer <i class="fa fa-angle-right"></i></div></small>
+                                </a>
+                            </div>
+                        </div>
+                    </div>
+                {% empty %}
+                    <div class="col-md-12 col-lg-12">
+                        <div class="feat_property list style2 agent">
+                            <div class="details">
+                                <div class="tc_content">
+                                    <h4>Enquiry Currently Unavailable</h4>
+                                    <br>
+                                    <p>We do not currently have any available inquiries from our clients that cover your city/area; please check again later for availability. </p>
+                                    <br>
+                                    {% if request.user.is_authenticated and request.user.is_agent %}
+                                        <a href="{% url 'enquiries:agent_enquiry_list' %}" class="btn dbxshad btn-sm btn-thm2 circle"><i class="fa fa-plus"></i> My Assigned Enquiries</a>
+                                    {% else %}
+                                        <a href="{% url 'enquiries:create' %}" class="btn dbxshad btn-sm btn-thm2 circle"><i class="fa fa-plus"></i> Enquire</a>
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </section>
+{% endblock content %}

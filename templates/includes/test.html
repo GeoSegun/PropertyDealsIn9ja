@@ -1,0 +1,915 @@
+<!-- 6th Home Design -->
+<section class="home-six home6-overlay">
+    <div class="container">
+        <div class="row posr">
+            <div class="col-lg-12">
+                <div class="home_content home6">
+                    <div class="home-text home6 text-center">
+                        <h2 class="fz55">Enjoy The Finest Homes</h2>
+                        <p class="fz18">From as low as $10 per day with limited time offer discounts.</p>
+                    </div>
+                    {% include 'includes/search.html' %}
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+
+
+
+
+
+
+<div class="home-six">
+    <div class="container-fluid p0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-banner-wrapper">
+                    <div class="banner-style-one owl-theme owl-carousel">
+                        <div class="slide slide-one"
+                             style="background-image: url({% static 'images/home/1.jpg' %});height: 800px;"></div>
+                        <div class="slide slide-one"
+                             style="background-image: url({% static 'images/home/2.jpg' %});height: 800px;"></div>
+                        <div class="slide slide-one"
+                             style="background-image: url({% static 'images/home/3.jpg' %});height: 800px;"></div>
+                    </div>
+                    <div class="carousel-btn-block banner-carousel-btn">
+                        <span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
+                        <span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+                    </div><!-- /.carousel-btn-block banner-carousel-btn -->
+                </div><!-- /.main-banner-wrapper -->
+            </div>
+        </div>
+    </div>
+    {% include 'includes/search2.html' %}
+</div>
+
+
+
+
+
+<div class="sign_up_modal modal fade bd-example-modal-lg" tabindex="-1" role="dialog" aria-hidden="true">
+    <div class="modal-dialog modal-lg" role="document">
+        <div class="modal-content">
+            <div class="modal-header">
+                <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            <div class="modal-body container pb20">
+                <div class="row">
+                    <div class="col-lg-12">
+                        <ul class="sign_up_tab nav nav-tabs" id="myTab" role="tablist">
+                            <li class="nav-item">
+                                <a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab"
+                                   aria-controls="home" aria-selected="true">Login</a>
+                            </li>
+                            <li class="nav-item">
+                                <a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab"
+                                   aria-controls="profile" aria-selected="false">Register</a>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+                <div class="tab-content container" id="myTabContent">
+                    <div class="row mt25 tab-pane fade show active" id="home" role="tabpanel"
+                         aria-labelledby="home-tab">
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="login_thumb">
+                                <img class="img-fluid w100" src="images/resource/login.jpg" alt="login.jpg">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="login_form">
+                                <form action="#">
+                                    <div class="heading">
+                                        <h4>Login</h4>
+                                    </div>
+                                    <div class="row mt25">
+                                        <div class="col-lg-12">
+                                            <button type="submit" class="btn btn-fb btn-block"><i
+                                                    class="fa fa-facebook float-left mt5"></i> Login with Facebook
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <button type="submit" class="btn btn-googl btn-block"><i
+                                                    class="fa fa-google float-left mt5"></i> Login with Google
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="input-group mb-2 mr-sm-2">
+                                        <input type="text" class="form-control" id="inlineFormInputGroupUsername2"
+                                               placeholder="User Name Or Email">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="flaticon-user"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="input-group form-group">
+                                        <input type="password" class="form-control" id="exampleInputPassword1"
+                                               placeholder="Password">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="flaticon-password"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="exampleCheck1">
+                                        <label class="custom-control-label" for="exampleCheck1">Remember me</label>
+                                        <a class="btn-fpswd float-right" href="#">Lost your password?</a>
+                                    </div>
+                                    <button type="submit" class="btn btn-log btn-block btn-thm">Log In</button>
+                                    <p class="text-center">Don't have an account? <a class="text-thm"
+                                                                                     href="#">Register</a></p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="row mt25 tab-pane fade" id="profile" role="tabpanel" aria-labelledby="profile-tab">
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="regstr_thumb">
+                                <img class="img-fluid w100" src="images/resource/regstr.jpg" alt="regstr.jpg">
+                            </div>
+                        </div>
+                        <div class="col-lg-6 col-xl-6">
+                            <div class="sign_up_form">
+                                <div class="heading">
+                                    <h4>Register</h4>
+                                </div>
+                                <form action="#">
+                                    <div class="row">
+                                        <div class="col-lg-12">
+                                            <button type="submit" class="btn btn-block btn-fb"><i
+                                                    class="fa fa-facebook float-left mt5"></i> Login with Facebook
+                                            </button>
+                                        </div>
+                                        <div class="col-lg-12">
+                                            <button type="submit" class="btn btn-block btn-googl"><i
+                                                    class="fa fa-google float-left mt5"></i> Login with Google
+                                            </button>
+                                        </div>
+                                    </div>
+                                    <hr>
+                                    <div class="form-group input-group">
+                                        <input type="text" class="form-control" id="exampleInputName"
+                                               placeholder="User Name">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="flaticon-user"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <input type="email" class="form-control" id="exampleInputEmail2"
+                                               placeholder="Email">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="fa fa-envelope-o"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <input type="password" class="form-control" id="exampleInputPassword2"
+                                               placeholder="Password">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="flaticon-password"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group input-group">
+                                        <input type="password" class="form-control" id="exampleInputPassword3"
+                                               placeholder="Re-enter password">
+                                        <div class="input-group-prepend">
+                                            <div class="input-group-text"><i class="flaticon-password"></i></div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group ui_kit_select_search mb0">
+                                        <select class="selectpicker" data-live-search="true" data-width="100%">
+                                            <option data-tokens="SelectRole">Single User</option>
+                                            <option data-tokens="Agent/Agency">Agent</option>
+                                            <option data-tokens="SingleUser">Multi User</option>
+                                        </select>
+                                    </div>
+                                    <div class="form-group custom-control custom-checkbox">
+                                        <input type="checkbox" class="custom-control-input" id="exampleCheck2">
+                                        <label class="custom-control-label" for="exampleCheck2">I have read and accept
+                                            the Terms and Privacy Policy?</label>
+                                    </div>
+                                    <button type="submit" class="btn btn-log btn-block btn-thm">Sign Up</button>
+                                    <p class="text-center">Already have an account? <a class="text-thm" href="#">Log
+                                        In</a></p>
+                                </form>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+
+<script type="text/javascript" src="js/jquery-scrolltofixed-min.js"></script>
+<script type="text/javascript" src="js/jquery.counterup.js"></script>
+<script type="text/javascript" src="js/wow.min.js"></script>
+<script type="text/javascript" src="js/progressbar.js"></script>
+<script type="text/javascript" src="js/slider.js"></script>
+<script type="text/javascript" src="js/timepicker.js"></script>
+<script type="text/javascript" src="js/single-counter.js"></script>
+<!-- Custom script for all pages -->
+<script type="text/javascript" src="js/script.js"></script>
+<script>
+$('#myTab a,#myTab2 a').on('click', function (e) {
+  e.preventDefault()
+  $(this).tab('show')
+})
+</script>
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+{% load static %}
+{% url 'home' as home %}
+
+<!-- Main Header Nav -->
+{% if request.path == home %}
+    <header class="header-nav menu_style_home_one home4 navbar-scrolltofixed stricky main-menu">
+{% else %}
+    <header class="header-nav menu_style_home_one style2 style3 navbar-scrolltofixed stricky main-menu">
+{% endif %}
+    <div class="container-fluid p0">
+        <!-- Ace Responsive Menu -->
+        <nav>
+            <!-- Menu Toggle btn-->
+            <div class="menu-toggle">
+                {% if request.path == home %}
+                    <img class="nav_logo_img img-fluid" src="{% static 'images/header-logo.png' %}" alt="header-logo.png">
+                {% else %}
+                    <img class="nav_logo_img img-fluid" src="{% static 'images/header-logo.png' %}" alt="header-logo.png">
+                {% endif %}
+                <button type="button" id="menu-btn">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <a href="#" class="navbar_brand float-left dn-smd">
+                <img class="logo1 img-fluid" src="{% static 'images/header-logo2.png' %}" alt="header-logo.png">
+                <img class="logo2 img-fluid" src="{% static 'images/header-logo2.png' %}" alt="header-logo2.png">
+                <span>propertyDealsIn9ja</span>
+            </a>
+            <!-- Responsive Menu Structure-->
+            <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
+<!--            <div class="ht_left_widget float-left">-->
+<!--                <ul>-->
+<!--                    <li class="list-inline-item dn-1440">-->
+<!--                        <div class="ht_search_widget">-->
+<!--                            <div class="header_search_widget">-->
+<!--                                <form class="form-inline mailchimp_form">-->
+<!--                                    <input type="text" class="form-control" id="inlineFormInputName2" placeholder="What are you looking for?">-->
+<!--                                    <button type="submit" class="btn btn-primary"><span class="flaticon-magnifying-glass"></span></button>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                    <li class="list-inline-item list_s dib-1440 dn">-->
+<!--                        <div class="search_overlay">-->
+<!--                                <a id="search-button-listener" class="mk-search-trigger mk-fullscreen-trigger" href="#">-->
+<!--                                <span id="search-button"><i class="flaticon-magnifying-glass"></i></span>-->
+<!--                                </a>-->
+<!--                        </div>-->
+<!--                    </li>-->
+<!--                </ul>-->
+<!--            </div>-->
+            <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
+                <li><a href="{% url 'home' %}"><span class="title">Home</span></a></li>
+                <li><a href="#"><span class="title">Properties</span></a></li>
+                <li><a href="#"><span class="title">News</span></a></li>
+                <li><a href="#"><span class="title">Agents</span></a></li>
+                <li class="last"><a href="{% url 'contacts:contact' %}"><span class="title">Contact</span></a></li>
+                {% if request.user.is_authenticated %}
+                    <li class="list-inline-item list_s">
+                        <a href="{% url 'profiles:profile_detail' request.user.profile.slug %}">
+                            <img class="rounded-circle" width="30px" height="30px" src="{{request.user.profile.image_url}}" alt="e1.png">
+                            <span class="dn-1199">{{request.user.username}}</span>
+                        </a>
+                        <ul>
+                            {% if request.user.is_staff %}
+                                <li><a href="/admin/">Admin Dashboard</a></li>
+                            {% endif %}
+                            <li><a href="{% url 'profiles:profile_detail' request.user.profile.slug %}">Profile</a></li>
+                            <li><a href="{% url 'accounts:logout' %}">Logout</a></li>
+                        </ul>
+                    </li>
+                    {% if request.user.is_agent %}
+                        <li class="list-inline-item add_listing home6">
+                            <a href="#"><span class="flaticon-plus"></span><span class="dn-lg"> Add Property</span></a>
+                        </li>
+                    {% else %}
+                        <li class="list-inline-item add_listing home6">
+                            <a href="#"><span class="flaticon-plus"></span><span class="dn-lg"> Enquire</span></a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li class="list-inline-item list_s">
+                        <a href="{% url 'accounts:login' %}" class="btn flaticon-user">
+                            <span class="dn-lg">Login</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+
+    
+
+    <!-- Main Header Nav For Mobile -->
+    <div id="page" class="stylehome1 h0">
+        <div class="mobile-menu">
+            <div class="header stylehome1">
+                <div class="main_logo_home2 text-center">
+                    <img class="nav_logo_img img-fluid mt20" src="{% static 'images/header-logo2.png' %}" alt="pd9ja">
+                    {% if request.user.is_authenticated %}
+                        <span class="mt20">{{request.user.username}}</span>
+                    {% else %}
+                        <span class="mt20">propertyDealsIn9ja</span>
+                    {% endif %}
+                </div>
+                <ul class="menu_bar_home2">
+                    {% if request.user.is_authenticated %}
+                    <li class="list-inline-item list_s">
+                        <a href="{% url 'profiles:profile_detail' request.user.profile.slug %}">
+                            <img class="rounded-circle" width="30px" height="30px" src="{{request.user.profile.image_url}}" alt="{{request.user.username}}">
+                        </a>
+                    </li>
+                    {% else %}
+                    <li class="list-inline-item list_s"><a href="{% url 'accounts:signup' %}"><span class="flaticon-user"></span></a></li>
+                    {% endif %}
+
+                    <li class="list-inline-item"><a href="#menu"><span></span></a></li>
+                </ul>
+            </div>
+        </div>
+        <!-- /.mobile-menu -->
+        <nav id="menu" class="stylehome1">
+            <ul>
+                <li><a href="{% url 'home' %}">Home</a></li>
+                <li><a href="#">Properties</a></li>
+                <li><a href="#">News</a></li>
+                <li><a href="#">Agents</a></li>
+                <li><a href="{% url 'contacts:contact' %}">Contact</a></li>
+                {% if request.user.is_authenticated %}
+                    {% if request.user.is_staff %}
+                        <li><a href="/admin/"><span class="flaticon-user"></span> Admin Dashboard</a></li>
+                    {% endif %}
+                    <li><a href="{% url 'accounts:logout' %}"><span class="flaticon-user"></span> Logout</a></li>
+                    {% if request.user.is_agent %}
+                        <li class="cl_btn">
+                            <a class="btn btn-block btn-lg btn-thm circle" href="#">
+                                <span class="flaticon-plus"></span> Create Listing
+                            </a>
+                        </li>
+                    {% else %}
+                        <li class="cl_btn">
+                            <a class="btn btn-block btn-lg btn-thm circle" href="#">
+                                <span class="flaticon-plus"></span> Enquire
+                            </a>
+                        </li>
+                    {% endif %}
+                {% else %}
+                    <li><a href="{% url 'accounts:login' %}"><span class="flaticon-user"></span> Login</a></li>
+                    <li><a href="{% url 'accounts:signup' %}"><span class="flaticon-edit"></span> Register</a></li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>
+
+
+
+
+
+
+
+<div class="shop_single_tab_content style2 mt30">
+    <ul class="nav nav-tabs" id="myTab" role="tablist">
+        <li class="nav-item">
+            <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="listing-tab" data-toggle="tab" href="#listing" role="tab" aria-controls="listing" aria-selected="false">Listing</a>
+        </li>
+        <li class="nav-item">
+            <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews</a>
+        </li>
+    </ul>
+    <div class="tab-content" id="myTabContent2">
+        <div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+            <div class="product_single_content">
+                <div class="mbp_pagination_comments">
+                    <div class="mbp_first media">
+                        <div class="media-body">
+                            <p class="mb25">Evans Tower very high demand corner junior one bedroom plus a large balcony boasting full open NYC views. You need to see the views to believe them. Mint condition with new hardwood floors. Lots of closets plus washer and dryer.</p>
+                            <p class="mt10 mb0">Fully furnished. Elegantly appointed condominium unit situated on premier location. PS6. The wide entry hall leads to a large living room with dining area. This expansive 2 bedroom and 2 renovated marble bathroom apartment has great windows. Despite the interior views, the apartments Southern and Eastern exposures allow for lovely natural light to fill every room. The master suite is surrounded by handcrafted milkwork and features incredible walk-in closet and storage space.</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199" id="listing" role="tabpanel" aria-labelledby="listing-tab">
+            <div class="col-lg-12">
+                <div class="feat_property list style2 hvr-bxshd bdrrn mb10 mt20">
+                    <div class="thumb">
+                        <img class="img-whp" src="images/property/fp1.jpg" alt="fp1.jpg">
+                        <div class="thmb_cntnt">
+                            <ul class="icon mb0">
+                                <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="tc_content">
+                            <div class="dtls_headr">
+                                <ul class="tag">
+                                    <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                    <li class="list-inline-item"><a href="#">Featured</a></li>
+                                </ul>
+                                <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                            </div>
+                            <p class="text-thm">Apartment</p>
+                            <h4>Renovated Apartment</h4>
+                            <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                            <ul class="prop_details mb0">
+                                <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                            </ul>
+                        </div>
+                        <div class="fp_footer">
+                            <ul class="fp_meta float-left mb0">
+                                <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
+                                <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                            </ul>
+                            <div class="fp_pdate float-right">4 years ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="feat_property list style2 hvr-bxshd bdrrn mb10">
+                    <div class="thumb">
+                        <img class="img-whp" src="images/property/fp3.jpg" alt="fp3.jpg">
+                        <div class="thmb_cntnt">
+                            <ul class="icon mb0">
+                                <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="tc_content">
+                            <div class="dtls_headr">
+                                <ul class="tag">
+                                    <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                    <li class="list-inline-item"><a href="#">Featured</a></li>
+                                </ul>
+                                <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                            </div>
+                            <p class="text-thm">Apartment</p>
+                            <h4>Luxury Family Home</h4>
+                            <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                            <ul class="prop_details mb0">
+                                <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                            </ul>
+                        </div>
+                        <div class="fp_footer">
+                            <ul class="fp_meta float-left mb0">
+                                <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
+                                <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                            </ul>
+                            <div class="fp_pdate float-right">4 years ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+            <div class="col-lg-12">
+                <div class="feat_property list style2 hvr-bxshd bdrrn">
+                    <div class="thumb">
+                        <img class="img-whp" src="images/property/fp2.jpg" alt="fp2.jpg">
+                        <div class="thmb_cntnt">
+                            <ul class="icon mb0">
+                                <li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>
+                                <li class="list-inline-item"><a href="#"><span class="flaticon-heart"></span></a></li>
+                            </ul>
+                        </div>
+                    </div>
+                    <div class="details">
+                        <div class="tc_content">
+                            <div class="dtls_headr">
+                                <ul class="tag">
+                                    <li class="list-inline-item"><a href="#">For Rent</a></li>
+                                    <li class="list-inline-item"><a href="#">Featured</a></li>
+                                </ul>
+                                <a class="fp_price" href="#">$13,000<small>/mo</small></a>
+                            </div>
+                            <p class="text-thm">Apartment</p>
+                            <h4>Gorgeous Villa Bay View</h4>
+                            <p><span class="flaticon-placeholder"></span> 1421 San Pedro St, Los Angeles, CA 90015</p>
+                            <ul class="prop_details mb0">
+                                <li class="list-inline-item"><a href="#">Beds: 4</a></li>
+                                <li class="list-inline-item"><a href="#">Baths: 2</a></li>
+                                <li class="list-inline-item"><a href="#">Sq Ft: 5280</a></li>
+                            </ul>
+                        </div>
+                        <div class="fp_footer">
+                            <ul class="fp_meta float-left mb0">
+                                <li class="list-inline-item"><a href="#"><img src="images/property/pposter1.png" alt="pposter1.png"></a></li>
+                                <li class="list-inline-item"><a href="#">Ali Tufan</a></li>
+                            </ul>
+                            <div class="fp_pdate float-right">4 years ago</div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+            <div class="product_single_content">
+                <div class="mbp_pagination_comments">
+                    <ul class="total_reivew_view">
+                        <li class="list-inline-item sub_titles">896 Reviews</li>
+                        <li class="list-inline-item">
+                            <ul class="star_list">
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                            </ul>
+                        </li>
+                        <li class="list-inline-item avrg_review">( 4.5 out of 5 )</li>
+                        <li class="list-inline-item write_review">Write a Review</li>
+                    </ul>
+                    <div class="mbp_first media">
+                        <img src="images/testimonial/1.png" class="mr-3" alt="1.png">
+                        <div class="media-body">
+                            <h4 class="sub_title mt-0">Diana Cooper
+                                <div class="sspd_review dif">
+                                    <ul class="ml10">
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"></li>
+                                    </ul>
+                                </div>
+                            </h4>
+                            <a class="sspd_postdate fz14" href="#">December 28, 2020</a>
+                            <p class="mt10">Beautiful home, very picturesque and close to everything in jtree! A little warm for a hot weekend, but would love to come back during the cooler seasons!</p>
+                        </div>
+                    </div>
+                    <div class="custom_hr"></div>
+                    <div class="mbp_first media">
+                        <img src="images/testimonial/2.png" class="mr-3" alt="2.png">
+                        <div class="media-body">
+                            <h4 class="sub_title mt-0">Ali Tufan
+                                <div class="sspd_review dif">
+                                    <ul class="ml10">
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                        <li class="list-inline-item"></li>
+                                    </ul>
+                                </div>
+                            </h4>
+                            <a class="sspd_postdate fz14" href="#">December 28, 2020</a>
+                            <p class="mt10">Beautiful home, very picturesque and close to everything in jtree! A little warm for a hot weekend, but would love to come back during the cooler seasons!</p>
+                        </div>
+                    </div>
+                    <div class="custom_hr"></div>
+                    <div class="mbp_comment_form style2">
+                        <h4>Write a Review</h4>
+                        <ul class="sspd_review">
+                            <li class="list-inline-item">
+                                <ul class="mb0">
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                    <li class="list-inline-item"><a href="#"><i class="fa fa-star"></i></a></li>
+                                </ul>
+                            </li>
+                            <li class="list-inline-item review_rating_para">Your Rating & Review</li>
+                        </ul>
+                        <form class="comments_form">
+                            <div class="form-group">
+                                <input type="text" class="form-control" id="exampleInputName1" aria-describedby="textHelp" placeholder="Review Title">
+                            </div>
+                            <div class="form-group">
+                                <textarea class="form-control" id="exampleFormControlTextarea1" rows="12" placeholder="Your Review"></textarea>
+                            </div>
+                            <button type="submit" class="btn btn-thm">Submit Review <span class="flaticon-right-arrow-1"></span></button>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+
+
+
+
+<ul class="sasw_list mb0">
+    <li class="search_area">
+        <div class="form-group">
+            <input type="text" class="form-control" name="name" placeholder="Name of Property">
+            <label><span class="flaticon-magnifying-glass"></span></label>
+        </div>
+    </li>
+    <li class="search_area">
+        <div class="form-group">
+            <input type="text" class="form-control" name="uploaded_by" placeholder="Agency">
+            <label><i class="fa fa-user-o" aria-hidden="true"></i></label>
+        </div>
+    </li>
+    <li class="search_area">
+        <div class="form-group">
+            <input type="number" class="form-control" name="no_bed_room" placeholder="Bedroom">
+        </div>
+    </li>
+    <li class="search_area">
+        <div class="form-group">
+            <input type="number" class="form-control" name="no_bath_room" placeholder="Bathroom">
+        </div>
+    </li>
+    <li>
+        <div class="search_option_two">
+            <div class="candidate_revew_select">
+                <select class="selectpicker w100 show-tick" name="property_status">
+                    <option selected>Property Status</option>
+                    <option value="For Rent">For Rent</option>
+                    <option value="For Sale">For Sale</option>
+                </select>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="search_option_two">
+            <div class="candidate_revew_select">
+                <select class="selectpicker w100 show-tick" name="property_type">
+                    <option selected>Property Type</option>
+                    <option value="Apartment">Apartment</option>
+                    <option value="Land">Land</option>
+                    <option value="BQ">BQ</option>
+                    <option value="Terrace">Terrace</option>
+                    <option value="Semi Detached">Semi Detached</option>
+                    <option value="Fully Detached">Fully Detached</option>
+                    <option value="Office">Office</option>
+                    <option value="Warehouse">Warehouse</option>
+                    <option value="Commercial">Commercial</option>
+                    <option value="Other">Other</option>
+                </select>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="search_option_two">
+            <div class="candidate_revew_select">
+                <select class="selectpicker w100 show-tick" id="selected_state" name="state" placeholder="State">
+                    <option selected>Select State</option>
+                    {% for s in states %}
+                    <option value="{{s}}">{{s}}</option>
+                    {% endfor %}
+                </select>
+            </div>
+        </div>
+    </li>
+    <li>
+        <div class="search_option_two">
+            <div class="candidate_revew_select">
+                {% comment %}
+                    <select class="selectpicker w100 show-tick" id="selected_city" name="city" placeholder="City">
+                        <option selected>City</option>
+                    </select>
+                {% endcomment %}
+                <select class="form-control form-control-lg" id="selected_city" name="city" required placeholder="City">
+                    <option selected>Select city</option>
+                </select>
+            </div>
+        </div>
+    </li>
+    <li class="min_area list-inline-item">
+        <div class="form-group">
+            <input type="number" class="form-control" name="price_lt" placeholder="Min Price">
+        </div>
+    </li>
+    <li class="max_area list-inline-item">
+        <div class="form-group">
+            <input type="number" class="form-control" name="price_gt" placeholder="Max Price">
+        </div>
+    </li>
+    <li>
+        <div class="search_option_button">
+            <button type="submit" class="btn btn-block btn-thm">Search</button>
+        </div>
+    </li>
+</ul>
+
+
+{% if forloop.counter0 == 1%}
+<li class="min_area list-inline-item">
+    <div class="form-group">
+        {% render_field field|attr:"placeholder:Min Price"|attr:"type:number" class="form-control" %}
+        <!--													<input type="number" class="form-control" name="price_lt" placeholder="Min Price">-->
+    </div>
+</li>
+{% endif %}
+{% if forloop.counter0 == 2%}
+<li class="max_area list-inline-item">
+    <div class="form-group">
+        {% render_field field|attr:"placeholder:Max Price"|attr:"type:number" class="form-control" %}
+        <!--													<input type="number" class="form-control" name="price_gt" placeholder="Max Price">-->
+    </div>
+</li>
+{% endif %}
+
+
+<div class="row">
+    <div class="col-lg-12">
+        <div class="listing_sidebar dn db-991">
+            <div class="sidebar_content_details style3">
+                <!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+                <div class="sidebar_listing_list style2 mobile_sytle_sidebar mb0">
+                    <div class="sidebar_advanced_search_widget">
+                        <h4 class="mb25">
+                            Advanced Search
+                            <a class="filter_closed_btn float-right" href="#">
+                                <small>Hide Filter</small>
+                                <span class="flaticon-close"></span>
+                            </a>
+                        </h4>
+                        <ul class="sasw_list style2 mb0">
+                            <li class="search_area">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="exampleInputName1"
+                                           placeholder="keyword">
+                                    <label for="exampleInputEmail"><span class="flaticon-magnifying-glass"></span></label>
+                                </div>
+                            </li>
+                            <li class="search_area">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="exampleInputEmail"
+                                           placeholder="Location">
+                                    <label for="exampleInputEmail"><span class="flaticon-maps-and-flags"></span></label>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="search_option_two">
+                                    <div class="candidate_revew_select">
+                                        <select class="selectpicker w100 show-tick">
+                                            <option>Status</option>
+                                            <option>Apartment</option>
+                                            <option>Bungalow</option>
+                                            <option>Condo</option>
+                                            <option>House</option>
+                                            <option>Land</option>
+                                            <option>Single Family</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="search_option_two">
+                                    <div class="candidate_revew_select">
+                                        <select class="selectpicker w100 show-tick">
+                                            <option>Property Type</option>
+                                            <option>Apartment</option>
+                                            <option>Bungalow</option>
+                                            <option>Condo</option>
+                                            <option>House</option>
+                                            <option>Land</option>
+                                            <option>Single Family</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="small_dropdown2">
+                                    <div id="prncgs" class="btn dd_btn">
+                                        <span>Price</span>
+                                        <label for="exampleInputEmail2"><span class="fa fa-angle-down"></span></label>
+                                    </div>
+                                    <div class="dd_content2">
+                                        <div class="pricing_acontent">
+                                            <span id="slider-range-value1"></span>
+                                            <span class="mt0" id="slider-range-value2"></span>
+                                            <div id="slider"></div>
+                                            <!-- <input type="text" class="amount" placeholder="$52,239">
+                                            <input type="text" class="amount2" placeholder="$985,14">
+                                            <div class="slider-range"></div> -->
+                                        </div>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="search_option_two">
+                                    <div class="candidate_revew_select">
+                                        <select class="selectpicker w100 show-tick">
+                                            <option>Bathrooms</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="search_option_two">
+                                    <div class="candidate_revew_select">
+                                        <select class="selectpicker w100 show-tick">
+                                            <option>Bedrooms</option>
+                                            <option>1</option>
+                                            <option>2</option>
+                                            <option>3</option>
+                                            <option>4</option>
+                                            <option>5</option>
+                                            <option>6</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="search_option_two">
+                                    <div class="candidate_revew_select">
+                                        <select class="selectpicker w100 show-tick">
+                                            <option>Garages</option>
+                                            <option>Yes</option>
+                                            <option>No</option>
+                                            <option>Others</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="search_option_two">
+                                    <div class="candidate_revew_select">
+                                        <select class="selectpicker w100 show-tick">
+                                            <option>Year built</option>
+                                            <option>2013</option>
+                                            <option>2014</option>
+                                            <option>2015</option>
+                                            <option>2016</option>
+                                            <option>2017</option>
+                                            <option>2018</option>
+                                            <option>2019</option>
+                                            <option>2020</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </li>
+                            <li class="min_area style2 list-inline-item">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="exampleInputName2"
+                                           placeholder="Min Area">
+                                </div>
+                            </li>
+                            <li class="max_area list-inline-item">
+                                <div class="form-group">
+                                    <input type="text" class="form-control" id="exampleInputName3"
+                                           placeholder="Max Area">
+                                </div>
+                            </li>
+                            <li>
+                                <div class="search_option_button">
+                                    <button type="submit" class="btn btn-block btn-thm">Search</button>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,127 @@
+{% extends 'user_layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb5">
+                <div class="breadcrumb_content style2">
+                    <h2 class="breadcrumb_title">Message</h2>
+                    <p>We are glad to see you again!</p>
+                </div>
+            </div>
+            <div class="col-lg-12 col-xl-12">
+                <div class="message_container">
+                    <div class="user_heading">
+                        <a>
+                            <div class="wrap">
+                                <span class="contact-status online"></span>
+                                <img class="img-fluid" width="60px" height="60px" src="{{ user_obj.profile.image_url }}" alt="{{user_obj.username}}"/>
+                                <div class="meta">
+                                    <h5 class="name">{{user_obj.full_name}}</h5>
+                                    <p class="preview">was online today at {{ user_obj.last_visit|naturaltime }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="inbox_chatting_box">
+                        <ul class="chatting_content"  id="chat">
+                            {% for msg in messages %}
+                                {% if msg.msg_sender.username == request.user.username %}
+                                    <li class="media reply first">
+                                        <div class="media-body text-right">
+                                            <div class="date_time">{{msg.timestamp|naturaltime}}</div>
+                                            <p>{{msg.message}}</p>
+                                        </div>
+                                    </li>
+                                {% else %}
+                                    <li class="media sent">
+                                        <span class="contact-status busy"></span>
+                                        <img class="img-fluid align-self-start mr-3" src="{{msg.msg_sender.profile.image_url}}" alt="{{msg.msg_sender.username}}"/>
+                                        <div class="media-body">
+                                            <div class="date_time">{{msg.timestamp|naturaltime}}</div>
+                                            <p>{{msg.message}}</p>
+                                        </div>
+                                    </li>
+                                {% endif %}
+                            {% empty %}
+                                <li>No message yet.</li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                    <div class="mi_text mt30">
+                        <div class="message_input">
+                            <form class="form-inline" id="message-form">
+                                <input class="form-control" type="text" name="message" id="msg-input" placeholder="Enter text here..." aria-label="Search" required>
+                                <button class="btn" type="submit" id="chat-msg-submit">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block user_js %}
+    {{ user_obj.username|json_script:"json-username" }}
+    {{ request.user.username|json_script:"json-message-username" }}
+    {{ user_obj.image_url|json_script:"json-username-img" }}
+
+    <script>
+        const username = JSON.parse(document.getElementById('json-username').textContent);
+        const sender_username = JSON.parse(document.getElementById('json-message-username').textContent);
+        const username_img = JSON.parse(document.getElementById('json-username-img').textContent);
+
+        let socket = new WebSocket(
+            `ws://${window.location.host}/ws/${username}/`
+        );
+
+        socket.onopen = function (event) {
+            console.log(event);
+            console.log("Connection established");
+        };
+        socket.onclose = function (event) {
+            console.log("Connection closed");
+        };
+        socket.onerror = function (event) {
+            console.log(event);
+        };
+        socket.onmessage = function (event) {
+            const data = JSON.parse(event.data);
+            if (data.username === sender_username) {
+                document.querySelector('#chat').innerHTML +=
+                `<li class="media reply first">
+                    <div class="media-body text-right">
+                        <div class="date_time">13 mins ago</div>
+                        <p>${data.message}</p>
+                    </div>
+                </li>`
+            }
+            else {
+                document.querySelector('#chat').innerHTML +=
+                `<li class="media sent">
+                    <span class="contact-status busy"></span>
+                    <div class="media-body">
+                        <div class="date_time">12 mins ago</div>
+                        <p>${data.message}</p>
+                    </div>
+                </li>`
+            }
+        };
+
+        document.querySelector("#chat-msg-submit").onclick = function (e) {
+            const message_input = document.querySelector("#msg-input");
+
+            socket.send(JSON.stringify({
+                'message': message_input.value,
+                'username': sender_username,
+            }));
+            message_input.value = '';
+        }
+    </script>
+{% endblock %}

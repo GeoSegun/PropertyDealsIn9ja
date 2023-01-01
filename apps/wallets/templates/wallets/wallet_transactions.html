@@ -1,0 +1,21 @@
+{% load humanize %}
+
+{% for wt in wallet_transactions %}
+    <tr>
+        <th class="title">{{wt.transaction_id}}</th>
+        <td>
+            {% if wt.payment_status == "successful" %}
+                <span class="badge badge-pill badge-success">{{ wt.payment_status }}</span>
+            {% elif wt.payment_status == "pending" %}
+                <span class="badge badge-pill badge-warning">{{ wt.payment_status }}</span>
+            {% elif wt.payment_status == "failed" %}
+                <span class="badge badge-pill badge-danger">{{ wt.payment_status }}</span>
+            {% endif %}
+        </td>
+        <td>{{wt.created_at|naturalday}}</td>
+        <td>{{wt.created_at|naturaltime}}</td>
+        <td>{{wt.currency}}</td>
+        <td class="cart_total">{{wt.amount|intword}}</td>
+    </tr>
+{% endfor %}
+

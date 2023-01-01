@@ -1,0 +1,124 @@
+{% extends "user_layout.html" %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}My wallet{% endblock %}
+
+{% block content %}
+
+	<!-- Shop Checkouts Content -->
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-6">
+					<div class="breadcrumb_content style2">
+						<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+						    <li class="breadcrumb-item active text-thm" aria-current="page">My Wallet</li>
+						</ol>
+						<h4 class="breadcrumb_title">Balance: {{wallet.currency}}{{wallet.balance}}</h4>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-xl-4">
+					<div class="payment_widget">
+						<div class="ui_kit_checkbox style2">
+							<h4 class="mb10">Fund Your Wallet</h4>
+							<form hx-post="{% url 'wallets:fund_success' request.user.wallet.uid %}" hx-target="#transaction_lists" class="form-inline" enctype="multipart/form-data">
+								{% csrf_token %}
+								<div class="input-group input-group-sm">
+									<input type="number" id="wallet_amount" class="form-control" placeholder="0.00" required>
+									<div class="input-group-append">
+										<button class="btn btn-outline-secondary" type="button" id="start-payment-button" onclick="makePayment()">Fund</button>
+									</div>
+								</div>
+								<label><img src="{% static 'images/resource/payment.png' %}" alt="payment.png"></label>
+							</form>
+						</div>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-8 col-xl-8">
+					<div class="savesearched_table">
+						<div class="table-responsive mt0">
+							<table class="table">
+								<thead class="thead-light">
+									<tr>
+										<th scope="col">ID</th>
+										<th scope="col">Status</th>
+										<th scope="col">Date</th>
+										<th scope="col">Time</th>
+										<th scope="col">Currency</th>
+										<th scope="col">Amount</th>
+									</tr>
+								</thead>
+								<tbody class="table_body" hx-get="{% url 'wallets:wallet_transactions' %}" hx-trigger="load" id="transaction_lists">
+								</tbody>
+							</table>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+
+{% endblock %}
+
+
+{% block user_js %}
+	<!-- using flutter wave  -->
+	<script src="https://checkout.flutterwave.com/v3.js"></script>
+	<script type="text/javascript">
+		function makePayment() {
+			let amount = document.getElementById("wallet_amount").value;
+			const csrfmiddlewaretoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+			FlutterwaveCheckout({
+				public_key: "{{ pub_key|safe }}",
+				tx_ref: "TransRef-" + Math.floor((Math.random() * 1000) + 1),
+				amount: amount,
+				currency: "NGN",
+				payment_options: "card, banktransfer, ussd, credit, barter",
+				// redirect_url: "{% url 'wallets:fund_success' request.user.wallet.uid %}",
+				// use customer details if user is not logged in, else add user_id to the request
+				customer: {
+					email: "{{request.user.email|safe}}",
+					phone_number: "{{request.user.phone|safe}}",
+					name: "{{request.user.full_name|safe}}",
+				},
+				callback: function (response) {
+					console.log(response);
+					{#swal(response.status + "! your transaction ref is " + response.flw_ref);#}
+					toastr.success(response.status + "! your transaction ref is \n" + response.flw_ref);
+					$.ajax({
+						url: "{% url 'wallets:fund_success' request.user.wallet.uid %}",
+						method: "post",
+						data: {
+							'status': response.status,
+							'currency': response.currency,
+							'amount': response.amount,
+							'tx_ref': response.tx_ref,
+							'name': response.customer.name,
+							'email': response.customer.email,
+							'csrfmiddlewaretoken': csrfmiddlewaretoken,
+						},
+						contentType: "application/x-www-form-urlencoded",
+						success: function (data) {
+							console.log(data);
+							setTimeout(function () {
+								window.location.replace("{% url 'wallets:fund_wallet' request.user.wallet.uid %}");
+							});
+							toastr.success(`Your ${currency}${amount} was received successfully and you wallet balance is updated.`);
+						},
+					});
+				},
+				onclose: function () {
+					// close modal
+					toastr.info('Window closed.');
+				},
+				customizations: {
+					title: "Funding {{request.user.username}}'s wallet",
+					description: "Funding wallet for {{request.user.username}}",
+					logo: "{{ request.user.profile.image_url }}",
+				},
+			});
+		}
+	</script>
+{% endblock %}

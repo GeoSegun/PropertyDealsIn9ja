@@ -1,0 +1,257 @@
+{% extends 'user_layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Add{% endblock title %}
+
+{% block content %}
+<form method="post" action="" name="propertyForm" enctype="multipart/form-data">
+    {% csrf_token %}
+
+    <div class="col-lg-12 mb10">
+        <div class="breadcrumb_content style2">
+            <h2 class="breadcrumb_title">Add New Property</h2>
+            <p>Please fill in all required fields to upload your property.</p>
+        </div>
+    </div>
+    <div class="col-lg-12">
+        <div class="my_dashboard_review">
+            <div class="row justify-content-around">
+                <div class="col-lg-12">
+                    <h3 class="mb30">Property Details</h3>
+                    <div class="my_profile_setting_input form-group">
+                        <label>Property Name</label>
+                        {% render_field form.name|attr:"required" class="form-control" placeholder=form.name.help_text %}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="my_profile_setting_textarea">
+                        <label>Description</label>
+                        {% render_field form.description|attr:"required"|attr:"rows:4"|attr:"placeholder:Tell us more about this property" class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-lg-12 col-xl-12">
+                    <div class="my_profile_setting_input form-group">
+                        <label>Price</label>
+                        {% render_field form.price|attr:"required"|attr:"placeholder:0.00"|attr:"type:number" class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4">
+                    <div class="my_profile_setting_input ui_kit_select_search form-group">
+                        <label>Property Type</label>
+                        {% render_field form.property_type|attr:"required"|attr:"data-live-search:true"|attr:"data-width:100%" class="selectpicker" %}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4">
+                    <div class="my_profile_setting_input ui_kit_select_search form-group">
+                        <label>Property Status</label>
+                        {% render_field form.property_status|attr:"required"|attr:"data-live-search:true"|attr:"data-width:100%" class="selectpicker" %}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4">
+                    <div class="my_profile_setting_input ui_kit_select_search form-group">
+                        <label>Payment Plan</label>
+                        {% render_field form.payment_plan|attr:"data-live-search:true"|attr:"data-width:100%" class="selectpicker" %}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4">
+                    <div class="my_profile_setting_input form-group">
+                        <label>Property Size</label>
+                        {% render_field form.plot_area|attr:"placeholder:Measured in SqFt"|attr:"type:number" class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4">
+                    <div class="my_profile_setting_input form-group">
+                        <label>Num of Bedrooms</label>
+                        {% render_field form.no_bed_room|attr:"placeholder:please ignore if land property"|attr:"type:number" class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-lg-4 col-xl-4">
+                    <div class="my_profile_setting_input ui_kit_select_search form-group">
+                        <label>Num of Bathrooms</label>
+                        {% render_field form.no_bath_room|attr:"placeholder:please ignore if land property"|attr:"type:number" class="form-control" %}
+                    </div>
+                </div>
+            </div>
+        </div>
+        <div class="my_dashboard_review mt30">
+            <div class="row justify-content-around">
+                <div class="col-lg-12 col-xl-12 mb10 mt10">
+                    <h3 class="mb20">Property Image Documents</h3>
+                </div>
+
+                <div class="col-lg-12 col-xl-12 mb10 mt10">
+                    <script src="https://unpkg.com/dropzone@5/dist/min/dropzone.min.js"></script>
+                    <link rel="stylesheet" href="https://unpkg.com/dropzone@5/dist/min/dropzone.min.css"
+                          type="text/css"/>
+                    <style>
+                        .dz {
+                            border: dashed !important;
+                            border-color: #ccc !important;
+                            border-radius: 10px !important;
+                        }
+
+                        .dz:hover {
+                            background-color: aliceblue !important;
+                        }
+                    </style>
+
+                    <div class="dropzone dz" id="my-dropzone">
+                        <div class="fallback">
+<!--                            <input type="file" name="file" multiple accept="image/*"/>-->
+                            {% render_field img_form.property_image|attr:"name:file"|attr:"type:file"|attr:"multiple"|attr:"accept:image/*" %}
+                        </div>
+                    </div>
+
+                    <script>
+                        Dropzone.autoDiscover = false;
+                        const myDropzone = new Dropzone("#my-dropzone", {
+                            //autoProcessQueue: false,
+                            url: "/properties/create/",
+                            maxFiles: 4,
+                            maxFilesize:2, // ie: 2mb
+                            acceptedFiles: '.png, .jpg, .JPG, .PNG',
+                            dictDefaultMessage: 'Upload the property image files here',
+                        });
+                    </script>
+                </div>
+            </div>
+        </div>
+        <div class="my_dashboard_review mt30">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12 mb20 mt10">
+                    <h3 class="mb20 mt10">Property Location</h3>
+                    <h4 class="mb20">Country: <strong>{{request.user.profile.country.name}}</strong></h4>
+                </div>
+                <div class="col-lg-6 col-xl-6">
+                    <div class="my_profile_setting_input form-group">
+                        <label>County / State</label>
+                        <select id="selected_state" name="state" required class="form-control" data-live-search="true" data-width="100%">
+                            {% for s in states %}
+                                {% if s == request.user.profile.state %}
+                                    <option value="{{request.user.profile.state}}" selected>{{request.user.profile.state}}</option>
+                                {% else %}
+                                    <option value="{{s}}">{{s}}</option>
+                                {% endif %}
+                            {% endfor %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-6 col-xl-6">
+                    <div class="my_profile_setting_input form-group">
+                        <label>City/LGA</label>
+                        <select id="selected_city" name="city" required class="form-control" data-live-search="true" data-width="100%">
+                            {% if request.user.profile.city %}
+                                <option value="{{request.user.profile.city}}" disabled selected>{{request.user.profile.city}}</option>
+                            {% else %}
+                                <option value="" disabled selected>Select city</option>
+                            {% endif %}
+                        </select>
+                    </div>
+                </div>
+                <div class="col-lg-12 col-xl-12">
+                    <div class="my_profile_setting_input form-group">
+                        <label>Neighborhood</label>
+                        {% render_field form.local_area|attr:"required"|attr:"placeholder:Nearest known bustop, junctions..." class="form-control" %}
+                    </div>
+                </div>
+                <div class="col-lg-12">
+                    <div class="my_profile_setting_input form-group">
+                        <label>Street Address</label>
+                        {% render_field form.street_address|attr:"required"|attr:"rows:4"|attr:"placeholder:House Number, Street Name" class="form-control" %}
+                    </div>
+                </div>
+<!--                <div class="col-lg-12">-->
+<!--                    <div class="my_profile_setting_input form-group">-->
+<!--                        <div class="h400 bdrs8" id="map-canvas"></div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-4 col-xl-4">-->
+<!--                    <div class="my_profile_setting_input form-group">-->
+<!--                        <label for="googleMapLat">Latitude (for Google Maps)</label>-->
+<!--                        <input type="text" class="form-control" id="googleMapLat">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-4 col-xl-4">-->
+<!--                    <div class="my_profile_setting_input form-group">-->
+<!--                        <label for="googleMapLong">Longitude (for Google Maps)</label>-->
+<!--                        <input type="text" class="form-control" id="googleMapLong">-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="col-lg-4 col-xl-4">-->
+<!--                    <div class="my_profile_setting_input ui_kit_select_search form-group">-->
+<!--                        <label>Google Map Street View</label>-->
+<!--                        <select class="selectpicker" data-live-search="true" data-width="100%">-->
+<!--                            <option data-tokens="Turkey">Street View v1</option>-->
+<!--                            <option data-tokens="Iran">Street View v2</option>-->
+<!--                            <option data-tokens="Iraq">Street View v3</option>-->
+<!--                            <option data-tokens="Spain">Street View v4</option>-->
+<!--                            <option data-tokens="Greece">Street View v5</option>-->
+<!--                            <option data-tokens="Portugal">Street View v6</option>-->
+<!--                        </select>-->
+<!--                    </div>-->
+<!--                </div>-->
+            </div>
+        </div>
+        <div class="my_dashboard_review mt30">
+            <div class="row">
+                <div class="col-lg-12">
+                    <h3 class="mb30">Other Settings</h3>
+                </div>
+                <div class="col-lg-12 mb20">
+                    <div class="custom-control custom-switch">
+<!--                            <input type="checkbox" name="featured" class="custom-control-input" id="customSwitch1">-->
+                        {% render_field form.featured|attr:"id:customSwitch1"|attr:"type:checkbox" class="custom-control-input" %}
+                        <label class="custom-control-label" for="customSwitch1">Featured</label>
+                        <br>
+                        <small>This will incur an additional fee, but your property will be promoted to the front page, <br>where our clients will be the first to see it.</small>
+                    </div>
+                </div>
+                <div class="col-xl-12 mt10">
+                    <div class="my_profile_setting_input">
+                        <button type="submit" class="btn dbxshad btn-md btn-thm circle"><i class="fa fa-upload"></i> Upload Property</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
+{% endblock %}
+
+{% block user_js %}
+    <!-- Get States and Cities -->
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#selected_state").on("change", function () {
+                let stateVal = $("#selected_state").val();
+
+                console.log(stateVal);
+                $.ajax({
+                    url: "{% url 'properties:get_cities' %}",
+                    type: "post",
+                    data: {
+                        "state": stateVal,
+                        "csrfmiddlewaretoken": "{{csrf_token}}"
+                    },
+                    dataType: "json",
+                    before: function () {
+
+                    },
+                    success: function (res) {
+                        let cities = res.cities;
+                        console.log(res.success);
+                        $('#selected_city').empty();
+                        $.each(cities, function(index, item)
+                        {
+                            console.log(item);
+                            $("#selected_city").append("<option value='"+item +"'>"+item +"</option>");
+                        });
+
+                        console.log("worked till here... \n\n\n");
+                    }
+                })
+            });
+        });
+    </script>
+
+{% endblock user_js %}

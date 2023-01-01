@@ -1,0 +1,529 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block title %}{{agent.business_name}}{% endblock title %}
+
+{% block css %}
+	<link href="{% static 'customs/rating.css' %}">
+{% endblock css %}
+
+{% block content %}
+
+	<!-- Agent Single Grid View -->
+	<section class="our-agent-single bgc-f7 pb30-991">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="breadcrumb_content style2 mt30-767 mb30-767">
+						<ol class="breadcrumb">
+							<li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+							<li class="breadcrumb-item"><a href="{% url 'agents:list' %}">Agents</a></li>
+							<li class="breadcrumb-item active text-thm" aria-current="page">{{agent.business_name}}</li>
+						</ol>
+						<h2 class="breadcrumb_title">{{agent.business_name}}</h2>
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-8">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="feat_property list agency">
+								<div class="thumb">
+									<img class="img-whp" src="{{agent.business_logo_url}}" alt="{{agent.business_name}}">
+									<div class="thmb_cntnt">
+										<ul class="tag mb0">
+											<li class="list-inline-item dn"></li>
+											<li class="list-inline-item"><a>{{agent.properties.all.count}} Listing{{agent.properties.all.count|pluralize}}</a></li>
+										</ul>
+									</div>
+								</div>
+								<div class="details">
+									<div class="tc_content">
+										<h4>{{agent.business_name}}</h4>
+										{% if agent.is_an_agency %}
+											<p class="text-thm">Agency</p>
+										{% else %}
+											<p class="text-thm">Agent</p>
+										{% endif %}
+										<ul class="prop_details mb0">
+											<li><a><i class="fa fa-map-marker fa-lg mr-3"></i>  {{agent.get_business_address}}</a></li>
+											<li><a><i class="fa fa-whatsapp fa-lg mr-3"></i>  {{agent.get_business_phone}}</a></li>
+											<li><a><i class="fa fa-envelope fa-lg mr-3"></i>  {{agent.get_business_email}}</a></li>
+										</ul>
+									</div>
+									<div class="fp_footer">
+<!--										<ul class="fp_meta float-left mb0">-->
+<!--											<li class="list-inline-item"><a><i class="fa fa-facebook"></i></a></li>-->
+<!--											<li class="list-inline-item"><a><i class="fa fa-twitter"></i></a></li>-->
+<!--											<li class="list-inline-item"><a><i class="fa fa-instagram"></i></a></li>-->
+<!--											<li class="list-inline-item"><a><i class="fa fa-pinterest"></i></a></li>-->
+<!--											<li class="list-inline-item"><a><i class="fa fa-google"></i></a></li>-->
+<!--										</ul>-->
+										{% if request.user.username == agent.business_user.username %}
+											<div class="fp_pdate float-right text-thm">Update <i class="fa fa-angle-right"></i></div>
+										{% else %}
+										{% endif %}
+									</div>
+								</div>
+							</div>
+							<div class="shop_single_tab_content style2 mt30">
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item">
+									    <a class="nav-link active" id="listing-tab" data-toggle="tab" href="#listing" role="tab" aria-controls="listing" aria-selected="false">Listing</a>
+									</li>
+									{% if agent.is_an_agency %}
+										<li class="nav-item">
+											<a class="nav-link" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+										</li>
+									{% endif %}
+									{% if agent.is_an_agency %}
+										<li class="nav-item">
+											<a class="nav-link" id="agent-tab" data-toggle="tab" href="#agent" role="tab" aria-controls="agent" aria-selected="false">Our Agents</a>
+										</li>
+									{% endif %}
+									<li class="nav-item">
+									    <a class="nav-link" id="review-tab" data-toggle="tab" href="#review" role="tab" aria-controls="review" aria-selected="false">Reviews</a>
+									</li>
+								</ul>
+								<div class="tab-content" id="myTabContent2">
+									<div class="tab-pane fade show active" id="listing" role="tabpanel" aria-labelledby="listing-tab">
+										{% for p in agent.properties.all %}
+											<div class="col-lg-12">
+												<div class="feat_property list style2 hvr-bxshd bdrrn mb10 mt20">
+													<div class="thumb">
+														<img class="img-whp" src="{{p.check_image_url}}" alt="{{p.name}}">
+														<div class="thmb_cntnt">
+															<ul class="icon mb0">
+<!--																<li class="list-inline-item"><a href="#"><span class="flaticon-transfer-1"></span></a></li>-->
+																{% if  request.user.is_authenticated %}
+																	{% if p.uploaded_by.business_user == request.user or request.user.is_superuser %}
+																		<li class="list-inline-item"><a href="properties:delete"><i class="icon fa fa-trash text-white"></i></a></li>
+																	{% else %}
+																		<li class="list-inline-item">
+																			<button
+																				id="add_favourite"
+																				class="btn btn-link p-0 border-0 btn-outline-light"
+																				value="{{p.id}}">
+																				{% if p in request.user.profile.favorite_properties.all %}
+																					<i class="icon fa fa-heart text-white" id="add_favourite_icon"></i>
+																				{% else %}
+																					<i class="icon fa fa-heart-o text-white" id="add_favourite_icon"></i>
+																				{% endif %}
+																			</button>
+																		</li>
+																	{% endif %}
+																{% else %}
+																	<li class="list-inline-item"><a href="{% url 'accounts:login' %}"><i class="icon fa fa-heart-o text-white"></i></a></li>
+																{% endif %}
+															</ul>
+														</div>
+													</div>
+													<div class="details">
+														<div class="tc_content">
+															<div class="dtls_headr">
+																<ul class="tag">
+																	<li class="list-inline-item"><a href="{% url 'properties:detail' p.slug %}"><small>{{p.property_status}}</small></a></li>
+																	{% if p.featured %}
+																		<li class="list-inline-item"><a href="{% url 'properties:detail' p.slug %}"><small>Featured</small></a></li>
+																	{% endif %}
+																</ul>
+																<a class="fp_price" href="{% url 'properties:detail' p.slug %}">₦{{p.price|intword}}
+																	{% if not p.payment_plan == "None" %}
+																		<small>/{{p.payment_plan}}</small>
+																	{% endif %}
+																</a>
+															</div>
+															<p class="text-thm">{{p.property_type}}</p>
+															<a href="{% url 'properties:detail' p.slug %}"><h4>{{p.name}}</h4></a>
+<!--															<p class="text-thm"><a href="{% url 'properties:detail' p.slug %}">{{p.name}}</a></p>-->
+<!--															<h4>{{p.property_type}}</h4>-->
+															<p><span class="flaticon-placeholder"></span> {{p.property_address}}</p>
+															<ul class="prop_details mb0">
+																<li class="list-inline-item"><a href="{% url 'properties:detail' p.slug %}"><i class="fa fa-bed fa-lg"></i> {{p.no_bed_room}}</a></li>
+																<li class="list-inline-item"><a href="{% url 'properties:detail' p.slug %}"><i class="fa fa-bath fa-lg"></i> {{p.no_bath_room}}</a></li>
+																<li class="list-inline-item"><a href="{% url 'properties:detail' p.slug %}">Sq Ft: {{p.plot_area}}</a></li>
+															</ul>
+														</div>
+														<div class="fp_footer">
+															<ul class="fp_meta float-left mb0">
+																<li class="list-inline-item"><a><img class="rounded-circle" width="30px" height="30px" src="{{p.uploaded_by.business_logo_url}}" alt="{{p.uploaded_by.business_name}}"></a></li>
+																<li class="list-inline-item"><a>{{p.uploaded_by.business_name}}</a></li>
+															</ul>
+															<div class="fp_pdate float-right">{{p.uploaded_at|naturalday}}</div>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% empty %}
+											<div class="product_single_content">
+												<p class="align-content-center p20 m20">
+													{{agent.business_name}} has not yet uploaded any properties. Please return frequently.
+												</p>
+											</div>
+										{% endfor %}
+									</div>
+									{% if agent.is_an_agency %}
+										<div class="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199" id="description" role="tabpanel" aria-labelledby="description-tab">
+											<div class="product_single_content">
+												<div class="mbp_pagination_comments">
+													<div class="mbp_first media">
+														<div class="media-body">
+															<p class="mb25">
+																{{agent.agency_description}}
+															</p>
+														</div>
+													</div>
+												</div>
+											</div>
+										</div>
+									{% endif %}
+									{% if agent.is_an_agency %}
+										<div class="tab-pane fade row pl15 pl0-1199 pr15 pr0-1199" id="agent" role="tabpanel" aria-labelledby="agent-tab">
+											{% for a in agent.agency_agents.all %}
+												<div class="col-lg-12">
+													<div class="feat_property list style2 agent hvr-bxshd bdrrn mb10 mt20">
+														<div class="thumb">
+															<img class="img-whp" src="{{a.business_user.profile.image_url}}" alt="{{a.business_name}}">
+															<div class="thmb_cntnt">
+																<ul class="tag mb0">
+																	<li class="list-inline-item dn"></li>
+																	<li class="list-inline-item"><a>{{a.properties.all.count}} Listings</a></li>
+																</ul>
+															</div>
+														</div>
+														<div class="details">
+															<div class="tc_content">
+																<h4>{{a.business_user.full_name}}</h4>
+																<p class="text-thm">Agent</p>
+																<ul class="prop_details mb0">
+																	<li><a>Mobile: {{a.get_business_phone}}</a></li>
+																	<li><a>Email: {{a.get_business_email}}</a></li>
+																</ul>
+															</div>
+<!--															<div class="fp_footer">-->
+<!--																<ul class="fp_meta float-left mb0">-->
+<!--																	<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>-->
+<!--																	<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>-->
+<!--																	<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>-->
+<!--																	<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>-->
+<!--																	<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>-->
+<!--																</ul>-->
+<!--																<div class="fp_pdate float-right text-thm">View My Listings <i class="fa fa-angle-right"></i></div>-->
+<!--															</div>-->
+														</div>
+													</div>
+												</div>
+											{% empty %}
+											{% endfor %}
+										</div>
+									{% endif %}
+
+									<style>
+										.checked {
+											color: #ff5a5f;
+										}
+
+										.my-rating-btn {
+											background-color: inherit !important;
+											border: 0 !important;
+										}
+									</style>
+									<div class="tab-pane fade" id="review" role="tabpanel" aria-labelledby="review-tab">
+										<div class="product_single_content">
+											<div class="mbp_pagination_comments">
+												<ul class="total_reivew_view">
+													<li class="list-inline-item sub_titles">{{agent.agent_review.all.count}} Review{{agent.agent_review.all.count|pluralize}}</li>
+<!--													<li class="list-inline-item avrg_review">( 3 out of 5 )</li>-->
+													<li class="list-inline-item write_review">Write a Review</li>
+												</ul>
+
+												{% include 'agents/review_list.html' %}
+
+												<div class="custom_hr"></div>
+												<div class="mbp_comment_form style2">
+													<h4>Write a Review</h4>
+													<form class="comments_form rate-form" action="" method="post" id="{{agent.slug|safe}}" >
+														{% csrf_token %}
+														<ul class="sspd_review">
+															<li class="list-inline-item">
+																<div class="rating-list">
+																	<button type="submit" class="my-rating-btn fa fa-star" id="first"></button>
+																	<button type="submit" class="my-rating-btn fa fa-star" id="second"></button>
+																	<button type="submit" class="my-rating-btn fa fa-star" id="third"></button>
+																	<button type="submit" class="my-rating-btn fa fa-star" id="fourth"></button>
+																	<button type="submit" class="my-rating-btn fa fa-star" id="fifth"></button>
+																</div>
+															</li>
+															<li class="list-inline-item review_rating_para">Your Rating & Review</li>
+														</ul>
+														<div class="form-group">
+														    <textarea class="form-control" id="comment-value" name="review_comment" rows="3" placeholder="Your review about this agent/agency" required></textarea>
+														</div>
+														{% if request.user.is_authenticated or request.user.is_superuser %}
+															<button type="submit" id="review-submit" class="btn btn-thm">Submit Review <span class="flaticon-right-arrow-1"></span></button>
+														{% else %}
+															<a href="{% url 'accounts:login' %}" class="btn btn-thm">Submit Review <span class="flaticon-right-arrow-1"></span></a>
+														{% endif %}
+													</form>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-xl-4">
+					<div class="sidebar_listing_grid1 dn-991">
+
+						{% if not request.user.username == agent.business_user.username and request.user.is_authenticated %}
+							<div class="sidebar_listing_list">
+								<div class="sidebar_advanced_search_widget">
+									<h4 class="mb25">Contact Agent</h4>
+									<form method="post" action="{% url 'inboxes:send_direct_msg' %}">
+										<input type="hidden" name="to_user" id="to_user" value="{{ agent.business_user.username }}">
+										<ul class="sasw_list mb0">
+											<li class="search_area">
+												<div class="form-group">
+													<textarea
+														name="message" id="message"
+														class="form-control required"
+														rows="3"
+														required
+														placeholder="Write your message to this agent.">
+													</textarea>
+												</div>
+											</li>
+											<li>
+												<div class="search_option_button">
+													{% if request.user.is_authenticated %}
+														<button type="submit" id="send_msg" class="btn btn-block btn-thm">Send <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+													{% else %}
+														<a href="{% url 'accounts:login' %}" class="btn btn-block btn-thm">Send <i class="fa fa-paper-plane-o" aria-hidden="true"></i></a>
+													{% endif %}
+												</div>
+											</li>
+										</ul>
+									</form>
+								</div>
+							</div>
+						{% endif %}
+						<div class="terms_condition_widget">
+							<h4 class="title">Featured Properties</h4>
+							{% if featured_properties %}
+								<div class="sidebar_feature_property_slider">
+									{% if featured_properties.count > 1 %}
+
+										{% for p in featured_properties %}
+											<div class="item">
+												<div class="feat_property home7 agent">
+													<div class="thumb">
+														<img class="img-whp" src="{{p.check_image_url}}" alt="{{p.name}}">
+														<div class="thmb_cntnt">
+															<ul class="tag mb0">
+																<li class="list-inline-item"><a>{{p.property_status}}</a></li>
+																<li class="list-inline-item"><a>Featured</a></li>
+															</ul>
+															<a class="fp_price">N{{p.price|intword}}
+																{% if not p.payment_plan == "None" %}
+																	<small>/{{p.payment_plan}}</small>
+																{% endif %}
+															</a>
+															<h4 class="posr color-white">{{p.property_type}}</h4>
+														</div>
+													</div>
+												</div>
+											</div>
+										{% endfor %}
+									{% else %}
+									{% endif %}
+								</div>
+							{% else %}
+								<p>We currently have no featured properties</p>
+							{% endif %}
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock content %}
+
+
+{% block js %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#add_favourite').click(function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: "POST",
+					url: "{% url 'properties:add_favorite' %}",
+					data: {
+						prop_id: $('#add_favourite').val(),
+						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+						action: 'post'
+					},
+					success: function (json) {
+						$("#add_favourite").html(json['result']);
+						toastr.success(json['message']);
+						console.log(json);
+					},
+					error: function (err) {
+						console.log(err);
+					}
+				})
+			})
+		});
+	</script>
+
+<!--	<script src="{% static 'customs/rating.js' %}"></script>-->
+	<script type="text/javascript">
+		// get all stars
+
+		const one = document.getElementById('first');
+		const two = document.getElementById('second');
+		const three = document.getElementById('third');
+		const four = document.getElementById('fourth');
+		const five = document.getElementById('fifth');
+
+		const form = document.querySelector('.rate-form');
+		const ratingls = document.querySelector('.rating-list');
+		const submit = document.getElementById('review-submit');
+		const csrfToken = document.getElementsByName('csrfmiddlewaretoken');
+
+		let agentID;
+		let starRatingVal = 0;
+		let commentVal = document.getElementById('comment-value');
+
+		const handleStarSelect = (size) => {
+			const children = ratingls.children
+			for(let i=0; i < children.length; i++) {
+				if(i <= size) {
+					children[i].classList.add('checked');
+				} else {
+					children[i].classList.remove('checked');
+				}
+			}
+		}
+
+		// longer version - to be optimized
+		const handleSelect = (selection) => {
+			switch(selection){
+				case 'first': {
+		//            one.classList.add('checked')
+		//            two.classList.remove('checked')
+		//            three.classList.remove('checked')
+		//            four.classList.remove('checked')
+		//            five.classList.remove('checked')
+					handleStarSelect(1)
+					return
+				}
+				case 'second': {
+		//            one.classList.add('checked')
+		//            two.classList.add('checked')
+		//            three.classList.remove('checked')
+		//            four.classList.remove('checked')
+		//            five.classList.remove('checked')
+					handleStarSelect(2)
+					return
+				}
+				case 'third': {
+		//            one.classList.add('checked')
+		//            two.classList.add('checked')
+		//            three.classList.add('checked')
+		//            four.classList.remove('checked')
+		//            five.classList.remove('checked')
+					handleStarSelect(3)
+					return
+				}
+				case 'fourth': {
+		//            one.classList.add('checked')
+		//            two.classList.add('checked')
+		//            three.classList.add('checked')
+		//            four.classList.add('checked')
+		//            five.classList.remove('checked')
+					handleStarSelect(4)
+					return
+				}
+				case 'fifth': {
+		//            one.classList.add('checked')
+		//            two.classList.add('checked')
+		//            three.classList.add('checked')
+		//            four.classList.add('checked')
+		//            five.classList.add('checked')
+					handleStarSelect(5)
+					return
+				}
+			}
+		}
+
+		const getNumericValue = (stringValue) => {
+			let numericValue;
+			if (stringValue === "first") {
+				numericValue = 1;
+			} else if (stringValue === "second") {
+				numericValue = 2;
+			} else if (stringValue === "third") {
+				numericValue = 3;
+			} else if (stringValue === "fourth") {
+				numericValue = 4;
+			} else if (stringValue === "fifth") {
+				numericValue = 5;
+			} else {
+				numericValue = 0;
+			}
+			return numericValue;
+		}
+
+		if (one) {
+			const arr = [one, two, three, four, five];
+
+			arr.forEach(item => item.addEventListener('mouseover', (event) => {
+				handleSelect(event.target.id)
+			}));
+
+			arr.forEach(item => item.addEventListener('click', (event) => {
+				const val = event.target.id;
+				console.log(val);
+
+				ratingls.addEventListener('click', (e) => {
+					e.preventDefault();
+					const id = e.target.id;
+					starRatingVal = getNumericValue(id);
+				})
+			}));
+
+			form.addEventListener('submit', (e) => {
+				e.preventDefault();
+
+				console.log(`current rating is ${starRatingVal}`);
+				console.log(`Agent ID: ${e.target.id}`);
+				console.log(`Comment: ${commentVal.value}`);
+				$.ajax({
+					type: 'POST',
+					// url: `/ratings/${e.target.id}/`,
+					url: "{% url 'agents:agent_ratings' agent.slug %}",
+					data: {
+						'csrfmiddlewaretoken': csrfToken[0].value,
+						'rating': starRatingVal,
+						'comment': commentVal.value,
+					},
+					success: function(response){
+						console.log(response)
+						toastr.success(`Agent successfully rated with ${response.score}`);
+						setTimeout(function () {
+							window.location.replace("{% url 'agents:detail' agent.slug %}");
+						}, 5000);
+					},
+					error: function(response){
+						toastr.error(`Oops... something went wrong do check your internet`);
+					}
+				});
+			});
+		}
+	</script>
+{% endblock js %}

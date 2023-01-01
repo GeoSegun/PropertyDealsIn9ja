@@ -1,0 +1,430 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}{{property.name}}{% endblock title %}
+
+{% block content %}
+
+	<!-- Listing Single Property -->
+	<section class="listing-title-area">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7 col-xl-8">
+					<div class="single_property_title mt30-767">
+						<h2>{{property.name}}</h2>
+						<p>{{property.property_address}}</p>
+					</div>
+				</div>
+				<div class="col-lg-5 col-xl-4">
+					<div class="single_property_social_share mt20">
+						<div class="spss float-left fn-400">
+							<ul class="mb0">
+								{% if  request.user.is_authenticated %}
+									{% if p.uploaded_by.business_user == request.user or request.user.is_superuser %}
+										<li class="list-inline-item"><a href="properties:delete"><i class="icon fa fa-trash text-white"></i></a></li>
+									{% else %}
+										<li class="list-inline-item">
+											<button
+												id="add_favourite"
+												class="btn btn-link p-0 border-0 btn-outline-light"
+												value="{{property.id}}">
+												{% if property in request.user.profile.favorite_properties.all %}
+													<i class="icon fa fa-heart text-white"></i>
+												{% else %}
+													<i class="icon fa fa-heart-o text-white"></i>
+												{% endif %}
+											</button>
+										</li>
+									{% endif %}
+								{% else %}
+									<li class="list-inline-item"><a href="{% url 'accounts:login' %}"><i class="icon fa fa-heart-o text-white"></i></a></li>
+								{% endif %}
+								<li class="list-inline-item"><a href="#"><span class="flaticon-share"></span></a></li>
+								<li class="list-inline-item"><a href="#"><span class="flaticon-printer"></span></a></li>
+							</ul>
+						</div>
+						<div class="price text-right tal-400">
+							<h2>
+								₦{{property.price|intword}}
+								{% if property.payment_plan %}
+									{% if property.payment_plan == "Monthly" %}
+										<small>/mo</small>
+									{% elif property.payment_plan == "Annually" %}
+										<small>/Annly</small>
+									{% elif property.payment_plan == "Quarterly" %}
+										<small>/Qtly</small>
+									{% elif property.payment_plan == "Half Yearly" %}
+										<small>/hlf-Yly</small>
+									{% endif %}
+								{% endif %}
+							</h2>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Listing Single Property -->
+	<section class="listing-title-area p0">
+		<div class="container-fluid">
+			<div class="row">
+				<div class="col-lg-12 p0">
+					<div class="listing_single_property_slider">
+						<div class="item">
+							<img class="img-fluid w100 h300" src="{{property.check_image_url}}" alt="{{property.name}}">
+						</div>
+						{% for i in property.property_images.all %}
+							<div class="item">
+								<img class="img-fluid w100 h300" src="{{i}}" alt="{{i}}">
+							</div>
+						{% endfor %}
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!-- Agent Single Grid View -->
+	<section class="our-agent-single pb30-991">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-lg-8">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="listing_single_description">
+								<div class="lsd_list">
+									<ul class="mb0">
+										<li class="list-inline-item"><a>{{property.property_type}}</a></li>
+										<li class="list-inline-item"><a>Beds: {{property.no_bed_room}}</a></li>
+										<li class="list-inline-item"><a>Baths: {{property.no_bath_room}}</a></li>
+										<li class="list-inline-item"><a>Sq Ft: {{property.plot_area}}</a></li>
+									</ul>
+								</div>
+								<h4 class="mb30">Description</h4>
+						    	<p class="mb25">{{property.description|safe}}</p>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="additional_details">
+								<div class="row">
+									<div class="col-lg-12">
+										<h4 class="mb15">Property Details</h4>
+									</div>
+									<div class="col-md-6 col-lg-6 col-xl-4">
+										<ul class="list-inline-item">
+											<li><p>Property ID : <strong>{{property.name}}</strong></p></li>
+											<li><p>Price : <strong>₦{{property.price|intword}}</strong></p></li>
+											<li><p>Property Size : <strong>{{property.plot_area}} Sq Ft</strong></p></li>
+<!--											<li><p>Year Built :</p></li>-->
+										</ul>
+<!--										<ul class="list-inline-item">-->
+<!--											<li><p><span>HZ27</span></p></li>-->
+<!--											<li><p><span>$130,000</span></p></li>-->
+<!--											<li><p><span>1560 Sq Ft</span></p></li>-->
+<!--											<li><p><span>2016-01-09</span></p></li>-->
+<!--										</ul>-->
+									</div>
+									<div class="col-md-6 col-lg-6 col-xl-4">
+										<ul class="list-inline-item">
+											<li><p>Bedrooms : <strong>{{property.no_bed_room}}</strong></p></li>
+											<li><p>Bathrooms : <strong>{{property.no_bath_room}}</strong></p></li>
+											<li><p>Featured : <strong>
+												{% if property.featured %}
+													Yes
+												{% else %}
+													No
+												{% endif %}
+											</strong></p></li>
+										</ul>
+<!--										<ul class="list-inline-item">-->
+<!--											<li><p><span>8</span></p></li>-->
+<!--											<li><p><span>4</span></p></li>-->
+<!--											<li><p><span>2</span></p></li>-->
+<!--											<li><p><span>200 SqFt</span></p></li>-->
+<!--										</ul>-->
+									</div>
+									<div class="col-md-6 col-lg-6 col-xl-4">
+										<ul class="list-inline-item">
+											<li><p>Property Type : <strong>{{property.property_type}}</strong></p></li>
+											<li><p>Property Status : <strong>{{property.property_status}}</strong></p></li>
+											<li><p>Added Since : <strong>{{property.uploaded_at|timesince}} ago</strong></p></li>
+										</ul>
+<!--										<ul class="list-inline-item">-->
+<!--											<li><p><span>Apartment</span></p></li>-->
+<!--											<li><p><span>For Sale</span></p></li>-->
+<!--										</ul>-->
+									</div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="product_single_content">
+								<div class="mbp_pagination_comments mt30" id="comment_list">
+									<ul class="total_reivew_view">
+										<li class="list-inline-item sub_titles">{{property.property_comment.all.count}} Reviews</li>
+										<li class="list-inline-item write_review">Write a Review</li>
+									</ul>
+									<!-- Reviews -->
+									{% for pc in property.property_comment.all %}
+										<div class="mbp_first media">
+											<img class="rounded-circle mr-3" width="80px" height="80px" src="{{pc.by.profile.image_url}}" alt="{{pc.by}}">
+											<div class="media-body">
+												<h4 class="sub_title mt-0">{{pc.by.username}}</h4>
+												<a class="sspd_postdate fz14">{{pc.created_on|naturalday}}</a>
+												<p class="mt10">{{pc.content}}</p>
+											</div>
+										</div>
+									{% empty %}
+										<div class="mbp_first media">
+											<h5>No reviews or comments yet</h5>
+										</div>
+									{% endfor %}
+									<!-- // Reviews // -->
+									<div class="custom_hr"></div>
+								</div>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="product_single_content">
+								<div class="mbp_pagination_comments mt30">
+									<div class="mbp_comment_form style2">
+										<h4>Write a Review</h4>
+										<form
+											class="comments_form"
+											hx-post="{% url 'properties:property_comments' property.slug %}"
+											hx-target="#comment_list"
+											_="on htmx:afterRequest reset() me">
+											{% csrf_token %}
+											<div class="form-group">
+											    <textarea name="comment" id="comment" class="form-control" rows="4" placeholder="Your Review"></textarea>
+											</div>
+
+											{% if request.user.is_authenticated or request.user.is_superuser %}
+												<button type="submit" class="btn btn-thm">Submit Review <span class="flaticon-right-arrow-1"></span></button>
+											{% else %}
+												<a href="{% url 'accounts:login' %}" class="btn btn-thm">Submit Review <span class="flaticon-right-arrow-1"></span></a>
+											{% endif %}
+										</form>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+				<div class="col-lg-4 col-xl-4">
+					<div class="sidebar_listing_list">
+						<div class="sidebar_advanced_search_widget">
+							<div class="sl_creator">
+								<h4 class="mb25">Listed By</h4>
+								<div class="media">
+									<img class="rounded-circle mr-3" width="80px" height="80px" src="{{property.uploaded_by.business_logo.url}}" alt="{{property.uploaded_by.business_name}}">
+									<div class="media-body">
+								    	<h5 class="mt-0 mb0">{{property.uploaded_by.business_name}}</h5>
+								    	<p class="mb0">{{property.uploaded_by.get_business_phone}}</p>
+								    	<p class="mb0">{{property.uploaded_by.business_email}}</p>
+								    	<a class="text-thm" href="{% url 'agents:detail' property.uploaded_by.slug %}">View My Listing</a>
+								  	</div>
+								</div>
+							</div>
+							{% if not request.user.username == property.uploaded_by.business_user.username and request.user.is_authenticated %}
+								<form method="post" action="{% url 'inboxes:send_direct_msg' %}">
+									<input type="hidden" name="to_user" id="to_user" value="{{ property.uploaded_by.business_user.username }}">
+									<ul class="sasw_list mb0">
+										<li class="search_area">
+											<div class="form-group">
+												<textarea
+													name="message" id="message"
+													class="form-control required"
+													rows="3"
+													required="required"
+													placeholder="Write your message to this agent.">
+												</textarea>
+											</div>
+										</li>
+										<li>
+											<div class="search_option_button">
+												{% if request.user.is_authenticated %}
+													<button type="submit" id="send_msg" class="btn btn-block btn-thm">Send <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+												{% else %}
+													<a href="{% url 'accounts:login' %}" class="btn btn-block btn-thm">Send <i class="fa fa-paper-plane-o" aria-hidden="true"></i></a>
+												{% endif %}
+											</div>
+										</li>
+									</ul>
+								</form>
+							{% endif %}
+						</div>
+					</div>
+
+					<div class="terms_condition_widget">
+						<h4 class="title">Featured Properties</h4>
+						<div class="sidebar_feature_property_slider">
+							{% if featured_properties.count > 1 %}
+
+								{% for p in featured_properties %}
+									<div class="item">
+										<div class="feat_property home7 agent">
+											<div class="thumb">
+												<img class="img-whp" src="{{p.check_image_url}}" alt="{{p.name}}">
+												<div class="thmb_cntnt">
+													<ul class="tag mb0">
+														<li class="list-inline-item"><a>{{p.property_status}}</a></li>
+														<li class="list-inline-item"><a>Featured</a></li>
+													</ul>
+													<a class="fp_price">N{{p.price|intword}}
+														{% if not p.payment_plan == "None" %}
+															<small>/{{p.payment_plan}}</small>
+														{% endif %}
+													</a>
+													<h4 class="posr color-white">{{p.property_type}}</h4>
+												</div>
+											</div>
+										</div>
+									</div>
+								{% endfor %}
+							{% else %}
+							{% endif %}
+						</div>
+					</div>
+<!--					TODO create an last viewed in the backend-->
+<!--					<div class="sidebar_feature_listing">-->
+<!--						<h4 class="title">Recently Viewed</h4>-->
+<!--						<div class="media">-->
+<!--							<img class="align-self-start mr-3" src="images/blog/fls1.jpg" alt="fls1.jpg">-->
+<!--							<div class="media-body">-->
+<!--						    	<h5 class="mt-0 post_title">Nice Room With View</h5>-->
+<!--						    	<a href="#">$13,000/<small>/mo</small></a>-->
+<!--						    	<ul class="mb0">-->
+<!--						    		<li class="list-inline-item">Beds: 4</li>-->
+<!--						    		<li class="list-inline-item">Baths: 2</li>-->
+<!--						    		<li class="list-inline-item">Sq Ft: 5280</li>-->
+<!--						    	</ul>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="media">-->
+<!--							<img class="align-self-start mr-3" src="images/blog/fls2.jpg" alt="fls2.jpg">-->
+<!--							<div class="media-body">-->
+<!--						    	<h5 class="mt-0 post_title">Villa called Archangel</h5>-->
+<!--						    	<a href="#">$13,000<small>/mo</small></a>-->
+<!--						    	<ul class="mb0">-->
+<!--						    		<li class="list-inline-item">Beds: 4</li>-->
+<!--						    		<li class="list-inline-item">Baths: 2</li>-->
+<!--						    		<li class="list-inline-item">Sq Ft: 5280</li>-->
+<!--						    	</ul>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="media">-->
+<!--							<img class="align-self-start mr-3" src="images/blog/fls3.jpg" alt="fls3.jpg">-->
+<!--							<div class="media-body">-->
+<!--						    	<h5 class="mt-0 post_title">Sunset Studio</h5>-->
+<!--						    	<a href="#">$13,000<small>/mo</small></a>-->
+<!--						    	<ul class="mb0">-->
+<!--						    		<li class="list-inline-item">Beds: 4</li>-->
+<!--						    		<li class="list-inline-item">Baths: 2</li>-->
+<!--						    		<li class="list-inline-item">Sq Ft: 5280</li>-->
+<!--						    	</ul>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--					</div>-->
+				</div>
+			</div>
+			{% if similar_properties %}
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="mt30 mb30">Similar Properties</h4>
+					</div>
+					{% for sp in similar_properties %}
+						<!-- Similar Properties -->
+						<div class="col-lg-4">
+							<div class="feat_property">
+								<div class="thumb">
+									<img class="img-whp" src="{{sp.check_image_url}}" alt="{{sp.name}}">
+									<div class="thmb_cntnt">
+										<ul class="tag mb0">
+											<li class="list-inline-item">{{sp.property_status}}</li>
+											{% if sp.featured %} <li class="list-inline-item">Featured</li>{% endif %}
+										</ul>
+										<ul class="mb0">
+											{% if request.user.is_authenticated %}
+												{% if sp.uploaded_by.business_user == request.user or request.user.is_superuser %}
+													<li class="list-inline-item"><a href="properties:delete"><i class="icon fa fa-trash text-white"></i></a></li>
+												{% else %}
+													{% if sp in request.user.profile.favorite_properties.all %}
+														<li class="list-inline-item"><a href="{% url 'properties:remove_favorite' p.slug %}"><i class="icon fa fa-heart text-white"></i></a></li>
+													{% else %}
+														<li class="list-inline-item"><a href="{% url 'properties:add_favorite' p.slug %}"><i class="icon fa fa-heart-o text-white"></i></a></li>
+													{% endif %}
+												{% endif %}
+											{% else %}
+												<li class="list-inline-item"><a href="{% url 'accounts:login' %}"><i class="icon fa fa-heart-o text-white"></i></a></li>
+											{% endif %}
+										</ul>
+										<a class="fp_price">N{{sp.price}}{% if sp.payment_plan %}<small>/{{sp.payment_plan}}</small>{% endif %}</a>
+									</div>
+								</div>
+								<div class="details">
+									<div class="tc_content">
+										<p class="text-thm">{{sp.property_type}}</p>
+										<h4>{{sp.name}}</h4>
+										<p><span class="flaticon-placeholder"></span> {{sp.property_address}}</p>
+										<ul class="prop_details mb0">
+											<li class="list-inline-item"><a href="#">Beds: {{sp.no_bed_room}}</a></li>
+											<li class="list-inline-item"><a href="#">Baths: {{sp.no_bath_room}}</a></li>
+											<li class="list-inline-item"><a href="#">Sq Ft: {{sp.plot_area}}</a></li>
+										</ul>
+									</div>
+									<div class="fp_footer">
+										<ul class="fp_meta float-left mb0">
+											<li class="list-inline-item"><a><img class="rounded-circle" width="30px" height="30px" src="{{sp.uploaded_by.business_logo_url}}" alt="{{sp.uploaded_by.business_name}}"></a></li>
+											<li class="list-inline-item"><a>{{sp.uploaded_by.business_name}}</a></li>
+										</ul>
+										<div class="fp_pdate float-right">{{sp.uploaded_at|timesince}} ago</div>
+									</div>
+								</div>
+							</div>
+						</div>
+						<!-- // Similar Properties // -->
+					{% endfor %}
+				</div>
+			{% else %}
+				<div class="row">
+					<div class="col-lg-12">
+						<h4 class="mt30 mb30">No Similar Properties</h4>
+					</div>
+				</div>
+			{% endif %}
+		</div>
+	</section>
+
+{% endblock %}
+
+
+{% block js %}
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#add_favourite').click(function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: "POST",
+					url: "{% url 'properties:add_favorite' %}",
+					data: {
+						prop_id: $('#add_favourite').val(),
+						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+						action: 'post'
+					},
+					success: function (json) {
+						$("#add_favourite").html(json['result']);
+						toastr.success(json['message']);
+						console.log(json);
+					},
+					error: function (err) {
+						console.log(err);
+					}
+				})
+			})
+		});
+	</script>
+{% endblock js %}

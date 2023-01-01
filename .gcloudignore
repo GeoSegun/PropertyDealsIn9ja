@@ -1,0 +1,9 @@
+.git
+.gitignore
+__pycache__/
+/setup.cfg
+docker_deploy_dir/docker-compose-deploy.yml
+docker_deploy_dir/docker-compose.yml
+docker_deploy_dir/Dockerfile
+Makefile
+README.md

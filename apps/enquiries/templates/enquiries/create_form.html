@@ -1,0 +1,153 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %}Create Enquiries{% endblock title %}
+
+{% block content %}
+
+	<!-- Inner Page Breadcrumb -->
+	<section class="inner_page_breadcrumb">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-6">
+					<div class="breadcrumb_content">
+						<h4 class="breadcrumb_title">Add Your Enquiry</h4>
+						<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+						    <li class="breadcrumb-item active" aria-current="page">Create Enquiry</li>
+						</ol>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our LogIn Register -->
+	<section class="our-log-reg bgc-fa">
+		<div class="container">
+			<div class="row">
+<!--				<div class="col-sm-12 col-lg-8 offset-lg-1">-->
+                <div class="col-sm-12 col-lg-10 offset-lg-1">
+					<div class="sign_up_form inner_page">
+						<div class="heading">
+							<h3 class="text-center">Enquire to get the best from us</h3>
+							<p class="text-center">Fill out the form below and one of our representatives in your region will contact you.</p>
+						</div>
+						<div class="details">
+							<form method="POST" action="{{ request.path }}">
+								{% csrf_token %}
+            					<input type="hidden" name="next" value="{{ request.GET.next }}"/>
+								{% if request.user.is_authenticated %}
+								{% else %}
+									<div class="form-group">
+										<label><small>Full Name</small></label>
+										{% render_field form.guest_name|attr:"required"|attr:"type:text"|attr:"placeholder:John Ezeh" class="form-control" %}
+									</div>
+									<div class="form-group">
+										<label><small>Phone Number</small></label>
+										{% render_field form.guest_phone|attr:"required"|attr:"type:tel"|attr:"placeholder:Phone Number(+2348012345678)" class="form-control" %}
+									</div>
+									<div class="form-group">
+										<label><small>Email</small></label>
+										{% render_field form.guest_email|attr:"required"|attr:"type:email"|attr:"placeholder:john@email.com" class="form-control" %}
+									</div>
+								{% endif %}
+								<div class="row">
+									<div class="col-md-6">
+										<div class="form-group">
+											<label><small>State/Province</small></label>
+											<select id="selected_state" name="state" required class="form-control" data-live-search="true" data-width="100%">
+												{% for s in states %}
+													<option value="{{s}}">{{s}}</option>
+												{% endfor %}
+											</select>
+										</div>
+									</div>
+									<div class="col-md-6">
+										<div class="form-group">
+											<label><small>City</small></label>
+											<select id="selected_city" name="city" required class="form-control" data-live-search="true" data-width="100%">
+												<option value="" disabled selected>Select city</option>
+											</select>
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label><small>Property Type</small></label>
+									{% render_field form.enquiry_property_type|attr:"required"|attr:"data-live-search:true"|attr:"placeholder:Property Type" class="form-control" %}
+								</div>
+								<div class="form-group">
+									<label><small>Property Status</small></label>
+									{% render_field form.enquiry_property_status|attr:"required"|attr:"data-live-search:true"|attr:"placeholder:Property Status" class="form-control" %}
+								</div>
+								<div class="row">
+									<div class="col-6">
+										<div class="form-group">
+										<label><small>Your Minimum Budget</small></label>
+											{% render_field form.enquiry_budget_min|attr:"required"|attr:"type:number"|attr:"placeholder:0.00" class="form-control" %}
+										</div>
+									</div>
+									<div class="col-6">
+										<div class="form-group">
+											<label><small>Your Maximum Budget</small></label>
+											{% render_field form.enquiry_budget_max|attr:"required"|attr:"type:number"|attr:"placeholder:0.00" class="form-control" %}
+										</div>
+									</div>
+								</div>
+								<div class="form-group">
+									<label><small>Inspection Date</small></label>
+									{% render_field form.inspection_date|attr:"required"|attr:"type:date"|attr:"min:{new Date().toISOString().split('T')[0]}" class="form-control" %}
+								</div>
+								<div class="form-group">
+									<label><small>Descriptions</small></label>
+									{% render_field form.enquiry_description|attr:"required"|attr:"type:text"|attr:"row:3"|attr:"placeholder:More Description of what you want from us" class="form-control" %}
+								</div>
+								<input type="submit" class="btn btn-log btn-block btn-thm2" value="Submit Enquiry">
+							</form>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!--JS Get States and Cities -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#selected_state").on("change", function () {
+                let stateVal = $("#selected_state").val();
+
+                console.log(stateVal);
+                $.ajax({
+                    url: "{% url 'enquiries:get_cities' %}",
+                    type: "post",
+                    data: {
+                        "state": stateVal,
+                        "csrfmiddlewaretoken": "{{csrf_token}}"
+                    },
+                    dataType: "json",
+                    before: function () {
+                    },
+                    success: function (res) {
+                        let cities = res.cities;
+                        console.log(res.success);
+                        $('#selected_city').empty();
+                        $.each(cities, function(index, item)
+                        {
+                            console.log(item);
+                            $("#selected_city").append("<option value='"+item +"'>"+item +"</option>");
+                        });
+
+                        console.log("worked till here... \n\n\n");
+                    }
+                })
+            });
+        });
+    </script>
+	<!--JS Get States and Cities -->
+{% endblock %}
+

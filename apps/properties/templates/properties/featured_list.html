@@ -1,0 +1,28 @@
+{% load humanize %}
+
+{% if featured_properties.count > 1 %}
+
+    {% for p in featured_properties %}
+        <div class="item">
+            <div class="feat_property home7 agent">
+                <div class="thumb">
+                    <img class="img-whp" src="{{p.check_image_url}}" alt="{{p.name}}">
+                    <div class="thmb_cntnt">
+                        <ul class="tag mb0">
+                            <li class="list-inline-item"><a>{{p.property_status}}</a></li>
+                            <li class="list-inline-item"><a>Featured</a></li>
+                        </ul>
+                        <a class="fp_price">N{{p.price|intword}}
+                            {% if not p.payment_plan == "None" %}
+                                <small>/{{p.payment_plan}}</small>
+                            {% endif %}
+                        </a>
+                        <h4 class="posr color-white">{{p.property_type}}</h4>
+                    </div>
+                </div>
+            </div>
+        </div>
+    {% endfor %}
+
+{% else %}
+{% endif %}

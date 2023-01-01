@@ -1,0 +1,158 @@
+<ul class="mb0">
+    <li class="list-inline-item mt10">
+        <div class="file-upload">
+<!--                                    <button class="file-upload-btn" type="button"-->
+<!--                                            onclick="$('.file-upload-input').trigger( 'click' )">Add Image-->
+<!--                                    </button>-->
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" name="property_image" type='file' onchange="readURL(this);" accept="image/*"/>
+                <div class="drag-text">
+                    <h3>Click to add Main Property Image</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" src="#" alt="your image"/>
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        Remove <span class="image-title">Uploaded Image</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="list-inline-item mt10">
+        <div class="file-upload">
+<!--                                    <button class="file-upload-btn" type="button"-->
+<!--                                            onclick="$('.file-upload-input').trigger( 'click' )">Add Image-->
+<!--                                    </button>-->
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" name="property_image" type='file' onchange="readURL(this);" accept="image/*"/>
+                <div class="drag-text">
+                    <h3>Click to add Main Property Image</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" src="#" alt="your image"/>
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        Remove <span class="image-title">Uploaded Image</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="list-inline-item mt10">
+        <div class="file-upload">
+<!--                                    <button class="file-upload-btn" type="button"-->
+<!--                                            onclick="$('.file-upload-input').trigger( 'click' )">Add Image-->
+<!--                                    </button>-->
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" name="property_image" type='file' onchange="readURL(this);" accept="image/*"/>
+                <div class="drag-text">
+                    <h3>Click to add Main Property Image</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" src="#" alt="your image"/>
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        Remove <span class="image-title">Uploaded Image</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="list-inline-item mt10">
+        <div class="file-upload">
+<!--                                    <button class="file-upload-btn" type="button"-->
+<!--                                            onclick="$('.file-upload-input').trigger( 'click' )">Add Image-->
+<!--                                    </button>-->
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" name="property_image" type='file' onchange="readURL(this);" accept="image/*"/>
+                <div class="drag-text">
+                    <h3>Click to add Main Property Image</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" src="#" alt="your image"/>
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        Remove <span class="image-title">Uploaded Image</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </li>
+    <li class="list-inline-item mt10">
+        <div class="file-upload">
+<!--                                    <button class="file-upload-btn" type="button"-->
+<!--                                            onclick="$('.file-upload-input').trigger( 'click' )">Add Image-->
+<!--                                    </button>-->
+            <div class="image-upload-wrap">
+                <input class="file-upload-input" name="property_image" type='file' onchange="readURL(this);" accept="image/*"/>
+                <div class="drag-text">
+                    <h3>Click to add Main Property Image</h3>
+                </div>
+            </div>
+            <div class="file-upload-content">
+                <img class="file-upload-image" src="#" alt="your image"/>
+                <div class="image-title-wrap">
+                    <button type="button" onclick="removeUpload()" class="remove-image">
+                        Remove <span class="image-title">Uploaded Image</span>
+                    </button>
+                </div>
+            </div>
+        </div>
+    </li>
+</ul>
+
+
+
+
+
+
+
+
+
+<ul class="mb0">
+                            <li class="list-inline-item mt10">
+                                <div id="property_img">
+                                </div>
+                                <div class="custom-file">
+                                    {% render_field form.property_image|attr:"required"|attr:"accept: .gif, .jpg, .png"|attr:"id:property_image"|attr:"type:file" %}
+                                    <label class="custom-file-label" for="property_image" style="width:250px">Main Property Image</label>
+                                </div>
+                            </li>
+                            <li class="list-inline-item mt10">
+                                <div id="exterior_img">
+                                </div>
+                                <div class="custom-file">
+                                    {% render_field form.exterior_image1|attr:"required"|attr:"accept: .gif, .jpg, .png"|attr:"id:exterior_image1"|attr:"type:file" %}
+                                    <label class="custom-file-label" for="exterior_image1" style="width:250px">Exterior Image 1</label>
+                                </div>
+                            </li>
+                            <li class="list-inline-item mt10">
+                                <div id="exterior_img2">
+                                </div>
+                                <div class="custom-file">
+                                    {% render_field form.exterior_image2|attr:"required"|attr:"accept: .gif, .jpg, .png"|attr:"id:exterior_image2"|attr:"type:file" %}
+                                    <label class="custom-file-label" for="exterior_image2" style="width:250px">Exterior Image 2</label>
+                                </div>
+                            </li>
+                            <li class="list-inline-item mt10">
+                                <div id="interior_img">
+                                </div>
+                                <div class="custom-file">
+                                    {% render_field form.interior_image1|attr:"required"|attr:"accept: .gif, .jpg, .png"|attr:"id:interior_image1"|attr:"type:file" %}
+                                    <label class="custom-file-label" for="interior_image1" style="width:250px">Interior Image 1</label>
+                                </div>
+                            </li>
+                            <li class="list-inline-item mt10">
+                                <div id="interior_img2">
+                                </div>
+                                <div class="custom-file">
+                                    {% render_field form.interior_image2|attr:"required"|attr:"accept: .gif, .jpg, .png"|attr:"id:interior_image2"|attr:"type:file" %}
+                                    <label class="custom-file-label" for="interior_image2" style="width:250px">Interior Image 2</label>
+                                </div>
+                            </li>
+                        </ul>

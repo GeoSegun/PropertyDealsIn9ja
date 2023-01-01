@@ -1,0 +1,116 @@
+{% extends 'layout.html' %}
+
+{% block title %}Contact{% endblock %}
+
+{% block content %}
+	<!-- Inner Page Breadcrumb -->
+	<section class="inner_page_breadcrumb">
+		<div class="container">
+			<div class="row">
+				<div class="col-xl-6">
+					<div class="breadcrumb_content">
+						<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+						    <li class="breadcrumb-item active" aria-current="page">Contact</li>
+						</ol>
+						<h4 class="breadcrumb_title">Contact Us</h4>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+	<!-- Our Contact -->
+	<section class="our-contact pb0 bgc-f7">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-7 col-xl-8">
+					<div class="form_grid">
+						<h4 class="mb5">Send Us An Email</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. Maecenas mattis enim at arcu feugiat, sit amet blandit nisl iaculis. Donec lacus odio, malesuada eu libero sit amet, congue aliquam leo. In hac habitasse platea dictumst.</p>
+			            <form class="contact_form" id="contact_form" name="contact_form" action="{% url 'contacts:contact' %}" method="post" novalidate="novalidate">
+							{% csrf_token %}
+							<div class="row">
+				                <div class="col-md-6">
+				                    <div class="form-group">
+										{% if request.user.username %}
+											<input name="name" class="form-control" type="text" value="{{request.user.username}}" disabled>
+										{% else %}
+											<input id="form_name" name="name" class="form-control" required="required" type="text" placeholder="Name">
+										{% endif %}
+									</div>
+				                </div>
+				                <div class="col-md-6">
+				                    <div class="form-group">
+										{% if request.user.email %}
+											<input name="email" class="form-control" type="email" value="{{request.user.email}}"disabled>
+										{% else %}
+				                    	<input id="form_email" name="email" class="form-control required email" required="required" type="email" placeholder="Email">
+										{% endif %}
+				                    </div>
+				                </div>
+				                <div class="col-md-6">
+				                    <div class="form-group">
+										{% if request.user.email %}
+											<input name="phone" value="{{request.user.phone}}" class="form-control required phone" required="required" type="phone" placeholder="{{request.user.phone}}">
+										{% else %}
+				                    		<input id="form_phone" name="phone" class="form-control required phone" required="required" type="phone" placeholder="Phone">
+										{% endif %}
+				                    </div>
+				                </div>
+				                <div class="col-md-6">
+				                    <div class="form-group">
+					                    <input id="form_subject" name="subject" class="form-control required" required="required" type="text" placeholder="Subject">
+									</div>
+				                </div>
+				                <div class="col-sm-12">
+		                            <div class="form-group">
+		                                <textarea id="form_message" name="message" class="form-control required" rows="8" required="required" placeholder="Your Message"></textarea>
+		                            </div>
+				                    <div class="form-group mb0">
+					                    <button type="submit" class="btn btn-lg btn-thm">Send Message</button>
+				                    </div>
+				                </div>
+			                </div>
+			            </form>
+					</div>
+				</div>
+				<div class="col-lg-5 col-xl-4">
+					<div class="contact_localtion">
+						<h4>Contact Us</h4>
+						<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit. In gravida quis libero eleifend ornare. habitasse platea dictumst.</p>
+						<div class="content_list">
+							<h5>Address</h5>
+							<p>Lekki Lagos, <br>Nigeria</p>
+						</div>
+						<div class="content_list">
+							<h5>Phone</h5>
+							<p>+2348033210841</p>
+						</div>
+						<div class="content_list">
+							<h5>Mail</h5>
+							<p>info@propertydealsin9ja.com</p>
+						</div>
+						<h5>Follow Us</h5>
+						<ul class="contact_form_social_area">
+							<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+							<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+		</div>
+		<div class="container-fluid p0 mt50">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="h600" id="map-canvas">
+						<iframe src="https://www.google.com/maps/embed?pb=!1m18!1m12!1m3!1d3964.4101748803946!2d3.5581491139141272!3d6.4696129255844355!2m3!1f0!2f0!3f0!3m2!1i1024!2i768!4f13.1!3m3!1m2!1s0x103bf7381cd2ebcd%3A0xabc62430fcf1a818!2sAja%20106104%2C%20Lagos!5e0!3m2!1sen!2sng!4v1665428694718!5m2!1sen!2sng" width="600" height="100%" style="border:0;" allowfullscreen="" loading="lazy" referrerpolicy="no-referrer-when-downgrade"></iframe>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

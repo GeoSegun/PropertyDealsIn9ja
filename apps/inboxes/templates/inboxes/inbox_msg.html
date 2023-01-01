@@ -1,0 +1,23 @@
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% for msg in directs %}
+    {% if msg.msg_sender.username == request.user.username %}
+        <li class="media reply first" id="reply_msg">
+            <div class="media-body text-right">
+                <div class="date_time">{{msg.created_at|naturaltime}}</div>
+                <p>{{msg.message}}</p>
+            </div>
+        </li>
+    {% else %}
+        <li class="media sent">
+            <span class="contact-status busy"></span>
+            <img class="rounded-circle align-self-start mr-3" width="50px" height="50px" src="{{msg.msg_sender.profile.image_url}}" alt="{{msg.msg_sender.username}}"/>
+            <div class="media-body">
+                <div class="date_time">{{msg.created_at|naturaltime}}</div>
+                <p>{{msg.message}}</p>
+            </div>
+        </li>
+    {% endif %}
+{% endfor %}

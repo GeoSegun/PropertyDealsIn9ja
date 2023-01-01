@@ -1,0 +1,52 @@
+{% extends 'user_layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb5">
+                <div class="breadcrumb_content style2">
+                    <h2 class="breadcrumb_title">Message</h2>
+                    <p>We are glad to see you again!</p>
+                </div>
+            </div>
+            <div class="col-lg-12 col-xl-12">
+                <div class="message_container">
+                    <div class="inbox_user_list">
+                        <div class="iu_heading">
+                            Recent Messages
+                        </div>
+                        <ul>
+                            {% for user in user_conversation_list %}
+                                <li class="contact">
+                                    <a href="{% url 'chats:chat' user.username %}">
+                                        <div class="wrap">
+                                            <span class="contact-status online"></span>
+                                            <img class="img-fluid" src="{{ user.profile.image_url }}" alt="{{ user.username }}"/>
+                                            <div class="meta">
+                                                <h5 class="name">{{ user.full_name }}</h5>
+                                                <p class="preview">{{ user.get_user_last_message }}</p>
+                                            </div>
+                                            {% if user.get_user_msg_count %}
+                                                <div class="m_notif">{{ user.get_user_msg_count }}</div>
+                                            {% endif %}
+                                        </div>
+                                    </a>
+                                </li>
+                            {% empty %}
+                                <li class="contact">
+                                    <div class="wrap">
+                                        <h3 class="name"><i class="fa fa-inbox"></i> Message Inbox</h3>
+                                        <p class="preview">You currently have no message available.</p>
+                                    </div>
+                                </li>
+                            {% endfor %}
+                        </ul>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

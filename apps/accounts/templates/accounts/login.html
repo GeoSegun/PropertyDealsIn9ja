@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}login{% endblock %}
+
+{% block content %}
+    <div class="container">
+        <div class="row mt25 mb20">
+            <div class="col-lg-6 col-xl-6">
+                <div class="login_thumb">
+                    <img class="img-responsive w100 h450" src="{% static 'images/resource/login.jpg' %}" alt="login.jpg">
+                </div>
+            </div>
+            <div class="col-lg-6 col-xl-6">
+                <div class="login_form">
+                    <form method="post">
+                        {% csrf_token %}
+                        <div class="heading"><h4>Login</h4></div>
+                        <div class="row mt25">
+                            <div class="col-lg-12">
+                                <button class="btn btn-googl btn-block">
+                                    <a href="{% url 'social:begin' 'google-oauth2' %}">
+                                    <i class="fa fa-google float-left mt5"></i>
+                                        Login with Google</a>
+                                </button>
+                            </div>
+                        </div>
+                        <hr>
+                        <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+                        <div class="input-group mb-2 mr-sm-2">
+                            <input type="email" name="email" class="form-control" placeholder="example@email.com">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="flaticon-user"></i></div>
+                            </div>
+                        </div>
+                        <div class="input-group form-group">
+                            <input type="password" name="password" class="form-control" placeholder="********">
+                            <div class="input-group-prepend">
+                                <div class="input-group-text"><i class="flaticon-password"></i></div>
+                            </div>
+                        </div>
+                        <div class="form-group custom-control custom-checkbox">
+                            <input type="checkbox" class="custom-control-input" id="customSwitch1">
+                            <label class="custom-control-label" for="customSwitch1">Remember me</label>
+                            <a class="btn-fpswd float-right" href="#">Lost your password?</a>
+                        </div>
+                        <button type="submit" class="btn btn-log btn-block btn-thm">Log In</button>
+                        <p class="text-center">Don't have an account? <a class="text-thm" href="{% url 'accounts:signup' %}">Register</a></p>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+{% endblock %}

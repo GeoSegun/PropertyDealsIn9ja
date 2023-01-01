@@ -1,0 +1,443 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block title %}Properties{% endblock title %}
+
+{% block content %}
+
+	<!-- Listing Grid View -->
+	<section class="our-listing bgc-f7 pb30-991">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="listing_sidebar dn db-991">
+						<div class="sidebar_content_details style3">
+							<!-- <a href="javascript:void(0)" class="closebtn" onclick="closeNav()">&times;</a> -->
+							<div class="sidebar_listing_list style2 mobile_sytle_sidebar mb0">
+								<div class="sidebar_advanced_search_widget">
+									<h4 class="mb20">Advanced Search
+										<a class="filter_closed_btn float-right" href="#">
+											<span class="flaticon-close"></span>
+										</a>
+									</h4>
+									<form method="GET" action="{% url 'properties:list' %}">
+<!--									<form hx-get="{% url 'properties:list' %}" hx-target="body">-->
+										{% csrf_token %}
+										<ul class="sasw_list style2 mb0">
+											{% for field in form %}
+												{% if forloop.counter0 == 0%}
+												<li class="search_area">
+													<div class="form-group">
+														{% render_field field|attr:"placeholder:Search by Name" class="form-control" %}
+														<label><span class="flaticon-magnifying-glass"></span></label>
+													</div>
+												</li>
+												{% endif %}
+												{% if forloop.counter0 == 1%}
+													<li>
+														<div class="search_option_two">
+															<div class="candidate_revew_select">
+																{% render_field field class="form-control form-control-sm" %}
+															</div>
+														</div>
+													</li>
+												{% endif %}
+												{% if forloop.counter0 == 2%}
+													<li>
+														<div class="search_option_two">
+															<div class="candidate_revew_select">
+																{% render_field field class="form-control form-control-sm" %}
+															</div>
+														</div>
+													</li>
+												{% endif %}
+												{% if forloop.counter0 == 3%}
+													<li class="search_area">
+														<div class="form-group">
+															{% render_field field|attr:"placeholder:Agency" class="form-control form-control-sm" %}
+	<!--													<input type="text" class="form-control" name="uploaded_by" placeholder="Agency">-->
+															<label><i class="fa fa-user-o" aria-hidden="true"></i></label>
+														</div>
+													</li>
+												{% endif %}
+												{% if forloop.counter0 == 4%}
+													<li class="search_area">
+														<div class="form-group">
+															{% render_field field|attr:"placeholder:Num of Bedroom" class="form-control form-control-sm" %}
+														</div>
+													</li>
+												{% endif %}
+												{% if forloop.counter0 == 5%}
+													<li class="search_area">
+														<div class="form-group">
+															{% render_field field|attr:"placeholder:Num of Bathroom" class="form-control form-control-sm" %}
+														</div>
+													</li>
+												{% endif %}
+												{% if forloop.counter0 == 8%}
+													<li class="min_area style2 list-inline-item">
+														<div class="form-group">
+															{% render_field field|attr:"placeholder:Max Price"|attr:"type:number" class="form-control form-control-sm" %}
+														</div>
+													</li>
+												{% endif %}
+												{% if forloop.counter0 == 9%}
+													<li class="min_area style2 list-inline-item">
+														<div class="form-group">
+															{% render_field field|attr:"placeholder:Min Price"|attr:"type:number" class="form-control form-control-sm" %}
+														</div>
+													</li>
+												{% endif %}
+											{% endfor %}
+											<li>
+												<div class="search_option_button">
+													<button type="submit" class="btn btn-block btn-thm">Search</button>
+												</div>
+											</li>
+										</ul>
+									</form>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="breadcrumb_content style2 mb0-991">
+						<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+						    <li class="breadcrumb-item active text-thm" aria-current="page">All Properties</li>
+						</ol>
+						<h2 class="breadcrumb_title">All Available Properties</h2>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="listing_list_style mb20-xsd tal-991">
+						<ul>
+							<li class="list-inline-item"><a><span class="fa fa-th-large"></span></a></li>
+							<li class="list-inline-item"><a><span class="fa fa-th-list"></span></a></li>
+						</ul>
+					</div>
+					<div class="dn db-991 mt30 mb0">
+						<div id="main2">
+							<span id="open2" class="flaticon-filter-results-button filter_open_btn style2"> Show Filter</span>
+						</div>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-xl-4">
+					<div class="sidebar_listing_grid1 dn-991">
+						<div class="sidebar_listing_list">
+							<div class="sidebar_advanced_search_widget">
+								<form method="GET" action="{% url 'properties:list' %}">
+<!--								<form hx-get="{% url 'properties:list' %}" hx-target="body">-->
+									{% csrf_token %}
+									<ul class="sasw_list mb0">
+										{% for field in form %}
+											{% if forloop.counter0 == 0%}
+												<li class="search_area">
+													<div class="form-group">
+														{% render_field field|attr:"placeholder:Search by Name" class="form-control" %}
+														<label><span class="flaticon-magnifying-glass"></span></label>
+													</div>
+												</li>
+											{% endif %}
+											{% if forloop.counter0 == 1%}
+												<li>
+													<div class="search_option_two">
+														<div class="candidate_revew_select">
+															{% render_field field class="form-control" %}
+														</div>
+													</div>
+												</li>
+											{% endif %}
+											{% if forloop.counter0 == 2%}
+												<li>
+													<div class="search_option_two">
+														<div class="candidate_revew_select">
+															{% render_field field class="form-control" %}
+														</div>
+													</div>
+												</li>
+											{% endif %}
+											{% if forloop.counter0 == 3%}
+												<li class="search_area">
+													<div class="form-group">
+														{% render_field field|attr:"placeholder:Agency" class="form-control" %}
+<!--													<input type="text" class="form-control" name="uploaded_by" placeholder="Agency">-->
+														<label><i class="fa fa-user-o" aria-hidden="true"></i></label>
+													</div>
+												</li>
+											{% endif %}
+											{% if forloop.counter0 == 4%}
+												<li class="search_area">
+													<div class="form-group">
+														{% render_field field|attr:"placeholder:Num of Bedroom" class="form-control" %}
+													</div>
+												</li>
+											{% endif %}
+											{% if forloop.counter0 == 5%}
+												<li class="search_area">
+													<div class="form-group">
+														{% render_field field|attr:"placeholder:Num of Bathroom" class="form-control" %}
+													</div>
+												</li>
+											{% endif %}
+											{% if forloop.counter0 == 8%}
+												<li class="max_area list-inline-item">
+													<div class="form-group">
+														{% render_field field|attr:"placeholder:Max Price"|attr:"type:number" class="form-control" %}
+													</div>
+												</li>
+											{% endif %}
+
+											{% if forloop.counter0 == 9%}
+												<li class="min_area list-inline-item">
+													<div class="form-group">
+														{% render_field field|attr:"placeholder:Min Price"|attr:"type:number" class="form-control" %}
+													</div>
+												</li>
+											{% endif %}
+										{% endfor %}
+										<li>
+											<div class="search_option_button">
+												<button type="submit" class="btn btn-block btn-thm">Search</button>
+											</div>
+										</li>
+									</ul>
+								</form>
+							</div>
+						</div>
+
+						{% if featured_properties %}
+							<div class="terms_condition_widget">
+								<h4 class="title">Featured Properties</h4>
+								<div class="sidebar_feature_property_slider">
+									{% for f in featured_properties %}
+										<div class="item">
+											<div class="feat_property home7">
+												<div class="thumb">
+													<img class="img-whp" src="{{f.property_image.url}}" alt="{{f.name}}">
+													<div class="thmb_cntnt">
+														<ul class="tag mb0">
+															<li class="list-inline-item"><a class="text-white">{{f.property_status}}</a></li>
+															<li class="list-inline-item"><a class="text-white">Featured</a></li>
+														</ul>
+														<a class="fp_price" href="#">N{{f.price}}<small>/mo</small></a>
+														<h4 class="posr color-white">Renovated Apartment</h4>
+													</div>
+												</div>
+											</div>
+										</div>
+									{% endfor %}
+								</div>
+							</div>
+						{% endif %}
+
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-8">
+					<div class="row">
+						<div class="grid_list_search_result">
+							<div class="col-sm-12 col-md-4 col-lg-4 col-xl-5">
+								<div class="left_area tac-xsd">
+									<p>{{properties.count}} Propert{{ properties.count|pluralize:"y,ies" }} Found</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row" id="property_list">
+
+						{% for p in properties %}
+							<div class="col-md-6 col-lg-6">
+								<div class="feat_property home7 style4">
+									<div class="thumb">
+										<div class="fp_single_item_slider">
+											<div class="item">
+												<img class="img-whp" style="height: 250px;" src="{{p.check_image_url}}" alt="{{p.name}}">
+											</div>
+											{% if not p.property_images.all.count > 1 %}
+												<div class="item">
+													<img class="img-whp" style="height: 250px;" src="{{p.check_image_url}}" alt="{{p.name}}">
+												</div>
+											{% else %}
+												{% for i in p.property_images.all %}
+													<div class="item">
+														<img class="img-whp" style="height: 250px;" src="{{i}}" alt="{{i}}">
+													</div>
+												{% endfor %}
+											{% endif %}
+										</div>
+										<div class="thmb_cntnt style2">
+											<ul class="tag mb0">
+												<li class="list-inline-item"><a>{{p.property_status}}</a></li>
+												{% if p.featured %}
+													<li class="list-inline-item"><a>Featured</a></li>
+												{% endif %}
+											</ul>
+										</div>
+										<div class="thmb_cntnt style3">
+											<ul class="mb0">
+												{% if  request.user.is_authenticated %}
+													{% if p.uploaded_by.business_user == request.user or request.user.is_superuser %}
+														<li class="list-inline-item"><a hx-delete="{% url 'properties:delete' p.slug %}" hx-confirm="Do you wish to delete?" hx-target="#property_list" onClick="setTimeout(function(){ window.location.reload(); }, 3000);"><i class="icon fa fa-trash text-white"></i></a></li>
+													{% else %}
+														<li class="list-inline-item">
+															<button
+																id="add_favourite"
+																class="btn btn-link p-0 border-0 btn-outline-light"
+																value="{{p.id}}">
+																{% if p in request.user.profile.favorite_properties.all %}
+																	<i class="icon fa fa-heart text-white" id="add_favourite_icon"></i>
+																{% else %}
+																	<i class="icon fa fa-heart-o text-white" id="add_favourite_icon"></i>
+																{% endif %}
+															</button>
+														</li>
+													{% endif %}
+												{% else %}
+													<li class="list-inline-item"><a href="{% url 'accounts:login' %}"><i class="icon fa fa-heart-o text-white"></i></a></li>
+												{% endif %}
+											</ul>
+											<a class="fp_price">₦{{p.price|intword}}
+												{% if not p.payment_plan == "None" %}
+													<small>/{{p.payment_plan}}</small>
+												{% endif %}
+											</a>
+										</div>
+									</div>
+									<div class="details">
+										<div class="tc_content">
+											<p class="text-thm">{{p.property_type}}</p>
+											<h4><a href="{% url 'properties:detail' p.slug %}">{{p.name}}</a></h4>
+											<p><span class="flaticon-placeholder"></span> {{p.property_address}}</p>
+											<ul class="prop_details mb0">
+												<li class="list-inline-item"><a><i class="fa fa-bed"></i> {{p.no_bed_room}}</a></li>
+												<li class="list-inline-item"><a><i class="fa fa-shower"></i> {{p.no_bath_room}}</a></li>
+												<li class="list-inline-item"><a>Sq Ft: {{p.plot_area}}</a></li>
+											</ul>
+										</div>
+										<div class="fp_footer">
+											<ul class="fp_meta float-left mb0">
+												<li class="list-inline-item"><a href="{% url 'agents:detail' p.uploaded_by.slug %}">
+													<img class="rounded-circle" width="30px" height="30px" src="{{p.uploaded_by.business_logo.url}}" alt="{{p.uploaded_by.business_name}}"></a></li>
+												<li class="list-inline-item"><a href="{% url 'agents:detail' p.uploaded_by.slug %}">{{p.uploaded_by.business_name}}</a></li>
+											</ul>
+											<div class="fp_pdate float-right">{{p.uploaded_at|naturalday}}</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						{% empty %}
+							<div class="col-md-12 col-lg-12">
+								<div class="feat_property list style2 agent">
+									<div class="details">
+										<div class="tc_content">
+											<h4>Property Currently Unavailable</h4>
+											<br>
+											<p>Currently we do not have any available property do check back again for availability</p>
+											<br>
+											{% if request.user.is_authenticated and request.user.is_agent %}
+												<a href="{% url 'home' %}" class="btn dbxshad btn-sm btn-thm2 circle"><i class="fa fa-plus"></i> Add Property</a>
+											{% elif request.user.is_authenticated %}
+												<a href="{% url 'home' %}" class="btn dbxshad btn-sm btn-thm2 circle"><i class="fa fa-envelope"></i> send us a message</a>
+											{% else %}
+												<p>You can leave us with your email by entering it on the box below we will se3nd you a notification once a property
+												is added.</p>
+												<form class="footer_mailchimp_form home6">
+													<div class="form-row align-items-center">
+														<div class="col-auto">
+															<input type="email" class="form-control mb-2" id="inlineFormInput" placeholder="Your email">
+														</div>
+														<div class="col-auto">
+															<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-angle-right"></i></button>
+														</div>
+													</div>
+												</form>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endfor %}
+						
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+    
+{% endblock content %}
+
+
+{% block js %}
+	<script type="text/javascript">
+		$(document).ready(function () {
+			$("#selected_state").on("change", function () {
+				let stateVal = $("#selected_state").val();
+
+				console.log(stateVal);
+				$.ajax({
+					url: "{% url 'properties:get_cities' %}",
+					type: "post",
+					data: {
+						"state": stateVal,
+						"csrfmiddlewaretoken": "{{csrf_token}}"
+					},
+					dataType: "json",
+					before: function () {
+
+					},
+					success: function (res) {
+						let cities = res.cities;
+						console.log(res.success);
+						$('#selected_city').empty();
+						$.each(cities, function(index, item)
+						{
+							console.log(item);
+							$("#selected_city").append("<option value='"+item +"'>"+item +"</option>");
+						});
+
+						console.log("worked till here... \n\n\n");
+					}
+				})
+			});
+		});
+	</script>
+
+	<script type="text/javascript">
+		$(document).ready(function() {
+			$('#add_favourite').click(function(e) {
+				e.preventDefault();
+				$.ajax({
+					type: "POST",
+					url: "{% url 'properties:add_favorite' %}",
+					data: {
+						prop_id: $('#add_favourite').val(),
+						csrfmiddlewaretoken: $('input[name=csrfmiddlewaretoken]').val(),
+						action: 'post'
+					},
+					success: function (json) {
+						$("#add_favourite").html(json['result']);
+						toastr.success(json['message']);
+						console.log(json);
+					},
+					error: function (err) {
+						console.log(err);
+					}
+				})
+			})
+		});
+	</script>
+
+	<script>
+		document.body,addEventListener('htmx:configRequest', (event) => {
+			event.detail.headers['X-CSRFToken'] = "{{ csrf_token }}";
+		})
+	</script>
+{% endblock js %}

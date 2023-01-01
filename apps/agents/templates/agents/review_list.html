@@ -1,0 +1,47 @@
+{% for r in agent.agent_review.all %}
+    <div class="mbp_first media">
+        <img class="rounded-circle mr-3" width="80px" height="80px" src="{{r.user.profile.image_url}}" alt="{{r.user.username}}">
+        <div class="media-body">
+            <h4 class="sub_title mt-0">{{r.user.full_name}}
+                <div class="sspd_review dif">
+                    <ul>
+                        {% if r.rating == 1 %}
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                        {% elif r.rating == 2 %}
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                        {% elif r.rating == 3 %}
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                        {% elif r.rating == 4 %}
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                        {% elif r.rating == 5 %}
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                        {% endif %}
+                    </ul>
+                </div>
+            </h4>
+            <a class="sspd_postdate fz14">{{r.date_added|timesince}} ago</a>
+            <p class="mt10">{{r.comment}}</p>
+        </div>
+    </div>
+{% empty %}
+{% endfor %}

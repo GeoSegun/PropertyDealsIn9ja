@@ -1,0 +1,98 @@
+{% extends 'user_layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-12 mb5">
+                <div class="breadcrumb_content style2">
+                    <h2 class="breadcrumb_title">Message</h2>
+                    <p>We are glad to see you again!</p>
+                </div>
+            </div>
+            <div class="col-lg-12 col-xl-12">
+                <div class="message_container">
+                    <div class="user_heading">
+                        <a>
+                            <div class="wrap">
+                                <span class="contact-status online"></span>
+                                <img class="img-fluid" width="60px" height="60px" src="{{ user.profile.image_url }}" alt="{{user.username}}"/>
+                                <div class="meta">
+                                    <h5 class="name">{{user.full_name}}</h5>
+                                    <p class="preview">was online today at {{ user.last_visit|naturaltime }}</p>
+                                </div>
+                            </div>
+                        </a>
+                    </div>
+                    <div class="inbox_chatting_box">
+                        <ul class="chatting_content" id="chat">
+                            <li class="media reply first">
+                                <div class="media-body text-right">
+                                    <div class="date_time"></div>
+                                    <p>This is my message.</p>
+                                </div>
+                            </li>
+                            <li class="media sent">
+                                <span class="contact-status busy"></span>
+                                <img class="img-fluid img-circle align-self-start mr-3" width="50px" height="50px" src="{{user.profile.image_url}}" alt="{{user.username}}"/>
+                                <div class="media-body">
+                                    <div class="date_time"></div>
+                                    <p>This is another {{user.full_name}}'s message</p>
+                                </div>
+                            </li>
+                        </ul>
+                    </div>
+                    <div class="mi_text mt80">
+                        <div class="message_input">
+                            <form class="form-inline" action="" method="post" id="message-form">
+                                {% csrf_token %}
+                                <input class="form-control" type="text" name="message" id="msg-input" placeholder="Enter text here...">
+                                <button class="btn" type="submit" id="chat-msg-submit">Send Message</button>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}
+
+
+{% block user_js %}
+<script>
+    const url = `ws://${window.location.host}/ws/chat/`;
+    const ws = new WebSocket(url);
+
+    ws.onopen = function(event){
+        console.log("connection is open");
+        ws.send("Thanks for connecting");
+    }
+    ws.onmessage = function(event){
+        console.log(event);
+        console.log("Message is recieved");
+<!--        const msgList = document.getElementById('message-list');-->
+<!--        var msg = document.createElement('li');-->
+<!--        msg.append()-->
+    }
+    ws.onclose = function(event){
+        console.log(event);
+        console.log("connection is closed");
+    }
+    ws.onerror = function(event){
+        console.log(event);
+        console.log("Something went wrong!");
+    }
+
+<!--    const msgForm = document.getElementById('message-form')-->
+<!--    msgForm.addEventListener('submit', sendMessage)-->
+<!--    function sendMessage(e) {-->
+<!--        if (e.preventDefault) e.preventDefault();-->
+<!--        ws.send(document.getElementById('message').value);-->
+<!--        msgForm.reset();-->
+<!--        return false;-->
+<!--    }-->
+</script>
+{% endblock %}

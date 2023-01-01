@@ -1,0 +1,12 @@
+runtime: python310
+entrypoint: gunicorn -b :$PORT --chdir app/ propertyDealsIn9ja.wsgi:application
+
+handlers:
+  - url: /static
+    static_dir: static/
+  - url: /.*
+    script: auto
+
+  # Run => docker-compose -f docker-compose-deploy.yml run --rm gcloud sh -c "gcloud auth login"
+  # Run => docker-compose run --rm app sh -c "python manage.py collectstatic"
+  # Run => docker-compose -f docker-compose-deploy.yml run --rm gcloud sh -c "gcloud app deploy --project propertydealsin9ja-webapp2"

@@ -1,0 +1,138 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+
+{% block title %}Filter{% endblock title %}
+
+{% block content %}
+	<!-- Listing Grid View -->
+	<section class="our-listing bgc-f7 pb30-991">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-8 col-lg-6">
+					<div class="breadcrumb_content style2">
+						<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+						    <li class="breadcrumb-item active text-thm" aria-current="page">Result</li>
+						</ol>
+						<h2 class="breadcrumb_title">Your Filtered Results</h2>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-12">
+					<div class="row">
+						<div class="grid_list_search_result style2">
+							<div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
+								<div class="left_area">
+									<p>{{properties.count}} Search results</p>
+								</div>
+							</div>
+						</div>
+					</div>
+					<div class="row">
+                        {% for p in properties %}
+                          <div class="col-md-6 col-lg-4">
+                              <div class="feat_property home7 style4">
+                                  <div class="thumb">
+                                      <div class="fp_single_item_slider">
+                                          <div class="fp_single_item_slider">
+											<div class="item">
+												<img class="img-whp" style="height: 250px;" src="{{p.check_image_url}}" alt="{{p.name}}">
+											</div>
+											{% for i in p.property_images.all %}
+												<div class="item">
+													<img class="img-whp" style="height: 250px;" src="{{i}}" alt="{{i}}">
+												</div>
+											{% endfor %}
+                                      </div>
+                                      <div class="thmb_cntnt style2">
+                                          <ul class="tag mb0">
+                                              <li class="list-inline-item"><a>{{p.property_status}}</a></li>
+                                              {% if p.featured %}
+                                                  <li class="list-inline-item"><a>Featured</a></li>
+                                              {% endif %}
+                                          </ul>
+                                      </div>
+                                      <div class="thmb_cntnt style3">
+                                          <ul class="icon mb0">
+                                              {% if  request.user.is_authenticated %}
+                                                  {% if p.uploaded_by.business_user == request.user or request.user.is_superuser %}
+                                                      <li class="list-inline-item"><a href="properties:delete"><i class="icon fa fa-trash text-white"></i></a></li>
+                                                  {% else %}
+                                                      <li class="list-inline-item">
+                                                          <button
+                                                              id="add_favourite"
+                                                              class="btn btn-link p-0 border-0 btn-outline-light"
+                                                              value="{{p.id}}">
+                                                              {% if p in request.user.profile.favorite_properties.all %}
+                                                                  <i class="icon fa fa-heart text-white" id="add_favourite_icon"></i>
+                                                              {% else %}
+                                                                  <i class="icon fa fa-heart-o text-white" id="add_favourite_icon"></i>
+                                                              {% endif %}
+                                                          </button>
+                                                      </li>
+                                                  {% endif %}
+                                              {% else %}
+                                                  <li class="list-inline-item"><a href="{% url 'accounts:login' %}"><i class="icon fa fa-heart-o text-white"></i></a></li>
+                                              {% endif %}
+                                          </ul>
+											<a class="fp_price">₦{{p.price|intword}}
+                                              {% if not p.payment_plan == "None" %}
+												<small>/{{p.payment_plan}}</small>
+                                              {% endif %}
+                                            </a>
+                                      </div>
+                                  </div>
+                                  <div class="details">
+                                      <div class="tc_content">
+                                          <p class="text-thm">{{p.property_type}}</p>
+                                          <h4><a href="{% url 'properties:detail' p.slug %}">{{p.name}}</a></h4>
+                                          <p><span class="flaticon-placeholder"></span> {{p.property_address}}</p>
+                                          <ul class="prop_details mb0">
+                                              <li class="list-inline-item"><a><i class="fa fa-bed"></i> {{p.no_bed_room}}</a></li>
+                                              <li class="list-inline-item"><a><i class="fa fa-shower"></i> {{p.no_bath_room}}</a></li>
+                                              <li class="list-inline-item"><a>Sq Ft: {{p.plot_area}}</a></li>
+                                          </ul>
+                                      </div>
+                                      <div class="fp_footer">
+                                          <ul class="fp_meta float-left mb0">
+                                              <li class="list-inline-item">
+                                                <a href="{% url 'agents:detail' p.uploaded_by.slug %}">
+													<img class="rounded-circle" width="30px" height="30px" src="{{p.uploaded_by.business_logo.url}}" alt="{{p.uploaded_by.business_name}}">
+                                                </a>
+                                              </li>
+                                              <li class="list-inline-item"><a href="{% url 'agents:detail' p.uploaded_by.slug %}">{{p.uploaded_by.business_name}}</a></li>
+                                          </ul>
+                                          <div class="fp_pdate float-right">{{p.uploaded_at|naturalday}}</div>
+                                      </div>
+                                  </div>
+                              </div>
+                          </div>
+                        {% endfor %}
+						<div class="col-lg-12 mt20">
+							<div class="mbp_pagination">
+								<ul class="page_navigation">
+								    <li class="page-item disabled">
+								    	<a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>
+								    </li>
+								    <li class="page-item"><a class="page-link" href="#">1</a></li>
+								    <li class="page-item active" aria-current="page">
+								    	<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>
+								    </li>
+								    <li class="page-item"><a class="page-link" href="#">3</a></li>
+								    <li class="page-item"><a class="page-link" href="#">...</a></li>
+								    <li class="page-item"><a class="page-link" href="#">29</a></li>
+								    <li class="page-item">
+								    	<a class="page-link" href="#"><span class="flaticon-right-arrow"></span></a>
+								    </li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

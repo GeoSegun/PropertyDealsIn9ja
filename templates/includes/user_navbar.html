@@ -1,0 +1,85 @@
+{% load static %}
+
+<!-- Main Header Nav -->
+<header class="header-nav menu_style_home_one style2 menu-fixed main-menu">
+    <div class="container-fluid p0">
+        <!-- Ace Responsive Menu -->
+        <nav>
+            <!-- Menu Toggle btn-->
+            <div class="menu-toggle">
+                <img class="nav_logo_img img-fluid" src="https://res.cloudinary.com/geetechlab-com/image/upload/v1672595643/propertyDealzin9ja/header-logo2_pficy7.png" alt="pdin9ja">
+                <button type="button" id="menu-btn">
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                    <span class="icon-bar"></span>
+                </button>
+            </div>
+            <a href="{% url 'home' %}" class="navbar_brand float-left dn-smd">
+                <img class="logo1 img-fluid" src="{% static 'images/header-logo2.png' %}" alt="pdin9ja">
+                <img class="logo2 img-fluid" src="{% static 'images/header-logo2.png' %}" alt="pdin9ja">
+                <span>pd9ja</span>
+            </a>
+            <!-- Responsive Menu Structure-->
+            <!--Note: declare the Menu style in the data-menu-style="horizontal" (options: horizontal, vertical, accordion) -->
+            <ul id="respMenu" class="ace-responsive-menu text-right" data-menu-style="horizontal">
+                <li><a href="{% url 'home' %}"><span class="title">Home</span></a></li>
+                <li class="last"><a href="{% url 'properties:list' %}"><span class="title">Properties</span></a></li>
+                {% if request.user.is_agent %}
+                    <li class="last"><a href="{% url 'enquiries:list' %}"><span class="title">Enquiries</span></a></li>
+                {% endif %}
+                <li class="last"><a href="{% url 'agents:list' %}"><span class="title">Agents</span></a></li>
+                <li class="last"><a href="{% url 'contacts:contact' %}"><span class="title">Contact</span></a></li>
+                <li class="user_setting">
+                    <div class="dropdown">
+                        <a class="btn dropdown-toggle" href="#" data-toggle="dropdown">
+                            <img class="rounded-circle" width="30px" height="30px" src="{{request.user.profile.image_url}}" alt="{{user.username}}">
+                            <span class="dn-1199">{{request.user.username}}</span></a>
+                        <div class="dropdown-menu">
+                            <div class="user_set_header">
+                                <img class="float-left" width="30px" height="30px" src="{{request.user.profile.image_url}}" alt="{{user.username}}">
+                                <p>{{request.user.full_name}} <br><span class="address">{{request.user.email}}</span></p>
+                            </div>
+                            <hr>
+                            <div class="user_setting_content">
+                                <a class="dropdown-item" href="{% url 'profiles:profile_detail' request.user.profile.slug %}">My Profile</a>
+                                <a class="dropdown-item" href="{% url 'profiles:profile_update' request.user.profile.slug %}">Update Profile</a>
+                                {% if request.user.is_superuser %}
+                                    <a class="dropdown-item" href="/admin/">Admin Dashboard</a>
+                                {% endif %}
+                                {% if request.user.is_agent %}
+                                    <a class="dropdown-item" href="#">Fund Wallet</a>
+                                {% endif %}
+                                <a class="dropdown-item" href="{% url 'accounts:logout' %}">Log out</a>
+                            </div>
+                        </div>
+                    </div>
+                </li>
+                {% if notifications.count %}
+                    <li class="last">
+                        <a data-toggle="modal" data-target=".notification_modal">
+                            <span class="badge badge-pill badge-danger">
+                                <i class="fa fa-bell-o fa-2x"></i>
+                                <span class="badge badge-light">{{notifications.count}}</span>
+                            </span>
+                        </a>
+                    </li>
+                {% endif %}
+                {% if request.user.is_agent %}
+                    <li class="list-inline-item add_listing">
+                        <a href="{% url 'properties:create' %}">
+                            <span class="flaticon-plus"></span>
+                            <span class="dn-lg"> Add Property</span>
+                        </a>
+                    </li>
+                {% else %}
+                    <li class="list-inline-item add_listing">
+                        <a href="{% url 'enquiries:create' %}">
+                            <span class="flaticon-plus"></span>
+                            <span class="dn-lg"> Enquire</span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </nav>
+    </div>
+</header>

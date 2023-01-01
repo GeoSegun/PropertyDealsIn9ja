@@ -1,0 +1,133 @@
+{% load static %}
+{% load widget_tweaks %}
+
+
+<div class="modal-content">
+    <div class="modal-header">
+        <button type="button" class="close" data-dismiss="modal" aria-label="Close"><span aria-hidden="true">&times;</span></button>
+    </div>
+    <div class="modal-body container pb20">
+        <div class="container">
+            <div class="row">
+                <div class="col-lg-12 col-xl-12">
+                    <div class="login_form">
+                        <form hx-post="{{ request.path }}" enctype="multipart/form-data">
+                            {% csrf_token %}
+                            <input type="hidden" name="next" value="{{ request.GET.next }}"/>
+                            <div class="form-group">
+                                <label><small>Full Name</small></label>
+                                {% if request.user.is_authenticated %}
+                                    <input class="form-control" value="{{user.full_name}}" disabled>
+                                {% else %}
+                                    {% render_field form.guest_name|attr:"required"|attr:"type:text"|attr:"placeholder:John Ezeh" class="form-control" %}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label><small>Phone Number</small></label>
+                                {% if request.user.is_authenticated %}
+                                    <input class="form-control" value="{{user.phone}}" disabled>
+                                {% else %}
+                                    {% render_field form.guest_phone|attr:"required"|attr:"type:tel"|attr:"placeholder:Phone Number(+2348012345678)" class="form-control" %}
+                                {% endif %}
+                            </div>
+                            <div class="form-group">
+                                <label><small>Email</small></label>
+                                {% if request.user.is_authenticated %}
+                                    <input class="form-control" value="{{user.email}}" disabled>
+                                {% else %}
+                                    {% render_field form.guest_email|attr:"required"|attr:"type:email"|attr:"placeholder:john@email.com" class="form-control" %}
+                                {% endif %}
+                            </div>
+                            <div class="row">
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><small>State/Province</small></label>
+                                        <select id="selected_state" name="state" required class="form-control" data-live-search="true" data-width="100%">
+                                            {% for s in states %}
+                                                <option value="{{s}}">{{s}}</option>
+                                            {% endfor %}
+                                        </select>
+                                    </div>
+                                </div>
+                                <div class="col-md-6">
+                                    <div class="form-group">
+                                        <label><small>City</small></label>
+                                        <select id="selected_city" name="city" required class="form-control" data-live-search="true" data-width="100%">
+                                            <option value="" disabled selected>Select city</option>
+                                        </select>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><small>Property Type</small></label>
+                                {% render_field form.enquiry_property_type|attr:"required"|attr:"data-live-search:true"|attr:"placeholder:Property Type" class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label><small>Property Status</small></label>
+                                {% render_field form.enquiry_property_status|attr:"required"|attr:"data-live-search:true"|attr:"placeholder:Property Status" class="form-control" %}
+                            </div>
+                            <div class="row">
+                                <div class="col-6">
+                                    <div class="form-group">
+                                    <label><small>Your Minimum Budget</small></label>
+                                        {% render_field form.enquiry_budget_min|attr:"required"|attr:"type:number"|attr:"placeholder:0.00" class="form-control" %}
+                                    </div>
+                                </div>
+                                <div class="col-6">
+                                    <div class="form-group">
+                                        <label><small>Your Maximum Budget</small></label>
+                                        {% render_field form.enquiry_budget_max|attr:"required"|attr:"type:number"|attr:"placeholder:0.00" class="form-control" %}
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-group">
+                                <label><small>Inspection Date</small></label>
+                                {% render_field form.inspection_date|attr:"required"|attr:"type:date" class="form-control" %}
+                            </div>
+                            <div class="form-group">
+                                <label><small>Descriptions</small></label>
+                                {% render_field form.enquiry_description|attr:"required"|attr:"type:text"|attr:"row:3"|attr:"placeholder:More Description of what you want from us" class="form-control" %}
+                            </div>
+                            <input type="submit" class="btn btn-log btn-block btn-thm2" value="Submit Enquiry">
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<!--JS Get States and Cities -->
+<script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+<script type="text/javascript">
+    $(document).ready(function () {
+        $("#selected_state").on("change", function () {
+            let stateVal = $("#selected_state").val();
+            console.log(stateVal);
+            $.ajax({
+                url: "{% url 'enquiries:get_cities' %}",
+                type: "post",
+                data: {
+                    "state": stateVal,
+                    "csrfmiddlewaretoken": "{{csrf_token}}"
+                },
+                dataType: "json",
+                before: function () {
+
+                },
+                success: function (res) {
+                    let cities = res.cities;
+                    console.log(res.success);
+                    $('#selected_city').empty();
+                    $.each(cities, function(index, item)
+                    {
+                        console.log(item);
+                        $("#selected_city").append("<option value='"+item +"'>"+item +"</option>");
+                    });
+                    console.log("worked till here... \n\n\n");
+                }
+            })
+        });
+    });
+</script>
+<!--JS Get States and Cities -->

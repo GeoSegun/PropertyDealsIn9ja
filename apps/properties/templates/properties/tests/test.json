@@ -1,0 +1,11 @@
+{
+  'pkid': 43,
+  'id': UUID('ffab839a-dbd7-44b6-94c7-81861949495b'),
+  'created_at': datetime.datetime(2022, 12, 25, 22, 8, 14, 186390, tzinfo=datetime.timezone.utc),
+  'updated_at': datetime.datetime(2022, 12, 25, 22, 8, 14, 186390, tzinfo=datetime.timezone.utc),
+  'user_id': 1,
+  'msg_sender_id': 1,
+  'msg_receiver_id': 2,
+  'message': 'Hello dan from htmx',
+  'is_seen': True
+}

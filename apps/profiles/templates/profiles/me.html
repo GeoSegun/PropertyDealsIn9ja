@@ -1,0 +1,106 @@
+{% extends 'layout.html' %}
+{% load humanize %}
+{% load currency %}
+
+{% block title %}{{ profile.user.username }}{% endblock %}
+
+{% block content %}
+<div class="profile-page sidebar-collapse">
+  <div class="page-header page-header-small" style="background-image: url('https://res.cloudinary.com/geetechlab-com/image/upload/v1659898814/nwaben.com/daddy_heaven_5_cmciv1.jpg');">
+    <div class="filter"></div>
+  </div>
+  <div class="wrapper">
+    <div class="profile-content section">
+      <div class="container">
+        <div class="row">
+          <div class="profile-picture">
+            <div class="fileinput fileinput-new" data-provides="fileinput">
+              <div class="fileinput-new img-no-padding">
+                <img src="{{ profile.image_url }}" alt="{{ profile.user.username }}">
+              </div>
+              <div class="name">
+                <h4 class="title text-center">{{ profile.user.get_full_name }}
+                  <br />
+                    {% if profile.gender %}
+                        <small>Gender : {{ profile.gender }}</small>
+                    {% else %}
+                        <small>No Gender yet</small>
+                    {% endif %}
+                </h4>
+                <h4 class="title-brand text-center mb-5">
+                    My Wallet Balance:
+                    <b>
+                        {{ request.user.wallet.currency }} {{ request.user.wallet.balance|intcomma }}
+                    </b>
+                </h4>
+                  <a class="btn btn-round btn-sm btn-primary" href="{% url 'memorials:create' %}">
+                      <i class="fa fa-plus"></i> Upload a Memory
+                  </a>
+                  <a class="btn btn-round btn-sm btn-primary" href="{% url 'wallets:fund_wallet' request.user.wallet.uid %}">
+                      <i class="fa fa-money"></i> Fund my wallet
+                  </a>
+              </div>
+            </div>
+          </div>
+        </div>
+        <br/>
+        <div class="nav-tabs-navigation">
+          <div class="nav-tabs-wrapper">
+            <ul class="nav nav-tabs" role="tablist">
+              <li class="nav-item">
+                <a class="nav-link active" data-toggle="tab" href="#details" role="tab">
+                    Details
+                </a>
+              </li>
+            {% if profile.user == request.user %}
+              <li class="nav-item">
+                <a class="nav-link" data-toggle="tab" href="#update_details" role="tab">
+                    Update my details
+                </a>
+              </li>
+            {% endif %}
+            </ul>
+          </div>
+        </div>
+        <!-- Tab panes -->
+        <div class="tab-content">
+          <div class="tab-pane active" id="details" role="tabpanel">
+            <div class="row">
+                <div class="info">
+                    <div class="description text-justify">
+                        {% if profile.bio %}
+                            <p>{{ profile.bio }}</p>
+                        {% else %}
+                            <h4 class="info-title">Tell us about your self.</h4>
+                            <p>Example: About your previous achievements, your family, what you are currently doing and your current location</p>
+                        {% endif %}
+                        <br>
+                        <hr width="80%">
+                        <h5 class="title">My contacts</h5>
+                        <i class="fa fa-mobile-phone text-primary fa-2x mr-3 mb-3"></i><strong>{{ profile.user.phone }}</strong>
+                        <br>
+                        <i class="fa fa-at text-primary fa-2x mr-3"></i> <strong>{{ profile.user.email }}</strong>
+                        <hr width="80%">
+                        <h5 class="title">My Address</h5>
+                        <i class="fa fa-globe text-primary fa-2x mr-3 mb-3"></i> <strong>{{ profile.country.name }}</strong>
+                        <br>
+                        <i class="fa fa-map-marker text-primary fa-2x mr-3"></i> <strong>{{ profile.city }}</strong>
+                    </div>
+                </div>
+            </div>
+          </div>
+
+        {% if profile.user == request.user %}
+          <div class="tab-pane text-center" id="update_details" role="tabpanel">
+            <div class="col-md-6 ml-auto mr-auto text-center">
+                {% include "profiles/forms.html" %}
+            </div>
+          </div>
+        {% endif %}
+
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %}

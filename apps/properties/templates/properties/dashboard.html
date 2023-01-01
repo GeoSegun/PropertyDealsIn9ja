@@ -1,0 +1,158 @@
+{% extends 'user_layout.html' %}
+{% load widget_tweaks %}
+{% load static %}
+
+{% block title %}Dashboard{% endblock title %}
+
+{% block content %}
+
+    <div class="col-lg-12 mb10">
+        <div class="breadcrumb_content style2">
+            <h2 class="breadcrumb_title">Howdy, {{request.user.username|title}}!</h2>
+            <p>We are glad to see you again!</p>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="ff_one">
+            <div class="icon"><span class="flaticon-home"></span></div>
+            <div class="detais">
+                <div class="timer">{{property_count}}</div>
+                <p>All Properties</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="ff_one style2">
+            <div class="icon"><span class="flaticon-view"></span></div>
+            <div class="detais">
+                <div class="timer">{{total_view_count}}</div>
+                <p>Total Views</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="ff_one style3">
+            <div class="icon"><span class="flaticon-chat"></span></div>
+            <div class="detais">
+                <div class="timer">{{visitors_review_count}}</div>
+                <p>Total Reviews</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-sm-6 col-md-6 col-lg-6 col-xl-3">
+        <div class="ff_one style4">
+            <div class="icon"><span class="flaticon-heart"></span></div>
+            <div class="detais">
+                <div class="timer">{{favourite_count}}</div>
+                <p>Total Favorites</p>
+            </div>
+        </div>
+    </div>
+    <div class="col-xl-7">
+        <div class="application_statics">
+            <h4>View Statistics</h4>
+            <canvas id="myChart"></canvas>
+        </div>
+    </div>
+    <div class="col-xl-5">
+        <div class="recent_job_activity">
+            <h4 class="title">Recent Activities</h4>
+            {% for n in notifications %}
+                <div class="grid">
+                  <ul>
+                      {% if n.notification_type == 1 %}
+                          <li class="list-inline-item"><div class="icon"><i class="fa fa-credit-card fa-lg"></i></div></li>
+                      {% elif n.notification_type == 2 %}
+                          <li class="list-inline-item"><div class="icon"><span class="flaticon-home"></span></div></li>
+                      {% elif n.notification_type == 3 %}
+                          <li class="list-inline-item"><div class="icon"><i class="fa fa-envelope-o"></i></div></li>
+                      {% elif n.notification_type == 4 %}
+                          <li class="list-inline-item"><div class="icon"><i class="fa fa-pencil-square-o"></i></div></li>
+                      {% elif n.notification_type == 5 %}
+                          <li class="list-inline-item"><div class="icon"><i class="fa fa-star-o"></i></div></li>
+                      {% elif n.notification_type == 6 %}
+                        <li class="list-inline-item"><div class="icon"><span class="flaticon-chat"></span></div></li>
+                      {% endif %}
+                      <li class="list-inline-item"><p>{{n.message|safe}}</p></li>
+                      <li class="list-inline-item">
+                          <ul class="view_edit_delete_list">
+                              <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                  <a hx-delete="{% url 'notifications:delete' n.pk %}" hx-confirm="Do you wish to delete?" onClick="setTimeout(function(){ window.location.reload(); }, 3000);">
+                                      <span class="flaticon-garbage"></span>
+                                  </a>
+                              </li>
+                              {% if n.notification_type == 1 %}
+                                  <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View">
+                                      <a href="{% url 'wallets:wallet_transactions' %}">
+                                          <span class="flaticon-view"></span>
+                                      </a>
+                                  </li>
+                              {% elif n.notification_type == 2 %}
+                                  <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View">
+                                      <a href="{% url 'properties:detail' n.property.slug %}">
+                                          <span class="flaticon-view"></span>
+                                      </a>
+                                  </li>
+                              {% elif n.notification_type == 3 %}
+                                  <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View">
+                                      <a href="{% url 'inboxes:direct_msg' n.inbox_message.msg_sender.username %}">
+                                          <span class="flaticon-view"></span>
+                                      </a>
+                                  </li>
+                              {% elif n.notification_type == 4 %}
+                                  <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View">
+                                      <a href="{% url 'enquiries:my_enquiry_list' %}">
+                                          <span class="flaticon-view"></span>
+                                      </a>
+                                  </li>
+                              {% elif n.notification_type == 5 %}
+                                  <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View">
+                                      <a href="{% url 'agents:detail' n.review.slug %}">
+                                          <span class="flaticon-view"></span>
+                                      </a>
+                                  </li>
+                              {% elif n.notification_type == 6 %}
+                                  <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View">
+                                      <a href="{% url 'properties:detail' n.property.slug %}">
+                                          <span class="flaticon-view"></span>
+                                      </a>
+                                  </li>
+                              {% endif %}
+                          </ul>
+                      </li>
+                  </ul>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+<script>
+  const ctx = document.getElementById('myChart');
+
+  new Chart(ctx, {
+    type: 'line',
+    data: {
+      labels: [{% for p in properties %} '{{p.name}}', {% endfor %}],
+      datasets: [{
+        label: '# of Properties',
+        data: [{%for p in properties %} '{{p.uploaded_at|time}}', {%endfor%}],
+        borderWidth: 1
+      }]
+    },
+    options: {
+      scales: {
+        y: {
+          beginAtZero: true
+        }
+<!--        x: [{-->
+<!--            type: 'time'-->
+<!--        }]-->
+      }
+    }
+  });
+</script>
+
+{% endblock %}
+
+

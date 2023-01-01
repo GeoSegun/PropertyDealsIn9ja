@@ -1,0 +1,73 @@
+{% load static %}
+{% load widget_tweaks %}
+
+<div class="container home_iconbox_container">
+        <div class="row posr">
+            <div class="col-lg-12">
+                <div class="home_content home4">
+                    <div class="home-text text-center">
+                        <h2 class="fz55">Find Your Dream Home</h2>
+                        <p class="fz18 color-white">From as low as N5,000 per month with limited time offer discounts.</p>
+                    </div>
+                </div>
+
+                <div class="home_adv_srch_opt home7">
+                    <div class="home1-advnc-search home7">
+                        <form method="GET" action="{% url 'filter_property' %}">
+                            {% csrf_token %}
+                            <ul class="h1ads_1st_list mb0 text-center">
+                                <li class="list-inline-item">
+                                    <div class="search_option_two">
+                                        <div class="candidate_revew_select">
+                                            <select class="selectpicker w100 show-tick" name="property_type_exact_query">
+                                                <option>All Cities</option>
+                                                <option>Apartment</option>
+                                                <option>Bungalow</option>
+                                                <option>Condo</option>
+                                                <option>House</option>
+                                                <option>Land</option>
+                                                <option>Single Family</option>
+                                            </select>
+                                        </div>
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="form-group">
+                                        <input type="text" class="form-control" name="property_search_contain_query" id="exampleInputName1" placeholder="Search property or by agent">
+                                    </div>
+                                </li>
+                                <li class="list-inline-item">
+                                    <div class="search_option_button">
+                                        <button type="submit" class="btn btn-thm">Search</button>
+                                    </div>
+                                </li>
+                            </ul>
+                        </form>
+                    </div>
+                </div>
+            </div>
+        </div>
+<!--    <div class="row">-->
+<!--        <div class="col-lg-12">-->
+<!--            <h4 class="text-center color-white fw600 mb25 mb0-520">What are you looking for?</h4>-->
+<!--            <ul class="home4_iconbox mb0">-->
+<!--                <li class="list-inline-item">-->
+<!--                    <div class="icon"><span class="flaticon-house"></span>-->
+<!--                        <p>Modern Villa</p></div>-->
+<!--                </li>-->
+<!--                <li class="list-inline-item">-->
+<!--                    <div class="icon"><span class="flaticon-house-1"></span>-->
+<!--                        <p>Family House</p></div>-->
+<!--                </li>-->
+<!--                <li class="list-inline-item">-->
+<!--                    <div class="icon"><span class="flaticon-house-2"></span>-->
+<!--                        <p>Town House</p></div>-->
+<!--                </li>-->
+<!--                <li class="list-inline-item">-->
+<!--                    <div class="icon"><span class="flaticon-building"></span>-->
+<!--                        <p>Apartment</p></div>-->
+<!--                </li>-->
+<!--            </ul>-->
+<!--        </div>-->
+<!--    </div>-->
+</div>

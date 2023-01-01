@@ -1,0 +1,92 @@
+{% extends 'user_layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block content %}
+	<div class="col-lg-12 mb10">
+		<div class="breadcrumb_content style2">
+			<h2 class="breadcrumb_title">My Profile</h2>
+			<p>We are glad to see you again <strong>{{ user.username }}</strong>!</p>
+		</div>
+	</div>
+	<div class="col-lg-12">
+		<div class="my_dashboard_review">
+			<div class="row">
+				<div class="col-xl-12 mt40">
+					<div class="feat_property list style2 agent">
+						<div class="thumb">
+							<img class="img-whp" src="{{user.profile.image_url}}" height="250px" alt="{{user.username}}">
+							<div class="thmb_cntnt">
+							</div>
+						</div>
+						<div class="details">
+							<div class="tc_content">
+								<h4>{{user.full_name}}</h4>
+									<p class="text-thm">Update Profile</p>
+								<ul class="prop_details mb0">
+									<li><a><strong>Current Address: </strong>{{user.profile.get_user_address}}</a></li>
+									<li><a><strong>Gender: </strong>{{user.profile.gender}}</a></li>
+									<li><a><strong>Mobile: </strong>{{user.phone}}</a></li>
+									<li><a><strong>Email: </strong>{{user.email}}</a></li>
+									{% if user.is_agent %}
+										<li><a><strong>Balance: </strong>{{user.wallet.currency}}{{user.wallet.balance|intcomma}}</a></li>
+									{% endif %}
+								</ul>
+							</div>
+							<div class="fp_footer"> 
+								<ul class="fp_meta float-left mb0">
+									<li class="list-inline-item">visit our social media for more: </li>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+									<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+								</ul>
+							</div>
+						</div>
+					</div>
+				</div>
+				{% if user.is_agent %}
+					<div class="col-xl-12 mt20">
+						<div class="feat_property list agency">
+							<div class="thumb">
+								<img class="img-whp" src="{{user.agent.business_logo_url}}" alt="{{user.agent.business_name}}">
+								<div class="thmb_cntnt">
+									<ul class="tag mb0">
+										<li class="list-inline-item dn"></li>
+										<li class="list-inline-item"><a href="#">{{user.agent.properties.count}} Listings</a></li>
+									</ul>
+								</div>
+							</div>
+							<div class="details">
+								<div class="tc_content">
+									<h4>{{user.agent.business_name}}</h4>
+									<p class="text-thm">Agent</p>
+									<ul class="prop_details mb0">
+										<li><a>Office: {{user.agent.get_business_address}}</a></li>
+										<li><a>Mobile: {{user.agent.get_business_phone}}</a></li>
+										<li><a>Email: {{user.agent.get_business_email}}</a></li>
+										<li><a>Date Registered: {{user.agent.date_registered|naturalday}}</a></li>
+										<li><a>Balance: {{user.wallet.currency}}{{user.wallet.balance|intcomma}}</a></li>
+									</ul>
+								</div>
+								<div class="fp_footer">
+									{% comment %} <ul class="fp_meta float-left mb0">
+										<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>
+										<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>
+									</ul> {% endcomment %}
+									{%if request.user.is_authenticated and request.user.is_agent%}
+										<div class="fp_pdate float-right text-thm">View My Listings <i class="fa fa-angle-right"></i></div>
+									{%endif%}
+								</div>
+							</div>
+						</div>
+					</div>
+				{% endif %}
+			</div>
+		</div>
+	</div>
+
+{% endblock %}

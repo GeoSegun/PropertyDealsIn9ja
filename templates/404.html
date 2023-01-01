@@ -1,0 +1,201 @@
+{% extends 'layout.html' %}
+{% load static %}
+
+{% block title %}404{% endblock %}
+
+{% block content %}
+<!-- Our Error Page -->
+<section class="our-error bgc-f7">
+    <div class="container">
+        <div class="row">
+            <div class="col-lg-10 offset-lg-1 text-center">
+                <div class="error_page footer_apps_widget">
+                    <img class="img-fluid" src="images/resource/error.png" alt="error.png">
+                    <div class="erro_code"><h1>Ohh! Page Not Found</h1></div>
+                    <p>We can’t seem to find the page you’re looking for</p>
+                </div>
+                <a class="btn btn_error btn-thm" href="{% url 'home' %}">Back To Home</a>
+            </div>
+        </div>
+    </div>
+</section>
+{% endblock content %}
+
+
+
+
+
+
+
+
+
+
+
+
+<!--{% load widget_tweaks %}-->
+<!--<div class="container home_iconbox_container">-->
+<!--    <div class="row posr">-->
+<!--        <div class="col-lg-12">-->
+<!--            <div class="home_content home4">-->
+<!--                <div class="home-text text-center">-->
+<!--                    <h2 class="fz55">Find Your Dream Home</h2>-->
+<!--                    <p class="fz18 color-white">From as low as N5,000 per month with limited time offer discounts.</p>-->
+<!--                </div>-->
+<!--                <div class="home_adv_srch_opt home4">-->
+<!--                    <ul class="nav nav-pills" id="pills-tab" role="tablist">-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link active" id="pills-home-tab" data-toggle="pill" href="#pills-buy"-->
+<!--                               role="tab" aria-controls="pills-home" aria-selected="true">Buy</a>-->
+<!--                        </li>-->
+<!--                        <li class="nav-item">-->
+<!--                            <a class="nav-link" id="pills-profile-tab" data-toggle="pill" href="#pills-rent"-->
+<!--                               role="tab" aria-controls="pills-profile" aria-selected="false">Rent</a>-->
+<!--                        </li>-->
+<!--                    </ul>-->
+<!--                    <div class="tab-content home1_adsrchfrm" id="pills-tabContent">-->
+<!--                        <div class="tab-pane fade show active" id="pills-buy" role="tabpanel"-->
+<!--                             aria-labelledby="pills-home-tab">-->
+<!--                            <div class="home1-advnc-search home4">-->
+<!--                                <form method="GET" action="{% url 'home' %}">-->
+<!--&lt;!&ndash;									<form hx-get="{% url 'properties:list' %}" hx-target="body">&ndash;&gt;-->
+<!--                                    {% csrf_token %}-->
+<!--                                    <ul class="h1ads_1st_list mb0">-->
+<!--                                        {% for field in buy_form %}-->
+<!--                                            {% if forloop.counter0 == 0%}-->
+<!--                                                <li class="list-inline-item">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        {% render_field field|attr:"placeholder:Enter keyword..." class="form-control" %}-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            {% endif %}-->
+<!--                                            {% if forloop.counter0 == 1%}-->
+<!--                                                <li class="list-inline-item">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        {% render_field field class="form-control" %}-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            {% endif %}-->
+<!--                                            {% if forloop.counter0 == 8%}-->
+<!--                                                <li class="min_area style2 list-inline-item">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        {% render_field field|attr:"placeholder:Max Price"|attr:"type:number" class="form-control form-control-sm" %}-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            {% endif %}-->
+<!--                                            {% if forloop.counter0 == 9%}-->
+<!--                                                <li class="min_area style2 list-inline-item">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        {% render_field field|attr:"placeholder:Min Price"|attr:"type:number" class="form-control form-control-sm" %}-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            {% endif %}-->
+<!--                                        {% endfor %}-->
+<!--                                        <li class="list-inline-item">-->
+<!--                                            <div class="search_option_button">-->
+<!--                                                <button type="submit" class="btn btn-thm3">Search</button>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                        <div class="tab-pane fade" id="pills-rent" role="tabpanel"-->
+<!--                             aria-labelledby="pills-profile-tab">-->
+<!--                            <div class="home1-advnc-search home4">-->
+<!--                                <form method="GET" action="{% url 'home' %}">-->
+<!--&lt;!&ndash;									<form hx-get="{% url 'properties:list' %}" hx-target="body">&ndash;&gt;-->
+<!--                                    {% csrf_token %}-->
+<!--                                    <ul class="h1ads_1st_list mb0">-->
+<!--                                        {% for field in rent_form %}-->
+<!--                                            {% if forloop.counter0 == 0%}-->
+<!--                                                <li class="list-inline-item">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        {% render_field field|attr:"placeholder:Enter keyword..." class="form-control" %}-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            {% endif %}-->
+<!--                                            {% if forloop.counter0 == 1%}-->
+<!--                                                <li class="list-inline-item">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        {% render_field field class="form-control" %}-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            {% endif %}-->
+<!--                                            {% if forloop.counter0 == 8%}-->
+<!--                                                <li class="min_area style2 list-inline-item">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        {% render_field field|attr:"placeholder:Max Price"|attr:"type:number" class="form-control form-control-sm" %}-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            {% endif %}-->
+<!--                                            {% if forloop.counter0 == 9%}-->
+<!--                                                <li class="min_area style2 list-inline-item">-->
+<!--                                                    <div class="form-group">-->
+<!--                                                        {% render_field field|attr:"placeholder:Min Price"|attr:"type:number" class="form-control form-control-sm" %}-->
+<!--                                                    </div>-->
+<!--                                                </li>-->
+<!--                                            {% endif %}-->
+<!--                                        {% endfor %}-->
+<!--                                        <li class="list-inline-item">-->
+<!--                                            <div class="search_option_button">-->
+<!--                                                <button type="submit" class="btn btn-thm3">Search</button>-->
+<!--                                            </div>-->
+<!--                                        </li>-->
+<!--                                    </ul>-->
+<!--                                </form>-->
+<!--                            </div>-->
+<!--                        </div>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+<!--&lt;!&ndash;    <div class="row">&ndash;&gt;-->
+<!--&lt;!&ndash;        <div class="col-lg-12">&ndash;&gt;-->
+<!--&lt;!&ndash;            <h4 class="text-center color-white fw600 mb25 mb0-520">What are you looking for?</h4>&ndash;&gt;-->
+<!--&lt;!&ndash;            <ul class="home4_iconbox mb0">&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="list-inline-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="icon"><span class="flaticon-house"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <p>Modern Villa</p></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="list-inline-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="icon"><span class="flaticon-house-1"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <p>Family House</p></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="list-inline-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="icon"><span class="flaticon-house-2"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <p>Town House</p></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                <li class="list-inline-item">&ndash;&gt;-->
+<!--&lt;!&ndash;                    <div class="icon"><span class="flaticon-building"></span>&ndash;&gt;-->
+<!--&lt;!&ndash;                        <p>Apartment</p></div>&ndash;&gt;-->
+<!--&lt;!&ndash;                </li>&ndash;&gt;-->
+<!--&lt;!&ndash;            </ul>&ndash;&gt;-->
+<!--&lt;!&ndash;        </div>&ndash;&gt;-->
+<!--&lt;!&ndash;    </div>&ndash;&gt;-->
+<!--</div>-->
+
+
+<div class="home-six">
+    <div class="container-fluid p0">
+        <div class="row">
+            <div class="col-lg-12">
+                <div class="main-banner-wrapper">
+                    <div class="banner-style-one owl-theme owl-carousel">
+                        <div class="slide slide-one"
+                             style="background-image: url({% static 'images/home/1.jpg' %});height: 800px;"></div>
+                        <div class="slide slide-one"
+                             style="background-image: url({% static 'images/home/2.jpg' %});height: 800px;"></div>
+                        <div class="slide slide-one"
+                             style="background-image: url({% static 'images/home/3.jpg' %});height: 800px;"></div>
+                    </div>
+                    <div class="carousel-btn-block banner-carousel-btn">
+                        <span class="carousel-btn left-btn"><i class="flaticon-left-arrow-1 left"></i></span>
+                        <span class="carousel-btn right-btn"><i class="flaticon-right-arrow right"></i></span>
+                    </div><!-- /.carousel-btn-block banner-carousel-btn -->
+                </div><!-- /.main-banner-wrapper -->
+            </div>
+        </div>
+    </div>
+    {% include 'includes/search2.html' %}
+</div>

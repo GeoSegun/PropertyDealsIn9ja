@@ -1,0 +1,189 @@
+
+
+
+<div class="portfolio_upload" id="drop-area">
+    <input type="file" name="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)"/>
+    <div class="icon"><span class="flaticon-download"></span></div>
+    <h5>Drag and drop images here</h5>
+</div>
+{% block user_js %}<!-- Handle Drag files... -->
+    <script>
+        const events = ['dragenter', 'dragover', 'dragleave', 'drop'];
+        const dropArea = document.getElementById('drop-area');
+        const csrfmiddlewaretoken = document.querySelector('[name=csrfmiddlewaretoken]').value;
+
+        const uploadFiles = files => {
+            //console.log(files);
+            const url = "/properties/upload_file/";
+            let formData = new FormData();
+
+            for(let file of files) {
+                formData.append('file', file);
+            }
+
+            fetch(url,  {
+                method: "POST",
+                headers: {
+                    "Content-Type": "application/json",
+                    "X-CSRFToken": csrfmiddlewaretoken
+                },
+                body: formData
+            })
+            .then((response) => response.json())
+            .then( data => console.log(data))
+            .catch(error => console.log(error))
+        }
+
+        const handleFiles = files => {
+            uploadFiles(files);
+        }
+
+        const preventDefaultBehaviour = event => {
+            event.preventDefault();
+            event.stopPropagation();
+        }
+
+        const handleDrop = event => {
+            const files = event.dataTransfer.files;
+            //console.log(files);
+            handleFiles(files)
+        }
+
+        events.forEach(event => {
+            dropArea.addEventListener(event, preventDefaultBehaviour);
+        });
+
+        dropArea.addEventListener('drop', handleDrop);
+
+    </script>
+{% endblock user_js %}
+
+
+
+
+
+
+
+            <!--================== Perfectly working drag and drop =================-->
+<!--            <div class="my_dashboard_review mt30">-->
+<!--                <div class="row">-->
+<!--                    <div class="col-lg-12">-->
+<!--                        <h4 class="mb30">Property media</h4>-->
+<!--                    </div>-->
+<!--                    <div class="col-lg-12">-->
+<!--                        <ul class="mb0" id="gallery">-->
+<!--                        </ul>-->
+<!--                    </div>-->
+<!--                    -->
+<!--                    <div class="col-lg-12">-->
+<!--                        <div class="portfolio_upload" id="drop-area">-->
+<!--                            <input type="file" name="file" id="fileElem" multiple accept="image/*" onchange="handleFiles(this.files)"/>-->
+<!--                            <div class="icon"><span class="flaticon-download"></span></div>-->
+<!--                            <small>Drag and drop images here</small>-->
+<!--                        </div>-->
+<!--                    </div>-->
+
+<!--                </div>-->
+<!--            </div>-->
+
+
+<!--            <script class="jsbin" src="https://ajax.googleapis.com/ajax/libs/jquery/1/jquery.min.js"></script>-->
+<!--            <div class="file-upload">-->
+<!--                <div class="image-upload-wrap">-->
+<!--                    <input class="file-upload-input" type='file' onchange="readURL(this);" accept="image/*"/>-->
+<!--                    <div class="drag-text">-->
+<!--                        <h3>Drag and drop a file or select add Image</h3>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--                <div class="file-upload-content">-->
+<!--                    <img class="file-upload-image" src="#" alt="your image"/>-->
+<!--                    <div class="image-title-wrap">-->
+<!--                        <button type="button" onclick="removeUpload()" class="remove-image">-->
+<!--                            Remove -->
+<!--                            <span class="image-title">Uploaded Image</span>-->
+<!--                        </button>-->
+<!--                    </div>-->
+<!--                </div>-->
+<!--            </div>-->
+
+
+
+
+
+
+
+
+
+<div class="col-lg-12">
+    <div class="images">
+        <div class="pic"> add </div>
+    </div>
+    <button id="send_add">Send</button>
+</div>
+
+
+<script type="text/javascript">
+    (function ($) {
+        $(document).ready(function () {
+        uploadImage()
+
+        let img_list = []
+
+        function uploadImage() {
+            var button = $('.images .pic')
+            var uploader = $('<input type="file" name="file" accept="image/*" />')
+            var images = $('.images')
+
+            button.on('click', function () {
+                if (img_list.length == 5) {
+                    $(this).hide()
+                } else {
+                    uploader.click()
+                }
+                //uploader.click()
+            })
+
+            uploader.on('change', function () {
+                var reader = new FileReader()
+                reader.onload = function(event) {
+                    images.prepend('<div class="img" style="background-image: url(\'' + event.target.result + '\');" rel="'+ event.target.result  +'"><span>remove</span></div>')
+                }
+                reader.readAsDataURL(uploader[0].files[0])
+
+                // add uploaded images to a list...
+                img_list.push(uploader[0].files[0])
+                console.log(img_list)
+            })
+
+            images.on('click', '.img', function () {
+                $(this).remove()
+            })
+        }
+
+
+        // On click get list of images uploaded to server...
+        $('#send_add').on('click', function () {
+
+            console.log(img_list)
+
+            $.ajax({
+                url: "{% url 'properties:create' %}",
+                type: 'POST',
+                data: {'imgFiles[]': img_list},
+                contentType: 'application/x-www-form-urlencoded',
+<!--                dataType: 'json',-->
+                success: function (response) {
+                    console.log(response)
+                        setTimeout(function () {
+                            window.location.replace("{% url 'properties:get_my_property_list' %}");
+                        }, 5000);
+                },
+                error: function (response) {
+                },
+            })
+        })
+
+    })
+
+    })(jQuery)
+</script>

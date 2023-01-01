@@ -1,0 +1,303 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load widget_tweaks %}
+{% load crispy_forms_tags %}
+
+{% block title %}Agents{% endblock title %}
+
+{% block content %}
+
+	<!-- Agent Listing Grid View -->
+	<section class="our-agent-listing bgc-f7 pb30-991">
+		<div class="container">
+			<div class="row">
+				<div class="col-lg-6">
+					<div class="breadcrumb_content style2 mb0-991">
+						<ol class="breadcrumb">
+						    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+						    <li class="breadcrumb-item active text-thm" aria-current="page">Agents</li>
+						</ol>
+						<h2 class="breadcrumb_title">All Our Agents</h2>
+					</div>
+				</div>
+				<div class="col-lg-6">
+					<div class="listing_list_style tal-991">
+						<ul>
+							<li class="list-inline-item"><a><span class="fa fa-th-large"></span></a></li>
+							<li class="list-inline-item"><a><span class="fa fa-th-list"></span></a></li>
+						</ul>
+					</div>
+				</div>
+			</div>
+			<div class="row">
+				<div class="col-lg-4 col-xl-4">
+					<div class="sidebar_listing_grid1">
+						<div class="sidebar_listing_list">
+							<div class="sidebar_advanced_search_widget">
+								<h4 class="mb25">Find Agents Around You</h4>
+								<form method="get" action="{% url 'agents:filter_agents' %}">
+									<ul class="sasw_list mb0">
+										<li class="search_area">
+											<div class="form-group">
+												<input type="text" class="form-control" name="agent_name_icontain_qs" id="exampleInputName1" placeholder="Enter Agent Name">
+											</div>
+										</li>
+										<li>
+											<div class="search_option_two">
+												<div class="candidate_revew_select">
+													<select id="selected_state" class="form-control" name="state_iexact_qs">
+														{% for s in states %}
+															{% if s == request.user.profile.state %}
+																<option value="{{request.user.profile.state}}" selected>{{request.user.profile.state}}</option>
+															{% else %}
+																<option value="{{s}}">{{s}}</option>
+															{% endif %}
+														{% endfor %}
+													</select>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="search_option_two">
+												<div class="candidate_revew_select">
+													<select id="selected_city" name="city_iexact_qs" class="form-control" data-live-search="true" data-width="100%">
+														<option value="Select city" selected>Select city</option>
+													</select>
+												</div>
+											</div>
+										</li>
+										<li>
+											<div class="search_option_button">
+												{% if request.user.is_authenticated %}
+													<button type="submit" class="btn btn-block btn-thm">Search</button>
+												{% else %}
+													<a href="{% url 'accounts:login' %}" class="btn btn-block btn-thm">Search</a>
+												{% endif %}
+											</div>
+										</li>
+									</ul>
+								</form>
+							</div>
+						</div>
+						{% if featured_properties %}
+						<div class="terms_condition_widget">
+							<h4 class="title">Featured Properties</h4>
+							<div class="sidebar_feature_property_slider">
+								{% if featured_properties.count > 1 %}
+									{% for f in featured_properties %}
+										<div class="item">
+											<div class="feat_property home7 agent">
+												<div class="thumb">
+													<img class="img-whp" src="{{f.property_image.url}}" alt="{{f.name}}">
+													<div class="thmb_cntnt">
+														<ul class="tag mb0">
+															<li class="list-inline-item"><a class="text-white">{{f.property_status}}</a></li>
+															<li class="list-inline-item"><a class="text-white">Featured</a></li>
+														</ul>
+														<a class="fp_price">N{{f.price}}<small>/{{f.payment_plan}}</small></a>
+														<h4 class="posr color-white">{{f.property_type}}</h4>
+													</div>
+												</div>
+											</div>
+										</div>
+									{% endfor %}
+								{% else %}
+								{% endif %}
+							</div>
+						</div>
+						{% else %}
+							<p>We currently have no featured properties</p>
+						{% endif %}
+<!--						<div class="terms_condition_widget">-->
+<!--							<h4 class="title">Categories Property</h4>-->
+<!--							<div class="widget_list">-->
+<!--								<ul class="list_details">-->
+<!--									<li><a href="#"><i class="fa fa-caret-right mr10"></i>Apartment <span class="float-right">6 properties</span></a></li>-->
+<!--									<li><a href="#"><i class="fa fa-caret-right mr10"></i>Condo <span class="float-right">12 properties</span></a></li>-->
+<!--									<li><a href="#"><i class="fa fa-caret-right mr10"></i>Family House <span class="float-right">8 properties</span></a></li>-->
+<!--									<li><a href="#"><i class="fa fa-caret-right mr10"></i>Modern Villa <span class="float-right">26 properties</span></a></li>-->
+<!--									<li><a href="#"><i class="fa fa-caret-right mr10"></i>Town House <span class="float-right">89 properties</span></a></li>-->
+<!--								</ul>-->
+<!--							</div>-->
+<!--						</div>-->
+<!--						<div class="sidebar_feature_listing">-->
+<!--							<h4 class="title">Recently Viewed</h4>-->
+<!--							&lt;!&ndash;TODO add recently viewed property...-->
+<!--							<div class="media">-->
+<!--								<img class="align-self-start mr-3" src="images/blog/fls1.jpg" alt="fls1.jpg">-->
+<!--								<div class="media-body">-->
+<!--							    	<h5 class="mt-0 post_title">Nice Room With View</h5>-->
+<!--							    	<a href="#">$13,000/<small>/mo</small></a>-->
+<!--							    	<ul class="mb0">-->
+<!--							    		<li class="list-inline-item">Beds: 4</li>-->
+<!--							    		<li class="list-inline-item">Baths: 2</li>-->
+<!--							    		<li class="list-inline-item">Sq Ft: 5280</li>-->
+<!--							    	</ul>-->
+<!--								</div>-->
+<!--							</div>-->
+<!--							&ndash;&gt;-->
+<!--						</div>-->
+					</div>
+				</div>
+				<div class="col-md-12 col-lg-8">
+					<div class="row">
+						<div class="grid_list_search_result style2">
+							<div class="col-sm-12 col-md-4 col-lg-3 col-xl-3">
+								<div class="left_area">
+									<p>{{agent_counts}} Agent{{ agents.count|pluralize }}</p>
+								</div>
+							</div>
+<!--							<div class="col-sm-12 col-md-8 col-lg-9 col-xl-9">-->
+<!--								<div class="right_area style2 text-right">-->
+<!--									<ul>-->
+<!--										<li class="list-inline-item"><span class="shrtby">Sort by:</span>-->
+<!--											<select class="selectpicker show-tick">-->
+<!--												<option>Featured First</option>-->
+<!--												<option>Featured 2nd</option>-->
+<!--												<option>Featured 3rd</option>-->
+<!--												<option>Featured 4th</option>-->
+<!--												<option>Featured 5th</option>-->
+<!--											</select>-->
+<!--										</li>-->
+<!--									</ul>-->
+<!--								</div>-->
+<!--							</div>-->
+						</div>
+					</div>
+					<div class="row">
+						{% if agents %}
+							{% for a in agents %}
+								<div class="col-lg-12">
+									<div class="feat_property list style2 agent">
+										<div class="thumb">
+											<a href="{% url 'agents:detail' a.slug%}">
+												<img class="img-whp w100" width="100%" style="height:220px;" src="{{a.business_logo_url}}" alt="{{a.business_name}}">
+											</a>
+											<div class="thmb_cntnt">
+												<ul class="tag mb0">
+													<li class="list-inline-item dn"></li>
+													<li class="list-inline-item"><a>{{a.properties.all.count}} Listings</a></li>
+												</ul>
+											</div>
+										</div>
+										<div class="details">
+											<div class="tc_content">
+
+												<a href="{% url 'agents:detail' a.slug %}">
+													<h4>{{a.business_name|title}}</h4>
+												</a>
+												<p class="text-thm">Agent</p>
+												<ul class="prop_details mb0">
+													<li>Office: {{a.get_business_address}}</li>
+													<li>Phone: {{a.get_business_phone}}</li>
+													<li>Email: {{a.get_business_email}}</li>
+												</ul>
+											</div>
+											<div class="fp_footer">
+	<!--											<ul class="fp_meta float-left mb0">-->
+	<!--												<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>-->
+	<!--												<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>-->
+	<!--												<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>-->
+	<!--												<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>-->
+	<!--												<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>-->
+	<!--											</ul>-->
+												<div class="fp_pdate float-right text-thm"><a href="{% url 'agents:detail' a.slug%}">View My Listings</a> <i class="fa fa-angle-right"></i></div>
+											</div>
+										</div>
+									</div>
+								</div>
+							{% endfor %}
+						{% else %}
+							<div class="col-md-12 col-lg-12">
+								<div class="feat_property list style2 agent">
+									<div class="details">
+										<div class="tc_content">
+											<h4>No Registered Agent in Your Area</h4>
+											<br>
+											<p>We currently do not have a registered agent to your location do check back again for availability</p>
+											<br>
+											{% if request.user.is_authenticated %}
+												<a href="{% url 'agents:create' %}" class="btn dbxshad btn-sm btn-thm2 circle"><i class="fa fa-plus"></i> Register as an agent</a>
+											{% else %}
+												<p>You can leave us with your email by entering it on the box below we will send you a notification once a we have a registered agent to your area.
+												</p>
+												<form class="footer_mailchimp_form home6">
+													<div class="form-row align-items-center">
+														<div class="col-auto">
+															<input type="email" class="form-control mb-2" id="inlineFormInput" placeholder="Your email">
+														</div>
+														<div class="col-auto">
+															<button type="submit" class="btn btn-primary mb-2"><i class="fa fa-angle-right"></i></button>
+														</div>
+													</div>
+												</form>
+											{% endif %}
+										</div>
+									</div>
+								</div>
+							</div>
+						{% endif %}
+
+<!--						<div class="col-lg-12 mt20">-->
+<!--							<div class="mbp_pagination">-->
+<!--								<ul class="page_navigation">-->
+<!--								    <li class="page-item disabled">-->
+<!--								    	<a class="page-link" href="#" tabindex="-1" aria-disabled="true"> <span class="flaticon-left-arrow"></span> Prev</a>-->
+<!--								    </li>-->
+<!--								    <li class="page-item"><a class="page-link" href="#">1</a></li>-->
+<!--								    <li class="page-item active" aria-current="page">-->
+<!--								    	<a class="page-link" href="#">2 <span class="sr-only">(current)</span></a>-->
+<!--								    </li>-->
+<!--								    <li class="page-item"><a class="page-link" href="#">3</a></li>-->
+<!--								    <li class="page-item"><a class="page-link" href="#">...</a></li>-->
+<!--								    <li class="page-item"><a class="page-link" href="#">29</a></li>-->
+<!--								    <li class="page-item">-->
+<!--								    	<a class="page-link" href="#"><span class="flaticon-right-arrow"></span></a>-->
+<!--								    </li>-->
+<!--								</ul>-->
+<!--							</div>-->
+<!--						</div>-->
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+
+	<!--JS Get States and Cities -->
+    <script src="https://code.jquery.com/jquery-3.6.1.min.js" integrity="sha256-o88AwQnZB+VDvE9tvIXrMQaPlFFSUTR+nldQm1LuPXQ=" crossorigin="anonymous"></script>
+    <script type="text/javascript">
+        $(document).ready(function () {
+            $("#selected_state").on("change", function () {
+                let stateVal = $("#selected_state").val();
+
+                console.log(stateVal);
+                $.ajax({
+                    url: "{% url 'enquiries:get_cities' %}",
+                    type: "post",
+                    data: {
+                        "state": stateVal,
+                        "csrfmiddlewaretoken": "{{csrf_token}}"
+                    },
+                    dataType: "json",
+                    before: function () {
+                    },
+                    success: function (res) {
+                        let cities = res.cities;
+                        console.log(res.success);
+                        $('#selected_city').empty();
+                        $.each(cities, function(index, item)
+                        {
+                            console.log(item);
+                            $("#selected_city").append("<option value='"+item +"'>"+item +"</option>");
+                        });
+
+                        console.log("worked till here... \n\n\n");
+                    }
+                })
+            });
+        });
+    </script>
+	<!--JS Get States and Cities -->
+
+{% endblock content %}

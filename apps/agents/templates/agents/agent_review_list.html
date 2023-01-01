@@ -1,0 +1,91 @@
+{% extends 'user_layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %} Reviews {% endblock title %}
+
+{% block content %}
+
+    <style>
+        .checked {
+            color: #ff5a5f;
+        }
+    </style>
+
+    <div class="col-lg-8 col-xl-9 mb10">
+        <div class="breadcrumb_content style2">
+            <h2 class="breadcrumb_title">Reviews</h2>
+            <p>We are glad to see you again!</p>
+        </div>
+    </div>
+    <div class="col-lg-4 col-xl-3 mb10">
+        <ul class="sasw_list mb0">
+            <li class="search_area">
+                <div class="form-group">
+                    <input type="text" class="form-control" id="exampleInputName1" placeholder="Search">
+                    <label for="exampleInputEmail"><span class="flaticon-magnifying-glass"></span></label>
+                </div>
+            </li>
+        </ul>
+    </div>
+
+    <!--My Reviews from Visitors-->
+    <div class="col-lg-12">
+        <div id="client_myreview" class="my_dashboard_review mt30">
+            <div class="review_content">
+                <h4>My Visitor's Reviews</h4>
+                {% for vr in my_property_reviews %}
+                    <div class="media pb30 mt30 bb1">
+                        <img class="mr-3" src="{{vr.user.profile.image_url}}" alt="{{vr.user.username}}">
+                        <div class="media-body">
+                            <h5 class="review_title mt-0">{{vr.user.full_name}} <span class="text-thm">{{vr.agent.business_name}}</span>
+                                <span class="sspd_review float-right">
+                                    <ul>
+                                        {% if vr.rating == 1 %}
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                        {% elif vr.rating == 2 %}
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                        {% elif vr.rating == 3 %}
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                        {% elif vr.rating == 4 %}
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star"></span></li>
+                                        {% elif vr.rating == 5 %}
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                            <li class="list-inline-item"><span class="fa fa-star checked"></span></li>
+                                        {% endif %}
+                                    </ul>
+                                </span>
+                            </h5>
+                            <a class="review_date">{{vr.date_added|naturalday}}</a>
+                            <p class="para">{{vr.comment}}</p>
+<!--                            <ul class="view_edit_delete_list mb0 mt35">-->
+<!--                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Reply"><a href="#"><span class="flaticon-reply"></span></a></li>-->
+<!--                            </ul>-->
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+    </div>
+
+{% endblock content %}

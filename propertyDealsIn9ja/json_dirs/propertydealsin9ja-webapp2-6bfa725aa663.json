@@ -1,0 +1,12 @@
+{
+  "type": "service_account",
+  "project_id": "propertydealsin9ja-webapp2",
+  "private_key_id": "6bfa725aa663d8dfe786d159bfc93e38d8ddea04",
+  "private_key": "-----BEGIN PRIVATE KEY-----\nMIIEvwIBADANBgkqhkiG9w0BAQEFAASCBKkwggSlAgEAAoIBAQDqyQB3fn81axYq\njn0ya8cseQXNgS8Y5uyVU29rE5XBl5rNZTE96n5iYpbetEYlnQATuXlK+JxEnlQ9\n98P0RYBThP3BQKK94IOeoOaot33G9ry8tNgzMaVqzsZaYtuC/XUfnH9O7w1CrVCQ\n3JH0tk4HQgGN/vWpcGoUASi3TK5xSTK5Gol6eubXCC7l4PNhsQFXMMyL7OOBYv1W\nCHIi8prL6TB9a/A/C3LWksn1xWA9iSfTL6EliQcl76LeuYYf1oh82u4hLuFYTDwZ\njeHaUfUP55oIkV3np56rCPpHIY42FpItNHe8rhxks0tluMxL9kvc/rAjJOykXC1l\nQlHYDE7jAgMBAAECggEAES7KuPQUt+0cFIXpxbyQ5BarWmHqTNFBs/VaQc+PdeP0\nMV9cM42A2GR3aYRvXyYBW8WG309t6Fu0tfWhwrPUyMgCkO0mZpe9f5ODrgoCdi2X\n8duZDbjEGXAD9kN75eH00MPG/BjkszeJ85V2R8mRJljUp6Fm4JKt627g8vagDFb3\nhkLIJYeExQhnZKqJF7jEeP/yRlC1QN1qc9/nDcjmmpRGCh44il2i6R0kiDvuKpUg\nr3gk3d4MvAb2ZtRneDFn/zwvJ+g/eKBdV/wWjtW41+jXetzf8fXkgLwbZFLXq5Tk\nHrvsESXiQPYJty3D4SIImjfFyloQs3yd6ZHngrJboQKBgQD2qzHgb4HFxSsDD+RR\n4KhfYMT25RDSZCZ0CCm2KSnl47DGFZNmVTTS05X/ZHYL/sIHKwT9En3P2/Nkjnux\nJcNwV4mxx8VQk0beio9KKo4ljpm6Aymk6RcyfR3XV8GX0I0hor+iTxZ3wkxoyQVz\nsvhzGfOXA4DzGpbWn9ec1jxCMQKBgQDzqrkwYgtQVG4TtQFk4AeAXfrvBq9TqK9h\nZoKLEO7ZMZSqnJDJXJne3Taq7qd/4LwZtEYXxWOSRRvfEc3faAObDlbIl/+mrXA4\n1hnxyUNEbo0VtqRCVbJ342At2pBxvUWQTPeX1KSAqyPCAbrZ1u2QX4i0avWHDox0\n2K1HLzkpUwKBgQDNYTczHsTXjVZFw2qgfcTTPThiNdGuy7J0tAM+58E55z3dgENt\nVg6YZ5Ghxty/Ggwleb06lbXpZsKd/ECi+8VheZFtU99HOoksbAPohcw7GyOGDHIV\nG/qzkBdToH7RT9Tip6aVlvInHsEOEioW7nINLBN0rnckcwQaiZY1wO8FUQKBgQCb\nXE07dif0jgCpfA1pfhYKWOG4KbD8TF+WYL/3X1KLFTvPFIiUewB4wt8qWYRe2rHU\nSccvPOHhz0KYFkgHm9BAuwHGYHPWmFsnQgvEyCilpz85ivxsdyuVmVonomXav21t\nNkXffutsRrJD7spuPsW1+dO2BUSLWlFf5w+Eha2SlQKBgQC4TiZD5jRA82f7IuJU\nYQx9MUvpgteENcgpHyeYCzTpvQ2x+JykUINK0db538THuFILB/ZC6HutyfOQavzP\nEbKKNWbigxvnFEWTXMqj19f7dU9/fdxY6iZyPxAL18ku6Sw0ebM+peltxgyHew2U\nwWWT7XutRwnJ0URwtbAuiC2NRw==\n-----END PRIVATE KEY-----\n",
+  "client_email": "propertydealsin9ja-webapp2@appspot.gserviceaccount.com",
+  "client_id": "105056567832449787054",
+  "auth_uri": "https://accounts.google.com/o/oauth2/auth",
+  "token_uri": "https://oauth2.googleapis.com/token",
+  "auth_provider_x509_cert_url": "https://www.googleapis.com/oauth2/v1/certs",
+  "client_x509_cert_url": "https://www.googleapis.com/robot/v1/metadata/x509/propertydealsin9ja-webapp2%40appspot.gserviceaccount.com"
+}

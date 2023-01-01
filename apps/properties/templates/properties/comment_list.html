@@ -1,0 +1,14 @@
+{% for pc in comments %}
+    <div class="mbp_first media">
+        <img class="rounded-circle mr-3" width="80px" height="80px" src="{{pc.by.profile.image_url}}" alt="{{pc.by}}">
+        <div class="media-body">
+            <h4 class="sub_title mt-0">{{pc.by.username}}</h4>
+            <a class="sspd_postdate fz14">{{pc.created_on}}</a>
+            <p class="mt10">{{pc.content}}</p>
+        </div>
+    </div>
+{% empty %}
+    <div class="mbp_first media">
+        <h5>No reviews or comments yet</h5>
+    </div>
+{% endfor %}

@@ -1,0 +1,46 @@
+{% load humanize %}
+
+{% for e in enquiries %}
+    <tr>
+        <th class="title">{{e.enquiry_address}}</th>
+        <td>{{e.enquiry_property_type}}</td>
+        <td>{{e.enquiry_property_status}}</td>
+        <td>
+            {% if e.status == "Open" %}
+                <span class="badge badge-pill badge-warning">
+                    {{e.status}}
+                </span>
+            {% else %}
+                <span class="badge badge-pill badge-success">
+                    {{e.status}}
+                </span>
+            {% endif %}
+        </td>
+        <td>
+            {% if e.to_agent %}
+                <span class="badge badge-pill badge-success">
+                    Assigned to {{e.to_agent}}
+                </span>
+            {% else %}
+                <span class="badge badge-pill badge-warning">
+                    Yet to be assigned
+                </span>
+            {% endif %}
+        </td>
+        <td class="para">{{e.enquiry_date|timesince}}</td>
+        <td>
+            <ul class="view_edit_delete_list mb0">
+                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View"><a href="{% url 'enquiries:detail' e.slug %}"><span class="flaticon-view"></span></a></li>
+                {% if e.status == "Open" %}
+                    <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                        <a hx-delete="{% url 'enquiries:delete' e.slug %}" hx-confirm="Do you wish to delete?" onClick="setTimeout(function(){ window.location.reload(); }, 3000);">
+                            <span class="flaticon-garbage"></span>
+                        </a>
+                    </li>
+                {% endif %}
+            </ul>
+        </td>
+    </tr>
+{% empty %}
+    <tr>You have not yet made an enquiry.</tr>
+{% endfor %}

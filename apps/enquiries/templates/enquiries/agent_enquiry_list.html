@@ -1,0 +1,92 @@
+{% extends 'user_layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block content %}
+    <div class="col-lg-4 col-xl-4 mb10">
+        <div class="breadcrumb_content style2 mb30-991">
+            <h2 class="breadcrumb_title">My Assigned Enquiries</h2>
+            <p>Below are your uploaded enquiries and their status</p>
+        </div>
+    </div>
+<!--    <div class="col-lg-8 col-xl-8">-->
+<!--        <div class="candidate_revew_select style2 text-right mb30-991">-->
+<!--           <button type="button" hx-get="{% url 'enquiries:create' %}" hx-target="#enquiry_dialog" data-toggle="modal" data-target=".enquiry_modal" class="btn dbxshad btn-lg btn-dark circle"><i class="fa fa-plus"></i></button>-->
+<!--        </div>-->
+<!--        <div class="sign_up_modal modal fade enquiry_modal" tabindex="-1" role="dialog" aria-hidden="true">-->
+<!--            <div id="enquiry_dialog" class="modal-dialog modal-lg" role="document">-->
+<!--                &lt;!&ndash; Injects enquiry Form here &ndash;&gt;-->
+<!--            </div>-->
+<!--        </div>-->
+<!--    </div>-->
+
+    <div class="col-lg-12">
+        <div class="my_dashboard_review mb40">
+            <div class="col-lg-12">
+                <div class="savesearched_table">
+                    <div class="table-responsive mt0">
+                        <table class="table">
+                            <thead class="thead-light">
+                                <tr>
+                                    <th scope="col">Enquiry</th>
+                                    <th scope="col">Prop Type</th>
+                                    <th scope="col">Prop Status</th>
+                                    <th scope="col">Status</th>
+                                    <th scope="col">Assigned Agent</th>
+                                    <th scope="col">Created</th>
+                                    <th scope="col">Action</th>
+                                </tr>
+                            </thead>
+                            <tbody>
+                                {% for e in enquiries %}
+                                    <tr>
+                                        <th class="title">{{e.enquiry_address}}</th>
+                                        <td>{{e.enquiry_property_type}}</td>
+                                        <td>{{e.enquiry_property_status}}</td>
+                                        <td>
+                                            {% if e.status == "Open" %}
+                                                <span class="badge badge-pill badge-warning">
+                                                    {{e.status}}
+                                                </span>
+                                            {% else %}
+                                                <span class="badge badge-pill badge-success">
+                                                    {{e.status}}
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td>
+                                            {% if e.to_agent %}
+                                                <span class="badge badge-pill badge-success">
+                                                    Assigned to {{e.to_agent}}
+                                                </span>
+                                            {% else %}
+                                                <span class="badge badge-pill badge-warning">
+                                                    Yet to be assigned
+                                                </span>
+                                            {% endif %}
+                                        </td>
+                                        <td class="para">{{e.enquiry_date|timesince}}</td>
+                                        <td>
+                                            <ul class="view_edit_delete_list mb0">
+                                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="View"><a href="{% url 'enquiries:detail' e.slug %}"><span class="flaticon-view"></span></a></li>
+                                                <li class="list-inline-item" data-toggle="tooltip" data-placement="top" title="Delete">
+                                                    <a hx-delete="{% url 'enquiries:delete' e.slug %}" hx-confirm="Do you wish to delete?" onClick="setTimeout(function(){ window.location.reload(); }, 3000);">
+                                                        <span class="flaticon-garbage"></span>
+                                                    </a>
+                                                </li>
+                                            </ul>
+                                        </td>
+                                    </tr>
+                                {% empty %}
+<!--                                    <tr>You have not yet made an enquiry.</tr>-->
+                                {% endfor %}
+                            </tbody>
+                        </table>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+{% endblock %}

@@ -1,0 +1,102 @@
+{% extends 'layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block title %}{{enquiry.name}}{% endblock title %}
+
+{% block content %}
+
+	<!-- Agent Single Grid View -->
+	<section class="our-agent-single bgc-f7 pb30-991">
+		<div class="container">
+			<div class="row">
+				<div class="col-md-12 col-lg-12">
+					<div class="row">
+						<div class="col-lg-12">
+							<div class="breadcrumb_content style2 mt30-767 mb30-767">
+								<ol class="breadcrumb">
+								    <li class="breadcrumb-item"><a href="{% url 'home' %}">Home</a></li>
+								    <li class="breadcrumb-item active text-thm" aria-current="page">Enquiry from {{enquiry.from_user.full_name|title}}</li>
+								</ol>
+								<h2 class="breadcrumb_title">{{enquiry.from_user.full_name|title}}</h2>
+							</div>
+						</div>
+						<div class="col-lg-12">
+							<div class="feat_property list agency">
+								<div class="thumb">
+                                    {% if enquiry.enquiry_property_type == "Apartment" %}
+                                        <img class="img-whp" style="height: 100%" src="https://img.icons8.com/material-rounded/96/FA5252/apartment.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "Land" %}
+                                        <img class="img-whp" style="height: 100%" src="https://img.icons8.com/material-rounded/96/FA5252/land-sales.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "BQ" %}
+                                        <img class="img-whp" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/neighbour.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "Terrace" %}
+                                        <img class="img-whp" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/building-with-rooftop-terrace.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "Semi Detached" %}
+                                        <img class="img-whp" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/bungalow.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "Fully Detached" %}
+                                        <img class="img-whp" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/bungalow.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "Office" %}
+                                        <img class="img-whp" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/link-company-parent.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "Warehouse" %}
+                                        <img class="img-whp" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/warehouse-1.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "Commercial" %}
+                                        <img class="img-whp" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/sell-property.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% elif enquiry.enquiry_property_type == "Other" %}
+                                        <img class="img-whp" style="height: 200px" src="https://img.icons8.com/material-rounded/96/FA5252/house-with-a-garden.png" alt="{{enquiry.enquiry_property_type}}">
+                                    {% endif %}
+								</div>
+								<div class="details">
+									<div class="tc_content">
+										<h4>{{enquiry.name}}</h4>
+										<p class="text-thm mb10">From {{enquiry.from_user.full_name|title}}</p>
+										<ul class="prop_details mb0">
+<!--											<li><a><i class="fa fa-mobile fa-2x"></i> {{enquiry.from_user.phone}}</a></li>-->
+											<li><a>Mobile/Whatsapp <i class="fa fa-whatsapp fa-lg"></i> - <strong>{{enquiry.from_user.phone}}</strong></a></li>
+											<li><a>Email <i class="fa fa-envelope-o fa-lg"></i> - <strong>{{enquiry.from_user.email}}</strong></a></li>
+											<li><a>Location <i class="fa fa-map-marker fa-lg"></i> - <strong>{{enquiry.enquiry_address}}</strong></a></li>
+											<li><a>Enquiry Budget <i class="fa fa-money fa-lg"></i> - <strong>{{enquiry.enquiry_budget_min|intword}} - {{enquiry.enquiry_budget_max|intword}}</strong></a></li>
+											<li><a>Inspection Date <i class="fa fa-calendar fa-lg"></i> - <strong>{{enquiry.inspection_date|naturaltime}}</strong></a></li>
+										</ul>
+									</div>
+									<div class="fp_footer">
+<!--										<ul class="fp_meta float-left mb0">-->
+<!--											<li class="list-inline-item"><a href="#"><i class="fa fa-facebook"></i></a></li>-->
+<!--											<li class="list-inline-item"><a href="#"><i class="fa fa-twitter"></i></a></li>-->
+<!--											<li class="list-inline-item"><a href="#"><i class="fa fa-instagram"></i></a></li>-->
+<!--											<li class="list-inline-item"><a href="#"><i class="fa fa-pinterest"></i></a></li>-->
+<!--											<li class="list-inline-item"><a href="#"><i class="fa fa-google"></i></a></li>-->
+<!--										</ul>-->
+<!--										<div class="fp_pdate float-right text-thm">View My Listings <i class="fa fa-angle-right"></i></div>-->
+									</div>
+								</div>
+							</div>
+							<div class="shop_single_tab_content style2 mt30">
+								<ul class="nav nav-tabs" id="myTab" role="tablist">
+									<li class="nav-item">
+									    <a class="nav-link active" id="description-tab" data-toggle="tab" href="#description" role="tab" aria-controls="description" aria-selected="true">Description</a>
+									</li>
+								</ul>
+								<div class="tab-content" id="myTabContent2">
+									<div class="tab-pane fade show active" id="description" role="tabpanel" aria-labelledby="description-tab">
+										<div class="product_single_content">
+											<div class="mbp_pagination_comments">
+												<div class="mbp_first media">
+													<div class="media-body">
+												    	<p class="mb25">{{enquiry.enquiry_description}}</p>
+													</div>
+												</div>
+											</div>
+										</div>
+									</div>
+								</div>
+							</div>
+						</div>
+					</div>
+				</div>
+			</div>
+		</div>
+	</section>
+
+{% endblock %}

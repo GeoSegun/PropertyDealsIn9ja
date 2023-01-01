@@ -1,0 +1,171 @@
+{% extends 'user_layout.html' %}
+{% load static %}
+{% load humanize %}
+{% load widget_tweaks %}
+
+{% block content %}
+<div class="container">
+    <div class="row">
+        <div class="col-lg-12">
+            <div class="breadcrumb_content style2">
+                <h2 class="breadcrumb_title">Message</h2>
+                <p>We are glad to see you again!</p>
+            </div>
+        </div>
+        <div class="col-lg-5 col-xl-4">
+            <div class="message_container">
+                <div class="inbox_user_list">
+                    <div class="iu_heading">Recent Messages</div>
+                    <ul>
+                        {% for msg in messages %}
+                            <li class="contact">
+                                <a class="{% if active_direct == msg.user.username %}is_active{% endif %}" href="{% url 'inboxes:direct_msg' msg.user.username %}">
+                                    <div class="wrap">
+                                        <span class="contact-status online"></span>
+                                            {% if msg.user.is_online %}
+                                                <div class="online"></div>
+                                            {% else %}
+                                                <span class="contact-status busy"></span>
+                                            {% endif %}
+                                        <img class="rounded-circle" width="50px" height="50px" src="{{ msg.user.profile.image_url }}" alt="{{ msg.user.username }}"/>
+                                        <div class="meta">
+                                            <h5 class="name">{{ msg.user.full_name }}</h5>
+                                            <p class="preview">{{ msg.last|naturaltime}}</p>
+                                        </div>
+                                        {% if msg.unread %}
+                                            <div class="m_notif">{{ msg.unread }}</div>
+                                        {% endif %}
+                                    </div>
+                                </a>
+                            </li>
+                        {% endfor %}
+                    </ul>
+                </div>
+            </div>
+        </div>
+        {% if messages %}
+            <div class="col-lg-7 col-xl-8">
+                    <div class="message_container">
+                        <div class="user_heading">
+                            <a>
+                                <div class="wrap">
+                                    <span class="contact-status online"></span>
+                                    <img class="rounded-circle" width="50px" height="50px" src="{{ active_direct.profile.image_url }}" alt="{{active_direct.username}}"/>
+                                    <div class="meta">
+                                        <h5 class="name">{{active_direct.full_name}}</h5>
+                                        <p class="preview">was online today at {{ active_direct.last_visit|naturaltime }}</p>
+                                    </div>
+                                </div>
+                            </a>
+                        </div>
+                        <div class="inbox_chatting_box">
+                            <ul class="chatting_content" id="message_list">
+                                {% for msg in directs %}
+                                    {% if msg.msg_sender.username == request.user.username %}
+                                        <li class="media reply first" id="reply_msg">
+                                            <div class="media-body text-right">
+                                                <div class="date_time">{{msg.created_at|naturaltime}}</div>
+                                                <p>{{msg.message}}</p>
+                                            </div>
+                                        </li>
+                                    {% else %}
+                                        <li class="media sent">
+                                            {% if msg.msg_sender.is_online %}
+                                                <span class="contact-status online"></span>
+                                            {% else %}
+                                                <span class="contact-status busy"></span>
+                                            {% endif %}
+                                            <img class="rounded-circle align-self-start mr-3" width="50px" height="50px" src="{{msg.msg_sender.profile.image_url}}" alt="{{msg.msg_sender.username}}"/>
+                                            <div class="media-body">
+                                                <div class="date_time">{{msg.created_at|naturaltime}}</div>
+                                                <p>{{msg.message}}</p>
+                                            </div>
+                                        </li>
+                                    {% endif %}
+                                {% endfor %}
+                            </ul>
+                        </div>
+                    </div>
+    <!--                    <form class="form-inline" id="msg_form" hx-post="{{request.path}}" hx-target="#message_list" hx-swap="beforeend" _="on htmx:afterRequest reset() me">-->
+                    <form id="msg_form" hx-post="{{request.path}}" hx-target="#message_list" hx-swap="beforeend" _="on htmx:afterRequest reset() me">
+                        {% csrf_token %}
+                        <input type="hidden" name="to_user" id="to_user" value="{{ active_direct.username }}">
+                        <ul class="sasw_list mt10">
+                            <li class="search_area">
+                                <div class="form-group">
+                                    <textarea name="message" id="message" class="form-control required" rows="2" required="required" placeholder="Your Message"></textarea>
+                                </div>
+                            </li>
+                            <li>
+                                <div class="search_option_button">
+                                    <button type="submit" id="send_msg" class="btn btn-block btn-thm">Send <i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>
+                                </div>
+                            </li>
+                        </ul>
+    <!--                        <input class="form-control" type="text" name="message" id="message" placeholder="Enter text here..." required>-->
+    <!--                        <button class="btn btn-sm btn-transparent" id="send_msg" type="submit"><i class="fa fa-paper-plane-o" aria-hidden="true"></i></button>-->
+                    </form>
+            </div>
+        {% endif %}
+    </div>
+</div>
+{% endblock %}
+
+{% block user_js %}
+<!--    <script>-->
+<!--        const form = document.getElementById("msg_form");-->
+<!--        const to_user = document.getElementById("to_user").value;-->
+<!--        const message = document.getElementById("message").value;-->
+<!--        const csrfmiddlewaretoken = document.getElementsByName('csrfmiddlewaretoken')[0].value-->
+
+<!--        form.addEventListener("submit", e => {-->
+<!--            e.preventDefault()-->
+
+<!--            const fd = new FormData()-->
+<!--            fd.append("csrfmiddlewaretoken", csrfmiddlewaretoken)-->
+<!--            fd.append("message", message)-->
+<!--            fd.append("to_user", to_user)-->
+
+<!--            fetch("{{request.path}}", {-->
+<!--                method: "POST",-->
+<!--                headers: {-->
+<!--                    //"Content-Type": "application/json",-->
+<!--                    "X-CSRFToken": csrfmiddlewaretoken-->
+<!--                },-->
+<!--                body: fd,-->
+<!--            })-->
+<!--            .then((response) => console.log(response.json()))-->
+<!--            .then(data => {-->
+<!--                console.log(data.success_msg);-->
+<!--                console.log(data.message);-->
+<!--                console.log(data.time_sent);-->
+<!--            })-->
+
+<!--&lt;!&ndash;            $.ajax({&ndash;&gt;-->
+<!--&lt;!&ndash;                url: "{{request.path}}",&ndash;&gt;-->
+<!--&lt;!&ndash;                type: "post",&ndash;&gt;-->
+<!--&lt;!&ndash;                data: {&ndash;&gt;-->
+<!--&lt;!&ndash;                    "to_user": to_user,&ndash;&gt;-->
+<!--&lt;!&ndash;                    "message": message,&ndash;&gt;-->
+<!--&lt;!&ndash;                    "csrfmiddlewaretoken": csrfmiddlewaretoken,&ndash;&gt;-->
+<!--&lt;!&ndash;                },&ndash;&gt;-->
+<!--&lt;!&ndash;                before: function() {},&ndash;&gt;-->
+<!--&lt;!&ndash;                success: function(res) {&ndash;&gt;-->
+<!--&lt;!&ndash;                    console.log(res.message);&ndash;&gt;-->
+<!--&lt;!&ndash;                    $("#message_list").append(`&ndash;&gt;-->
+<!--&lt;!&ndash;                        <li class="media reply first" id="reply_msg">&ndash;&gt;-->
+<!--&lt;!&ndash;                            <div class="media-body text-right">&ndash;&gt;-->
+<!--&lt;!&ndash;                                <div class="date_time">${res.time_sent}</div>&ndash;&gt;-->
+<!--&lt;!&ndash;                                <p>${res.message}</p>&ndash;&gt;-->
+<!--&lt;!&ndash;                            </div>&ndash;&gt;-->
+<!--&lt;!&ndash;                        </li>&ndash;&gt;-->
+<!--&lt;!&ndash;                    `);&ndash;&gt;-->
+<!--&lt;!&ndash;                    $("#message").val("");&ndash;&gt;-->
+<!--&lt;!&ndash;                },&ndash;&gt;-->
+<!--&lt;!&ndash;                error: function(error) {&ndash;&gt;-->
+<!--&lt;!&ndash;                    console.log(error);&ndash;&gt;-->
+<!--&lt;!&ndash;                },&ndash;&gt;-->
+<!--&lt;!&ndash;            });&ndash;&gt;-->
+<!--        })-->
+<!--    </script>-->
+{% endblock user_js %}
